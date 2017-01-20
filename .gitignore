@@ -1,0 +1,14 @@
+# python
+*.pyc
+
+# general
+*.tar.gz
+
+# Spotlight index
+.DS_Store
+
+# user specific sublime project data
+*.sublime-workspace
+
+#data
+data/*
