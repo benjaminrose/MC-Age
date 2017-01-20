@@ -55,4 +55,5 @@ How important is this? I think it is very important for hosts with large positiv
 """
 import fspsParameters 
 
-print(fspsParameters.test_compute_vega_mags())
+# print(fspsParameters.test_compute_vega_mags())
+fspsParameters.test_add_neb_emission()

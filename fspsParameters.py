@@ -39,3 +39,18 @@ def test_compute_vega_mags():
     #compare to the milimag (ish)
     #could use `np.allclose` if I want to drop this down to a single boolean
     return np.isclose(mags1, mags2)
+
+def test_add_neb_emission():
+    """
+    """
+
+    # read in data
+
+    # determine best candidate
+
+    # get best fit model without nebular emission
+
+    # get best fit model with nebular emission
+
+    #compare two results
+    return False
