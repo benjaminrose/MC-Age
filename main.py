@@ -51,7 +51,12 @@ Looking at Simha 2014, we select the lin-exp model. This get around the systemat
 The default is `False`, but the examples explicitly set it. Verified below. And passes!
 
 ## add_neb_emission
+
 How important is this? I think it is very important for hosts with large positive r-i (> 1). 
+
+## dust
+
+Does dust type influence the extinction curve, and `dust1`, `dust2`, `dust_tesc` account for attenuation? Note young stars get both `dust1` **&** `dust2`. 
 """
 import fspsParameters 
 
