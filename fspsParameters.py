@@ -42,15 +42,70 @@ def test_compute_vega_mags():
 
 def test_add_neb_emission():
     """
+    This function shows the difference of turning on the nebular emissions. We 
+    expect that for young stars we can get a *** r-i slop with nebular 
+    emissions on, but every other case (old-with/without, young/without) does 
+    not.
     """
+    # set up basics
+    sdss_bands = ['sdss_u', 'sdss_g', 'sdss_r', 'sdss_i', 'sdss_z']
+    sp = fsps.StellarPopulation(zcontinuous=2, logzsol=0, dust1=1.0, dust2=0.5,
+        cloudy_dust=True, sfh=4)
 
-    # read in data
+    # create SED for old stellar population-without emission
+    sp.params['tau'] = 0.5
+    sp.params['sf_start'] = 1
+    #set age to a redshift of 0.2
+    oldwo = sp.get_mags(tage=11.4, redshift=0.2, bands=sdss_bands)
 
-    # determine best candidate
+    # create SED for young stellar population-without emission
+    sp.params['tau'] = 5.0
+    sp.params['sf_start'] = 8
+    youngwo = sp.get_mags(tage=11.4, redshift=0.2, bands=sdss_bands)
 
-    # get best fit model without nebular emission
+    # create SED for old stellar population-with emission
+    sp.params['tau'] = 0.5
+    sp.params['sf_start'] = 1
+    sp.params['add_neb_emission'] = True
+    oldw = sp.get_mags(tage=11.4, redshift=0.2, bands=sdss_bands)
 
-    # get best fit model with nebular emission
+    # create SED for young stellar population-with emission
+    sp.params['tau'] = 5.0
+    sp.params['sf_start'] = 8
+    youngw = sp.get_mags(tage=11.4, redshift=0.2, bands=sdss_bands)
 
-    #compare two results
-    return False
+    #scale them so they all have the same r-band mag (of 45 "mags")
+    #this simulates the best fit that determines the total stellar mass.
+    print('pre correction:  ', oldwo)
+    def correctSED(SED):
+        delta = 45 - SED[2]
+        return SED + delta
+    oldwo = correctSED(oldwo)
+    oldw = correctSED(oldw)
+    youngwo = correctSED(youngwo)
+    youngw = correctSED(youngw)
+    print('post correction: ', oldwo)
+
+
+    # plot 
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    fig = plt.figure('neb emission test')
+    ax = fig.add_subplot(111)
+    # x = [0,1,2,3,4]
+    x = [3551, 4686, 6166, 7480, 8932]
+    plt.plot(x, oldwo, label='old - without')
+    plt.plot(x, oldw, label='old - with')
+    plt.plot(x, youngwo, label='young - without')
+    plt.plot(x, youngw, label='young - with')
+    plt.xticks(x)
+    ax.set_xticklabels(['u','g','r','i','z'])
+    plt.gca().invert_yaxis()
+    plt.legend(loc=4)
+    plt.show()
+
+    print(oldwo)
+    print(youngwo)
+    print(oldw)
+    print(youngw)
+    return None
