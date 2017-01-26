@@ -58,20 +58,17 @@ def test_add_neb_emission():
     #set age to a redshift of 0.2
     oldwo = sp.get_mags(tage=11.4, redshift=0.2, bands=sdss_bands)
 
-    # create SED for young stellar population-without emission
-    sp.params['tau'] = 5.0
-    sp.params['sf_start'] = 8
-    youngwo = sp.get_mags(tage=11.4, redshift=0.2, bands=sdss_bands)
-
     # create SED for old stellar population-with emission
-    sp.params['tau'] = 0.5
-    sp.params['sf_start'] = 1
     sp.params['add_neb_emission'] = True
     oldw = sp.get_mags(tage=11.4, redshift=0.2, bands=sdss_bands)
 
-    # create SED for young stellar population-with emission
+    # create SED for young stellar population-without emission
     sp.params['tau'] = 5.0
-    sp.params['sf_start'] = 8
+    sp.params['sf_start'] = 9
+    youngwo = sp.get_mags(tage=11.4, redshift=0.2, bands=sdss_bands)
+
+    # create SED for young stellar population-with emission
+    sp.params['add_neb_emission'] = True
     youngw = sp.get_mags(tage=11.4, redshift=0.2, bands=sdss_bands)
 
     #scale them so they all have the same r-band mag (of 45 "mags")
@@ -95,9 +92,9 @@ def test_add_neb_emission():
     # x = [0,1,2,3,4]
     x = [3551, 4686, 6166, 7480, 8932]
     plt.plot(x, oldwo, label='old - without')
-    plt.plot(x, oldw, label='old - with')
-    plt.plot(x, youngwo, label='young - without')
-    plt.plot(x, youngw, label='young - with')
+    plt.plot(x, oldw, '-.', label='old - with')
+    plt.plot(x, youngwo, ':', label='young - without')
+    plt.plot(x, youngw, '--', label='young - with')
     plt.xticks(x)
     ax.set_xticklabels(['u','g','r','i','z'])
     plt.gca().invert_yaxis()
