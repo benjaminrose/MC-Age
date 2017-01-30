@@ -61,4 +61,5 @@ Does dust type influence the extinction curve, and `dust1`, `dust2`, `dust_tesc`
 import fspsParameters 
 
 # print(fspsParameters.test_compute_vega_mags())
+# fspsParameters.test_neg_ri_color()
 fspsParameters.test_add_neb_emission()
