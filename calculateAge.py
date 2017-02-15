@@ -241,18 +241,19 @@ def calculateSFH(SED, SEDerr, redshift, threads=None, sp=None):
     pos = [result["x"] + np.random.randn(ndim) for i in range(nwalkers)]
     #todo(make this multi threaded?)
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
-    sampler.run_mcmc(pos, 1000)
+    # sampler.run_mcmc(pos, 1000)
     #todo(save chain)
-    # f = open('chain.dat', 'w')
-    # f.close()
-    # for i, result in enumerate(sampler.sample(pos, iterations=500, storechain=False)):
-    #     position = result[0]
-    #     f = open('chain.dat', 'a')
-    #     for k in range(position.shape[0]):
-    #         f.write("{0:4d} {1:s}\n".format(k, " ".join(position[k])))
-    #     f.close()
-    #     if (i+1) % 100 == 0:
-    #         print("{0:5.1%}".format(float(i) / nsteps))
+    f = open('chain.dat', 'w')
+    f.close()
+    # import pdb; pdb.set_trace()
+    for i, result in enumerate(sampler.sample(pos, iterations=500, storechain=False)):
+        position = result[0]
+        f = open('chain.dat', 'a')
+        for k in range(position.shape[0]):
+            f.write("{0:4d} {1:s}\n".format(k, ' '.join(map(str, position[k]))))
+        f.close()
+        # if (i+1) % 100 == 0:
+        #     print("{0:5.1%}".format(float(i) / nsteps))
 
     # Results
     samples = sampler.chain[:, 50:, :].reshape((-1, ndim))
