@@ -29,6 +29,9 @@ from scipy import integrate
 import scipy.optimize as op
 import fsps
 import emcee
+
+#used to write HDF5 tables, requires `h5py`
+from astropy.table import Table
 # from astropy.cosmology import WMAP9 as cosmo   # or make my own
 from astropy.cosmology import FlatLambdaCDM
 cosmo = FlatLambdaCDM(H0=70, Om0=0.27) ## Kessler 2009a but flat and 2-sig figs (Gupta 2011, §2.3)
@@ -156,9 +159,16 @@ def lnprior(theta):
     # initial guess is `[0., 0., 1., 1., 10., 1., -20.]`
     # If `sfTrans` set to 0.0, there is no truncation.
     # should we allow sfTrans < tStart?
-    if (-1 < logzsol < 0.5 and 0 < dust2 < 1.75 and 0.1 < tau < 10 and 0.5 < tStart < 10.0 and 10.0 < sfTrans < 13.7 and
-            -10 < sfSlope < 10 and -35 < c < -15):
+    if (-1 < logzsol < 0.5 and 
+        0 < dust2 < 1.75 and 
+        0.1 < tau < 10 and 
+        0.5 < tStart < 10.0 and 
+        10.0 < sfTrans < 13.7 and
+        -10 < sfSlope < 10 and 
+        -35 < c < -15):
+        
         return 0.0
+    
     return -np.inf
 
 
@@ -228,42 +238,132 @@ def calculateSFH(SED, SEDerr, redshift, threads=None, sp=None):
                   cloudy_dust=True, add_neb_emission = True,
                   sfh=5)
 
+    #Setup MCMC
+    ndim, nwalkers = 7, 18
+    nsteps = 800
+    burnInSize = 5
+    sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
+
+    #agitate initial starting points. All parameters can handle +/- ~1.
+    #todo(make sure this "noise" does not push any values outside the range of the priors.)
+    # pos = [result["x"] + 1e-1*np.random.randn(ndim) for i in range(nwalkers)]
+    # pos = [result["x"] + 0.001 for i in range(nwalkers)]
+
     # Maximize likelihood for initial guess
-    nll = lambda *args: -lnlike(*args)
+    # nll = lambda *args: -lnlike(*args)
     #minimize function, initial guesses, the rest of the arguments
     #theta is logzsol, dust2, tau, tStart, sfTrans, sfSlope, c
-    result = op.minimize(nll, [0., 0., 1., 1., 10., 1., -20.], args=(SED, SEDerr, redshift, sp), method='Nelder-Mead')
-    logzso_mll, dust2_ml, tau_ml, tStart_ml, sfTrans_ml, sfSlope_ml, c_ml = result["x"]
+    # result = op.minimize(nll, [0., 0., 1., 1., 10., 1., -20.], args=(SED, SEDerr, redshift, sp), method='Nelder-Mead')
+    pos = np.zeros((nwalkers, ndim))
+    '''-1 < logzsol < 0.5 and 
+        0 < dust2 < 1.75 and 
+        0.1 < tau < 10 and 
+        0.5 < tStart < 10.0 and 
+        10.0 < sfTrans < 13.7 and
+        -10 < sfSlope < 10 and 
+        -35 < c < -15):'''
+    pos[:,0] = np.random.uniform(-0.9, 0.4, size=nwalkers)   #logzsol
+    pos[:,1] = np.random.uniform(0.1, 1.25, size=nwalkers)   #dust2
+    pos[:,2] = np.random.uniform(0.5, 5.0, size=nwalkers)    #tau
+    pos[:,3] = np.random.uniform(1.5, 8.0, size=nwalkers)    #tStart
+    pos[:,4] = np.random.uniform(11.0, 13.0, size=nwalkers)  #sfTrans
+    pos[:,5] = np.random.uniform(-5.0, 5.0, size=nwalkers)   #sfSlope
+    pos[:,6] = np.random.uniform(-30, -20, size=nwalkers)    #c
+    ... #todo(finish)
+    print('Running MCMC for initial position')
+    pos, prob, state = sampler.run_mcmc(pos, 800)
+    #get position with "maximum" likelihood from limited run
+    best_pos = sampler.flatchain[sampler.flatlnprobability.argmax()]
+    sampler.reset()
+    print('Best position from initial search: ', best_pos)
+    pos = emcee.utils.sample_ball(best_pos, best_pos/1000., size=nwalkers)
+    # logzso_mll, dust2_ml, tau_ml, tStart_ml, sfTrans_ml, sfSlope_ml, c_ml = result["x"]
+
+    ###########
+    #test burn in size.
+    print('Running full MCMC for burn in Test')
+    sampler.run_mcmc(pos, nsteps)
+
+
+    #print out results just cause
+    samples = sampler.flatchain  #size == (nsteps*nwalkers, ndim)
+    logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc = map(lambda v: (v[1], v[2]-v[1], v[1]-v[0]),
+                             zip(*np.percentile(samples, [16, 50, 84],
+                                                axis=0)))
+    print('MCMC: ', logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc)
+
+    #plot
+    samples = sampler.chain  ##size == (nwalkers, nsteps, ndim)
+    lnprop_resutls = sampler.lnprobability  ##size == (nwalkers, nsteps)
+    import matplotlib.pyplot as plt
+    f, axarr = plt.subplots(8, sharex=True)
+    axarr[0].plot(samples[:,:,0].T)
+    axarr[0].set_title('Testing for Burn-in value')
+    axarr[0].set_ylabel('logzsol')
+    axarr[1].plot(samples[:,:,1].T)
+    axarr[1].set_ylabel('dust')
+    axarr[2].plot(samples[:,:,2].T)
+    axarr[2].set_ylabel('tau')
+    axarr[3].plot(samples[:,:,3].T)
+    axarr[3].set_ylabel('tStart')
+    axarr[4].plot(samples[:,:,4].T)
+    axarr[4].set_ylabel('sfTrans')
+    axarr[5].plot(samples[:,:,5].T)
+    axarr[5].set_ylabel('sfSlope')
+    axarr[6].plot(samples[:,:,6].T)
+    axarr[6].set_ylabel('c')
+    axarr[7].plot(lnprop_resutls.T)
+    axarr[7].set_ylabel('ln')
+    plt.savefig('figures/burnin.pdf')
+    print('Acceptance fraction: ', sampler.acceptance_fraction)  ## len == nwalkers
+    plt.show()
+    from sys import exit; exit()
+    #############
 
     #run MCMC
-    ndim, nwalkers = 7, 100
-    #agitate initial starting points. All parameters can handle +/- ~1.
-    pos = [result["x"] + np.random.randn(ndim) for i in range(nwalkers)]
     #todo(make this multi threaded?)
-    sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
-    # sampler.run_mcmc(pos, 1000)
-    #todo(save chain)
-    f = open('chain.dat', 'w')
-    f.close()
-    # import pdb; pdb.set_trace()
-    for i, result in enumerate(sampler.sample(pos, iterations=500, storechain=False)):
-        position = result[0]
-        f = open('chain.dat', 'a')
-        for k in range(position.shape[0]):
-            f.write("{0:4d} {1:s}\n".format(k, ' '.join(map(str, position[k]))))
-        f.close()
-        # if (i+1) % 100 == 0:
-        #     print("{0:5.1%}".format(float(i) / nsteps))
+    ##burn in from the starting spot
+    #dan.iel.fm/emcee/current/user/quickstart/, "run a few “burn-in” steps"
+    #save over position with the ending value of the burn-in
+    pos, prob, state = sampler.run_mcmc(pos, burnInSize)
+    sampler.reset()
 
-    # Results
-    samples = sampler.chain[:, 50:, :].reshape((-1, ndim))
+    #todo(make this multi threaded?)
+    ##run normally
+    sampler.run_mcmc(pos, nsteps)
+    ##output percent completion.
+    # for i, result in enumerate(sampler.sample(pos, iterations=nsteps)):
+    #     if (i+1) % 100 == 0:
+    #         print("{0:5.1%}".format(float(i+1) / nsteps))
+
+    #clean up results
+    # samples = sampler.chain[:, burnInSize:, :].reshape((-1, ndim))
+
+
+    #save results
+    ## To stndout
+    samples = sampler.flatchain  #size == (nsteps*nwalkers, ndim)
     logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc = map(lambda v: (v[1], v[2]-v[1], v[1]-v[0]),
                              zip(*np.percentile(samples, [16, 50, 84],
                                                 axis=0)))
     print('results: ')
     print('ML: ', logzso_mll, dust2_ml, tau_ml, tStart_ml, sfTrans_ml, sfSlope_ml, c_ml)
     print('MCMC: ', logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc)
-    #results?
+
+    ## save clean results to disk
+    t = Table(samples)
+    t.write('chain.tsv', format='ascii.tab')
+
+    ## save full results to disk
+    t = Table(sampler.chain)
+    #todo(add column names)
+    #todo(fix so you can rewrite file)
+    #`path` keyword is for the HDF5 file format, not sure what it is.
+    t.write('chain.hdf5', path='data', format='hdf5', overwrite=True, 
+            append=True)
+
+    ## return array of (value, upper bound, lower bound)
+    return logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc
 
 
 def calculateAge(redshift, x, SEDerr=None, SED=True, threads=None, sp=None):
