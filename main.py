@@ -10,6 +10,19 @@ Python 3
 
 import numpy as np
 import fsps
+import logging
+
+#initiate logger
+logger = logging.getLogger("localEnvironments")
+logger.setLevel(logging.INFO)
+#create handler object to be able to change settings.
+fh = logging.FileHandler("localEnvironments.log")
+#update logging formating
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+# add handler to logger object
+logger.addHandler(fh)
+logger.info('Starting')
 
 """
 # Background
@@ -117,7 +130,7 @@ redshift = 0.065
 # SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
 # SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
 # redshift = 0.084
-results = calculateAge.calculateSFH(SED, SEDerr, redshift)#, threads=None, sp=sp)
+results = calculateAge.calculateSFH(SED, SEDerr, redshift, threads=1)#, sp=sp)
 print('calculateSFH(): ', results)
 # Currently Fails!!
 
@@ -128,3 +141,5 @@ print('calculateSFH(): ', results)
 # redshift = 0.084
 # results = calculateAge.calculateAge(redshift, SED, SEDerr)
 # print('calcualteAge()')
+
+logger.info('Done')

@@ -1,0 +1,78 @@
+2017-02-27 15:19:42,380 - localEnvironments - INFO - Starting main section.
+2017-02-27 15:19:44,062 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-02-27 15:20:05,838 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position
+2017-03-09 14:39:49,525 - localEnvironments - INFO - Starting
+2017-03-09 14:39:52,102 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-03-09 14:40:21,778 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position
+2017-03-09 15:26:49,242 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: {best_pos}
+2017-03-09 15:26:49,261 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-03-09 16:26:11,323 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for `logzso`, `dust2`, `tau`, `tStart`, `sfTrans`, `sfSlope`, `c`:
+2017-03-09 16:26:11,328 - localEnvironments.calculateAge.calculateSFH - INFO - {logzso_mcmc}, {dust2_mcmc}, {tau_mcmc}, {tStart_mcmc}, {sfTrans_mcmc}, {sfSlope_mcmc}, {c_mcmc}
+2017-03-09 16:26:11,329 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: {sampler.acceptance_fraction}
+2017-03-09 16:26:14,025 - localEnvironments.calculateAge.calculateSFH - INFO - saved "figures/burnin.pdf"
+2017-03-10 10:37:42,695 - localEnvironments - INFO - Starting
+2017-03-10 10:37:44,520 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-03-10 10:38:06,731 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position
+2017-03-10 11:26:30,939 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -0.74202141   0.9764719    4.16969723   5.10397239  10.55846788
+  -9.96541143 -24.99163351]
+2017-03-10 11:26:30,954 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-03-10 12:21:58,628 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for `logzso`, `dust2`, `tau`, `tStart`, `sfTrans`, `sfSlope`, `c`:
+2017-03-10 12:21:58,633 - localEnvironments.calculateAge.calculateSFH - INFO - (-0.77243711883255961, 0.15700573467064727, 0.15537359300094467), (1.014715142910803, 0.1644433553015161, 0.13030618953658135), (5.1749026089400649, 3.0307779074773356, 1.7850919887271584), (4.8353652191872394, 2.8530613222706291, 2.9601655041246575), (10.670864865388545, 0.66234691531514933, 0.47030121405703262), (-8.128656086168462, 2.957936942914964, 1.5626129980340835), (-25.017438930706664, 0.14831966725387602, 0.10603041431092919)
+2017-03-10 12:21:58,638 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.222  0.203  0.189  0.213  0.193  0.196  0.201  0.194  0.152  0.161
+  0.187  0.192  0.221  0.172  0.196  0.203  0.182  0.154  0.201  0.141
+  0.176  0.216  0.221  0.141  0.212  0.244  0.197  0.201  0.251  0.206
+  0.234  0.197  0.153  0.207  0.181  0.208  0.204  0.183  0.203  0.217
+  0.222  0.207  0.208  0.178  0.167  0.164  0.222  0.158  0.141  0.174]
+2017-03-10 12:22:01,268 - localEnvironments.calculateAge.calculateSFH - INFO - saved "figures/burnin.pdf"
+2017-03-10 12:31:25,068 - localEnvironments - INFO - Starting
+2017-03-10 12:31:26,965 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-03-10 12:31:50,595 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position
+2017-03-10 13:13:49,266 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -0.59190295   0.84363044   3.61742299   3.25645686  10.91470085
+  -0.94387777 -24.95071336]
+2017-03-10 13:13:49,282 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-03-10 14:07:43,047 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for `logzso`, `dust2`, `tau`, `tStart`, `sfTrans`, `sfSlope`, `c`:
+2017-03-10 14:07:43,050 - localEnvironments.calculateAge.calculateSFH - INFO - (-0.72099039495220585, 0.18350984784788671, 0.20478374375470076), (0.95339542250307496, 0.2050660848728687, 0.15136760655891268), (3.7211872394165195, 1.1527569465483452, 0.84859181955539054), (3.2071558345396598, 1.3661892460033869, 1.7040163419074084), (10.976613506906936, 0.52973522187746269, 0.6884197797311149), (-0.98771896412184834, 0.29021701198736372, 0.47830253058007044), (-25.028083384685125, 0.12446399419498633, 0.13533297628318053)
+2017-03-10 14:07:43,053 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.14875  0.2275   0.15875  0.17375  0.14875  0.23     0.165    0.17125
+  0.19125  0.21375  0.15875  0.19375  0.1775   0.10875  0.17375  0.21375
+  0.16375  0.19125  0.11875  0.225    0.205    0.185    0.19375  0.175
+  0.12125  0.16625  0.185    0.17     0.205    0.15875  0.12875  0.2      0.17
+  0.17     0.19125  0.22     0.20625  0.15875  0.17     0.12     0.1675
+  0.19375  0.195    0.19375  0.23375  0.2225 ]
+2017-03-10 14:07:45,197 - localEnvironments.calculateAge.calculateSFH - INFO - saved "figures/burnin.pdf"
+2017-03-10 14:26:48,798 - localEnvironments - INFO - Starting
+2017-03-10 14:27:25,140 - localEnvironments - INFO - Starting
+2017-03-10 14:27:26,916 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-03-10 14:27:48,666 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position
+2017-03-10 15:05:39,666 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -0.98674654   1.18951862   3.38932036   4.07250887  10.92516274
+  -1.36968961 -25.1540535 ]
+2017-03-10 15:05:39,683 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-03-10 15:57:02,515 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for `logzso`, `dust2`, `tau`, `tStart`, `sfTrans`, `sfSlope`, `c`:
+2017-03-10 15:57:02,524 - localEnvironments.calculateAge.calculateSFH - INFO - (-0.90986559892375185, 0.1863646357814841, 0.075011077575587115), (1.1103071647467699, 0.11673981220487128, 0.14533282157046168), (3.483839779661003, 1.7760801920566829, 1.0517109061855869), (4.0379878517816952, 1.8380137844877673, 1.7352931679428112), (10.896581566029107, 0.64616660192635322, 0.64495510259319033), (-1.3919785664626052, 0.39669818919589617, 0.85653891913350977), (-25.115330479754757, 0.1488005004852937, 0.062818715378448076)
+2017-03-10 15:57:02,529 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.17625  0.23875  0.10875  0.205    0.16875  0.2075   0.16375  0.16
+  0.1825   0.16625  0.15125  0.22125  0.1875   0.1775   0.13625  0.12375
+  0.19875  0.18625  0.1775   0.155    0.23     0.15875  0.17     0.21125
+  0.15375  0.165    0.19125  0.13875  0.21875  0.13625  0.18125  0.1825
+  0.155    0.11125  0.1525   0.14625  0.17875  0.16125  0.225    0.13625
+  0.16875  0.14125  0.18125  0.20875  0.14125  0.19875]
+2017-03-10 15:57:04,976 - localEnvironments.calculateAge.calculateSFH - INFO - saved "figures/burnin.pdf"
+2017-03-13 13:15:33,607 - localEnvironments - INFO - Starting
+2017-03-13 13:15:35,867 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-03-13 13:16:10,393 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position
+2017-03-13 13:52:08,320 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -0.93605204   1.03946537   3.07273431   1.41063673  11.68775705
+  -3.76964502 -25.22402818]
+2017-03-13 13:52:08,337 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-03-13 15:34:37,388 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for `logzso`, `dust2`, `tau`, `tStart`, `sfTrans`, `sfSlope`, `c`:
+2017-03-13 15:34:37,393 - localEnvironments.calculateAge.calculateSFH - INFO - (-0.86585350121049687, 0.17409981098031491, 0.098951743406894943), (1.0264808949597182, 0.1460308593571118, 0.16542323586776908), (3.303403265061942, 1.0494099467938311, 0.85968182238017254), (1.7580929322141154, 1.74491182740444, 0.74963760541049029), (11.664954576340705, 0.54416079164646014, 0.89907142337608548), (-4.1464093356416907, 1.9803951046394026, 3.3420931589525704), (-25.15826659406121, 0.11837459086545721, 0.087702534202307447)
+2017-03-13 15:34:37,396 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.22416667  0.1425      0.08666667  0.1675      0.18583333  0.18583333
+  0.18        0.22083333  0.19166667  0.185       0.18333333  0.18916667
+  0.12166667  0.2         0.20166667  0.16833333  0.19583333  0.21916667
+  0.14166667  0.2225      0.1525      0.19916667  0.1475      0.2175
+  0.1975      0.09083333  0.17916667  0.14833333  0.185       0.18083333
+  0.11833333  0.18833333  0.17916667  0.19416667  0.16083333  0.11666667
+  0.15416667  0.17916667  0.15166667  0.15416667  0.16416667  0.18833333
+  0.15583333  0.17        0.13083333  0.18666667  0.14833333  0.1875      0.165
+  0.16333333  0.17083333  0.1375      0.175       0.18916667  0.125       0.17
+  0.16833333  0.17333333  0.15916667  0.14916667  0.1825      0.135
+  0.13833333  0.2225      0.1325      0.11083333  0.14833333  0.16083333
+  0.15        0.20833333]
+2017-03-13 15:34:40,135 - localEnvironments.calculateAge.calculateSFH - INFO - saved "figures/burnin.pdf"
