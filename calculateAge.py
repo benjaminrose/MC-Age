@@ -29,7 +29,6 @@ import platform
 
 import numpy as np
 from scipy import integrate
-import scipy.optimize as op
 import fsps
 import emcee
 
@@ -212,7 +211,7 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
     return lp + lnlike(theta, magnitudes, magerr, redshift, sp)
 
 
-def calculateSFH(SED, SEDerr, redshift, threads=1, sp=None):
+def calculateSFH(SED, SEDerr, redshift, SNID, threads=1, sp=None):
     """calculates the SHF. Save posterior distributions to ???.
     
     Parameters
@@ -224,6 +223,8 @@ def calculateSFH(SED, SEDerr, redshift, threads=1, sp=None):
         Optional if `SED` is `False` and `x` is the SFH parameters.
     redshift : float
         The redshift of the region where the age is being calculated.
+    SNID : int
+        This is the ID number for the SN. Used for saving data.
     threads : int, optional
         The number of threads the MCMC fit should use. Defaults to 1.
         http://dan.iel.fm/emcee/current/user/advanced/#multiprocessing
@@ -236,8 +237,10 @@ def calculateSFH(SED, SEDerr, redshift, threads=1, sp=None):
         PDF of age
 
     """
+    #set up logger
     logger = logging.getLogger("localEnvironments.calculateAge.calculateSFH")
     logger.info('called calculateSFH')
+    logger.debug('arguments are: {}, {}, {}, {}, {}'.format(SED, SEDerr, redshift, threads, sp, SNID)
 
     #set up StellarPopulation if need be
     if sp is None:
@@ -250,30 +253,25 @@ def calculateSFH(SED, SEDerr, redshift, threads=1, sp=None):
     #Setup MCMC
     logger.debug('initializing MCMC')
     ndim, nwalkers = 7, 70
-    nsteps = 1200
+    nsteps = 1700
     burnInSize = 200
     maxLikilhoodSize = 250
     logger.info('Running with {} walkers, for {} steps, using a burn in cut after {} steps'.format(nwalkers, nsteps, burnInSize))
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp), threads=threads)
 
-    #agitate initial starting points. All parameters can handle +/- ~1.
-    #todo(make sure this "noise" does not push any values outside the range of the priors.)
-    # pos = [result["x"] + 1e-1*np.random.randn(ndim) for i in range(nwalkers)]
-    # pos = [result["x"] + 0.001 for i in range(nwalkers)]
-
-    # Maximize likelihood for initial guess
-    # nll = lambda *args: -lnlike(*args)
-    #minimize function, initial guesses, the rest of the arguments
-    #theta is logzsol, dust2, tau, tStart, sfTrans, sfSlope, c
-    # result = op.minimize(nll, [0., 0., 1., 1., 10., 1., -20.], args=(SED, SEDerr, redshift, sp), method='Nelder-Mead')
+    # "Maximize" likelihood for initial guess
+    # start with uniformly (not 100% of space) distributed walkers
+    # run MCMC because it has bounds
+    # then select position with highest likelihood value.
     pos = np.zeros((nwalkers, ndim))
-    '''-1 < logzsol < 0.5 and 
-        0 < dust2 < 1.75 and 
-        0.1 < tau < 10 and 
-        0.5 < tStart < 10.0 and 
+    '''PRIOR BOUNDS!
+        -1   < logzsol < 0.5  and 
+        0    < dust2   < 1.75 and 
+        0.1  < tau     < 10   and 
+        0.5  < tStart  < 10.0 and 
         10.0 < sfTrans < 13.7 and
-        -10 < sfSlope < 10 and 
-        -35 < c < -15):'''
+        -10  < sfSlope < 10   and 
+        -35  < c       < -15'''
     pos[:,0] = np.random.uniform(-0.9, 0.4, size=nwalkers)   #logzsol
     pos[:,1] = np.random.uniform(0.1, 1.25, size=nwalkers)   #dust2
     pos[:,2] = np.random.uniform(0.5, 5.0, size=nwalkers)    #tau
@@ -281,119 +279,89 @@ def calculateSFH(SED, SEDerr, redshift, threads=1, sp=None):
     pos[:,4] = np.random.uniform(11.0, 13.0, size=nwalkers)  #sfTrans
     pos[:,5] = np.random.uniform(-5.0, 5.0, size=nwalkers)   #sfSlope
     pos[:,6] = np.random.uniform(-30, -20, size=nwalkers)    #c
-    #todo(finish)
+
     print('Running MCMC for initial position')
     logger.info('Running MCMC for initial position with {} steps'.format(maxLikilhoodSize))
     pos, prob, state = sampler.run_mcmc(pos, maxLikilhoodSize)
+    
     #get position with "maximum" likelihood from limited run
     best_pos = sampler.flatchain[sampler.flatlnprobability.argmax()]
     sampler.reset()
     print('Best position from initial search: ', best_pos)
     logger.info('Best position from initial search: {}'.format(best_pos))
+    
+    #Set up new start position as a Gaussian ball around "max" likelihood
     pos = emcee.utils.sample_ball(best_pos, best_pos/1000., size=nwalkers)
     logger.debug('Sample ball returned: {}'.format(pos))
-    # logzso_mll, dust2_ml, tau_ml, tStart_ml, sfTrans_ml, sfSlope_ml, c_ml = result["x"]
 
-    ###########
-    #test burn in size.
+    #Run full MCMC analysis
     print('Running full MCMC fit')
     logger.info('Running full MCMC fit')
     sampler.run_mcmc(pos, nsteps)
+    #note() acceptace_fraction has len == nwalkers
+    logger.info('Acceptance fraction: {}'.format(sampler.acceptance_fraction)) 
+    print('Acceptance fraction: {}'.format(sampler.acceptance_fraction))
 
-
-    #print out results just cause
-    samples = sampler.flatchain  #size == (nsteps*nwalkers, ndim)
-    logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc = map(lambda v: (v[1], v[2]-v[1], v[1]-v[0]),
-                             zip(*np.percentile(samples, [16, 50, 84],
-                                                axis=0)))
-    logger.info('MCMC values for `logzso`, `dust2`, `tau`, `tStart`, `sfTrans`, `sfSlope`, `c`:')
-    logger.info('{}, {}, {}, {}, {}, {}, {}'.format(logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc))
-    print('MCMC: ', logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc)
-    logger.info('Acceptance fraction: {}'.format(sampler.acceptance_fraction)) #len == nwalkers
-    print('Acceptance fraction: {}'.format(sampler.acceptance_fraction))  #len == nwalkers
-
-    #plot
-    samples = sampler.chain  ##size == (nwalkers, nsteps, ndim)
-    lnprop_resutls = sampler.lnprobability  ##size == (nwalkers, nsteps)
-    import matplotlib.pyplot as plt
-    f, axarr = plt.subplots(8, sharex=True)
-    axarr[0].plot(samples[:,:,0].T)
-    axarr[0].set_title('Testing for Burn-in value')
-    axarr[0].set_ylabel('logzsol')
-    axarr[1].plot(samples[:,:,1].T)
-    axarr[1].set_ylabel('dust')
-    axarr[2].plot(samples[:,:,2].T)
-    axarr[2].set_ylabel('tau')
-    axarr[3].plot(samples[:,:,3].T)
-    axarr[3].set_ylabel('tStart')
-    axarr[4].plot(samples[:,:,4].T)
-    axarr[4].set_ylabel('sfTrans')
-    axarr[5].plot(samples[:,:,5].T)
-    axarr[5].set_ylabel('sfSlope')
-    axarr[6].plot(samples[:,:,6].T)
-    axarr[6].set_ylabel('c')
-    axarr[7].plot(lnprop_resutls.T)
-    axarr[7].set_ylabel('ln')
-    plt.savefig('figures/burnin.pdf')
-    logger.info('saved "figures/burnin.pdf"')
+    ###################
+    #plot burn in test
+    # samples = sampler.chain  ##size == (nwalkers, nsteps, ndim)
+    # lnprop_resutls = sampler.lnprobability  ##size == (nwalkers, nsteps)
+    # import matplotlib.pyplot as plt
+    # f, axarr = plt.subplots(8, sharex=True)
+    # axarr[0].plot(samples[:,:,0].T)
+    # axarr[0].set_title('Testing for Burn-in value')
+    # axarr[0].set_ylabel('logzsol')
+    # axarr[1].plot(samples[:,:,1].T)
+    # axarr[1].set_ylabel('dust')
+    # axarr[2].plot(samples[:,:,2].T)
+    # axarr[2].set_ylabel('tau')
+    # axarr[3].plot(samples[:,:,3].T)
+    # axarr[3].set_ylabel('tStart')
+    # axarr[4].plot(samples[:,:,4].T)
+    # axarr[4].set_ylabel('sfTrans')
+    # axarr[5].plot(samples[:,:,5].T)
+    # axarr[5].set_ylabel('sfSlope')
+    # axarr[6].plot(samples[:,:,6].T)
+    # axarr[6].set_ylabel('c')
+    # axarr[7].plot(lnprop_resutls.T)
+    # axarr[7].set_ylabel('ln')
+    # plt.savefig('figures/burnin.pdf')
+    # logger.info('saved "figures/burnin.pdf"')
     # plt.show()
-    #############
+    ###################
+
+    #Select only after "burn in" is complete
+    #flatchain works if you run burn in specularly then full run
+    # samples = sampler.flatchain      #size == (nsteps*nwalkers, ndim)
+    #This method is a bit strange, but cuts the "burn in" section with ease
     samples = sampler.chain[:, burnInSize:, :].reshape((-1, ndim))
-
-    #run MCMC
-    #todo(make this multi threaded?)
-    ##burn in from the starting spot
-    #dan.iel.fm/emcee/current/user/quickstart/, "run a few “burn-in” steps"
-    #save over position with the ending value of the burn-in
-    ####pos, prob, state = sampler.run_mcmc(pos, burnInSize)
-    ####sampler.reset()
-
-    #todo(make this multi threaded?)
-    ##run normally
-    ####sampler.run_mcmc(pos, nsteps)
-    ##output percent completion.
-    # for i, result in enumerate(sampler.sample(pos, iterations=nsteps)):
-    #     if (i+1) % 100 == 0:
-    #         print("{0:5.1%}".format(float(i+1) / nsteps))
-
-    #clean up results
-    # samples = sampler.chain[:, burnInSize:, :].reshape((-1, ndim))
-
-
-    #save results
-    ## To stndout
-    '''
-    ####samples = sampler.flatchain  #size == (nsteps*nwalkers, ndim)
-    # logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc = map(lambda v: (v[1], v[2]-v[1], v[1]-v[0]),
-                             # zip(*np.percentile(samples, [16, 50, 84],
-                                                # axis=0)))
-    print('results: ')
-    # print('ML: ', logzso_mll, dust2_ml, tau_ml, tStart_ml, sfTrans_ml, sfSlope_ml, c_ml)
-    # print('MCMC: ', logzso_mcmc, dust2_mcmc, tau_mcmc, tStart_mcmc, sfTrans_mcmc, sfSlope_mcmc, c_mcmc)
-    '''
+    
+    #Save basic results to standard out & log
+    logzso, dust2, tau, tStart, sfTrans, sfSlope, c = map(
+                            lambda v: (v[1], v[2]-v[1], v[1]-v[0]),
+                            zip(*np.percentile(samples, [16, 50, 84], axis=0))
+                        )
+    logger.info('MCMC values for logzsol, dust2, tau, tStart, sfTrans, sfSlope, c:')
+    logger.info('{}, {}, {}, {}, {}, {}, {}'.format(logzso, dust2, tau, tStart,
+                                                    sfTrans, sfSlope, c))
+    print('MCMC: ', logzso, dust2, tau, tStart, sfTrans, sfSlope, c)
 
     if platform.system() == 'Darwin':
         import corner
-        fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$", "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c'])
+        fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$",
+                            "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c'])
         fig.savefig("figures/SF_triangle.pdf")
-    '''
-    ## save clean results to disk
-    t = Table(samples)
-    t.write('chain.tsv', format='ascii.tab')
 
-    ## save full results to disk
-    t = Table(sampler.chain)
-    #todo(add column names)
-    #todo(fix so you can rewrite file)
-    #`path` keyword is for the HDF5 file format, not sure what it is.
-    t.write('chain.hdf5', path='data', format='hdf5', overwrite=True, 
-            append=True)
-    '''
+    ## save clean results to disk
+    header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
+    np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
+                delimiter='\t', header=header)
+
     ## return flat chain
     return samples
 
 
-def calculateAge(redshift, x, SEDerr=None, SED=True, threads=None, sp=None):
+def calculateAge(redshift, x, SEDerr=None, SNID=0, SED=True, threads=None, sp=None):
     """calculateAge either from a given Star Formation History (SFH) or from a 
     *ugriz* SED. If a SED is given (the default) then it calculates the SFH by 
     calling `calculateSFH()`.
@@ -406,6 +374,9 @@ def calculateAge(redshift, x, SEDerr=None, SED=True, threads=None, sp=None):
         set to `False`.
     redshift : float
         The redshift of the region where the age is being calculated.
+    SNID : int, optional
+        This is the ID number for the SN. Used for saving data. Defaults to 
+        `0` if nothing is given.
     SEDerr : array-like, optional
         Optional if `SED` is `False` and `x` is the SFH parameters. 
     SED : boolean, optional
@@ -450,15 +421,21 @@ def calculateAge(redshift, x, SEDerr=None, SED=True, threads=None, sp=None):
     #if SED, calculate SFH
     if SED:
         #SFH = calculateSFH(redshift, SED)
-        samples = calculateSFH(x, redshift, threads, sp)
+        samples = calculateSFH(x, redshift, SNID, threads, sp)
         #extract variables
         logzso, dust2, tau, tStart, sfTrans, sfSlope, c = np.hsplit(samples, 7)
+        #reshape these to be 1D arrays
+        logzso = logzso.reshape(-1)
+        dust2 = dust2.reshape(-1)
+        tau = tau.reshape(-1)
+        tStart = tStart.reshape(-1)
+        sfTrans = sfTrans.reshape(-1)
+        sfSlope = sfSlope.reshape(-1)
+        c = c.reshape(-1)
     else:
         #unpack input parameters
         # tau, tStart, sfTrans, sfSlope = 
         tau, tStart, sfTrans, sfSlope = np.hsplit(x, 4)
-    #resize variables to be truly 1D
-    # a.reshape(a.size)
 
     #with SFH -> Calculate age
     '''
@@ -498,8 +475,8 @@ def calculateAge(redshift, x, SEDerr=None, SED=True, threads=None, sp=None):
     #save age
 
     if platform.system() == 'Darwin':
-        # import corner
-        # fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$", "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c', 'age'])
-        # fig.savefig("figures/SF_triangle.pdf")
+        import corner
+        fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$", "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c', 'age'])
+        fig.savefig("figures/SF_triangle.pdf")
 
     return age
