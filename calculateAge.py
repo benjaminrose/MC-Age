@@ -211,7 +211,7 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
     return lp + lnlike(theta, magnitudes, magerr, redshift, sp)
 
 
-def calculateSFH(SED, SEDerr, redshift, SNID, threads=1, sp=None):
+def calculateSFH(SED, SEDerr, redshift, SNID=None, threads=1, sp=None):
     """calculates the SHF. Save posterior distributions to ???.
     
     Parameters
@@ -223,8 +223,9 @@ def calculateSFH(SED, SEDerr, redshift, SNID, threads=1, sp=None):
         Optional if `SED` is `False` and `x` is the SFH parameters.
     redshift : float
         The redshift of the region where the age is being calculated.
-    SNID : int
-        This is the ID number for the SN. Used for saving data.
+    SNID : int, optional
+        This is the ID number for the SN. Used for 'unique' ID while saving 
+        data. If nothing is given, MCMC chain is not saved.
     threads : int, optional
         The number of threads the MCMC fit should use. Defaults to 1.
         http://dan.iel.fm/emcee/current/user/advanced/#multiprocessing
@@ -240,7 +241,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID, threads=1, sp=None):
     #set up logger
     logger = logging.getLogger("localEnvironments.calculateAge.calculateSFH")
     logger.info('called calculateSFH')
-    logger.debug('arguments are: {}, {}, {}, {}, {}'.format(SED, SEDerr, redshift, threads, sp, SNID)
+    logger.debug('arguments are: {}, {}, {}, {}, {}'.format(SED, SEDerr, redshift, threads, sp, SNID))
 
     #set up StellarPopulation if need be
     if sp is None:
@@ -346,22 +347,36 @@ def calculateSFH(SED, SEDerr, redshift, SNID, threads=1, sp=None):
                                                     sfTrans, sfSlope, c))
     print('MCMC: ', logzso, dust2, tau, tStart, sfTrans, sfSlope, c)
 
-    if platform.system() == 'Darwin':
-        import corner
-        fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$",
-                            "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c'])
-        fig.savefig("figures/SF_triangle.pdf")
+    #only save if SNID is given
+    if SNID:
+        logger.debug('SNID was given and now saving results')
+        #only make a plot if on a Mac
+        if platform.system() == 'Darwin':
+            logger.debug('platform is Darwin, now making corner plot')
+            import corner
+            fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", 
+                                        "$tau$", "$t_{start}$", "$t_{trans}$",
+                                        '$sf slope$', 'c'])
+            fig.savefig("figures/SF_triangle.pdf")
+            logger.info('saved figures/SF_triangle.pdf')
+        else:
+            logger.debug('platform is {}, no corner plot made'.format(platform.system()))
 
-    ## save clean results to disk
-    header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
-    np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
-                delimiter='\t', header=header)
-
-    ## return flat chain
+        ## save clean results to disk
+        header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
+        np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
+                    delimiter='\t', header=header)
+        logger.info('saved resources/SN{}_chain.tsv')
+    else:
+        logger.debug('SNID was {}, no data was saved to disk.'.format(SNID))
+    
+    logger.debug('done running calculateSFH')
+    ## return flat clean chain
     return samples
 
 
-def calculateAge(redshift, x, SEDerr=None, SNID=0, SED=True, threads=None, sp=None):
+def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
+                 sp=None):
     """calculateAge either from a given Star Formation History (SFH) or from a 
     *ugriz* SED. If a SED is given (the default) then it calculates the SFH by 
     calling `calculateSFH()`.
@@ -374,14 +389,14 @@ def calculateAge(redshift, x, SEDerr=None, SNID=0, SED=True, threads=None, sp=No
         set to `False`.
     redshift : float
         The redshift of the region where the age is being calculated.
-    SNID : int, optional
-        This is the ID number for the SN. Used for saving data. Defaults to 
-        `0` if nothing is given.
     SEDerr : array-like, optional
         Optional if `SED` is `False` and `x` is the SFH parameters. 
-    SED : boolean, optional
+    isSED : boolean, optional
         A flag to determine if x is an SED (default value) or star formation 
         history parameters. 
+    SNID : int, optional
+        This is the ID number for the SN. Used for 'unique' ID while saving 
+        data. Needed if `SED = True`.
     threads : int, optional
         The number of threads `calculateSFH()` should uses for its MCMC 
         analysis.
@@ -417,11 +432,14 @@ def calculateAge(redshift, x, SEDerr=None, SNID=0, SED=True, threads=None, sp=No
     --------
     
     """
+    logger = logging.getLogger("localEnvironments.calculateAge.calculateAge")
+    logger.info('called calculateAge')
 
     #if SED, calculate SFH
-    if SED:
-        #SFH = calculateSFH(redshift, SED)
-        samples = calculateSFH(x, redshift, SNID, threads, sp)
+    if isSED:
+        logger.info('Calculating SFH')
+        #no need for SNID. We can save in this function.
+        samples = calculateSFH(x, SEDerr, redshift, threads=threads)
         #extract variables
         logzso, dust2, tau, tStart, sfTrans, sfSlope, c = np.hsplit(samples, 7)
         #reshape these to be 1D arrays
@@ -433,10 +451,12 @@ def calculateAge(redshift, x, SEDerr=None, SNID=0, SED=True, threads=None, sp=No
         sfSlope = sfSlope.reshape(-1)
         c = c.reshape(-1)
     else:
+        logger.info('using SFH that was givenf')
         #unpack input parameters
-        # tau, tStart, sfTrans, sfSlope = 
+        #todo(4 should not be hard coded)
         tau, tStart, sfTrans, sfSlope = np.hsplit(x, 4)
 
+    import pdb; pdb.set_trace()
     #with SFH -> Calculate age
     '''
     How do I maintain the information of the posterior distribution?
@@ -448,7 +468,7 @@ def calculateAge(redshift, x, SEDerr=None, SNID=0, SED=True, threads=None, sp=No
     #helper functions
     ##################
     #http://stackoverflow.com/questions/32877587/rampfunction-code
-    Ramp = lambda x: x if x >= 0 else 0 #Simha14's Delta function (eqn 6)
+    ramp = lambda x: x if x >= 0 else 0 #Simha14's Delta function (eqn 6)
     def starFormation(t):
         #define piecewise around `sfTrans` time
         if t <= sfTrans:
@@ -465,18 +485,25 @@ def calculateAge(redshift, x, SEDerr=None, SNID=0, SED=True, threads=None, sp=No
     tStarFormation = lambda t: t*starFormation(t)
     ##################
 
+    ## Calculate Age!
     ageOfUniverse = cosmo.age(redshift)
     lengthOfSF = ageOfUniverse.to('Gyr').value - tStart
-    
     numerator = integrate.quad(sfTFunc, 0, lengthOfSF)[0]
     denominator = integrate.quad(sfFunc, 0, lengthOfSF)[0]
-
     age = lengthOfSF - numerator/denominator
-    #save age
 
-    if platform.system() == 'Darwin':
-        import corner
-        fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$", "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c', 'age'])
-        fig.savefig("figures/SF_triangle.pdf")
+    # if MCMC was ran --> save full MCMC results with age
+    if isSED:
+        logger.debug('saving full MCMC & age data')
 
+
+        #only on a Mac, make corner plot of MCMC parameters & Age
+        if platform.system() == 'Darwin':
+            import corner
+            fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$", "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c', 'age'])
+            fig.savefig("figures/SF_triangle.pdf")
+
+        #
+        age = median(age)
+    
     return age

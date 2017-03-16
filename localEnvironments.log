@@ -76,3 +76,32 @@
   0.13833333  0.2225      0.1325      0.11083333  0.14833333  0.16083333
   0.15        0.20833333]
 2017-03-13 15:34:40,135 - localEnvironments.calculateAge.calculateSFH - INFO - saved "figures/burnin.pdf"
+2017-03-15 14:49:43,327 - localEnvironments - INFO - Starting
+2017-03-15 14:50:39,600 - localEnvironments - INFO - Starting
+2017-03-15 14:51:00,890 - localEnvironments - INFO - Starting
+2017-03-15 14:51:42,377 - localEnvironments - INFO - Starting
+2017-03-15 14:51:54,462 - localEnvironments - INFO - Starting
+2017-03-15 14:52:48,284 - localEnvironments - INFO - Starting
+2017-03-15 14:53:06,054 - localEnvironments - INFO - Starting
+2017-03-15 14:53:07,865 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-03-15 14:53:07,865 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-03-15 14:53:07,865 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-03-15 14:53:29,416 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 70 walkers, for 1700 steps, using a burn in cut after 200 steps
+2017-03-15 14:53:29,426 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 250 steps
+2017-03-15 15:29:54,897 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -0.77636428   0.97670996   2.63869522   4.24549021  11.03143919
+  -5.70106434 -25.0540417 ]
+2017-03-15 15:29:54,916 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-03-16 13:46:41,294 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.14        0.17705882  0.14294118  0.10823529  0.18058824  0.10117647
+  0.16588235  0.08647059  0.16705882  0.14411765  0.12294118  0.14882353
+  0.11941176  0.16705882  0.13058824  0.15647059  0.09352941  0.13647059
+  0.13        0.15        0.16117647  0.13882353  0.09529412  0.12352941
+  0.11941176  0.17588235  0.15117647  0.10705882  0.13235294  0.17411765
+  0.11235294  0.14176471  0.13764706  0.12823529  0.09470588  0.04176471
+  0.15117647  0.13        0.08823529  0.17470588  0.08470588  0.16294118
+  0.09882353  0.10117647  0.10588235  0.12823529  0.17352941  0.15411765
+  0.13705882  0.18470588  0.16117647  0.19764706  0.08588235  0.13
+  0.09058824  0.13235294  0.16294118  0.12294118  0.16058824  0.14764706
+  0.16823529  0.11941176  0.14647059  0.19352941  0.13058824  0.16882353
+  0.17470588  0.13588235  0.17411765  0.16764706]
+2017-03-16 13:46:41,361 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for logzsol, dust2, tau, tStart, sfTrans, sfSlope, c:
+2017-03-16 13:46:41,366 - localEnvironments.calculateAge.calculateSFH - INFO - (-0.81843947005629925, 0.17080553115965169, 0.12621015526452994), (1.0932719937864599, 0.14242262953247642, 0.22374163521148738), (3.3504070551852179, 2.6891217863288457, 1.5646194991295657), (4.5123569188260753, 2.8856659976103778, 2.4615606408095356), (11.214178158044186, 0.68976808622098673, 0.80612516043692928), (-5.8792861178059139, 3.416782269047081, 2.8570419652045702), (-25.028811189883662, 0.12841401484832815, 0.11571156822033402)
