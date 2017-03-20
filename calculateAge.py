@@ -254,10 +254,10 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, threads=1, sp=None):
 
     #Setup MCMC
     logger.debug('initializing MCMC')
-    ndim, nwalkers = 7, 70
-    nsteps = 1700
-    burnInSize = 200
-    maxLikilhoodSize = 250
+    ndim, nwalkers = 7, 100
+    nsteps = 2400
+    burnInSize = 400
+    maxLikilhoodSize = 300
     logger.info('Running with {} walkers, for {} steps, using a burn in cut after {} steps'.format(nwalkers, nsteps, burnInSize))
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp), threads=threads)
 
@@ -438,11 +438,11 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
 
     #if SED, calculate SFH
     if isSED:
-        # logger.info('Calculating SFH')
-        #no need for SNID. We can save in this function.
-        # samples = calculateSFH(x, SEDerr, redshift, threads=threads)
-        logger.info('importing SFH to speed!!!!!')
-        samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
+        logger.info('Calculating SFH')
+        # no need for SNID. We can save in this function.
+        samples = calculateSFH(x, SEDerr, redshift, threads=threads)
+        # logger.info('importing SFH to speed!!!!!')
+        # samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
         #extract variables
         logzso, dust2, tau, tStart, sfTrans, sfSlope, c = np.hsplit(samples, 7)
         #reshape these to be 1D arrays
@@ -521,6 +521,11 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
     if isSED:
         logger.debug('saving full MCMC & age data')
         samples = np.append(samples, age.reshape(age.size, 1), axis=-1)
+
+        header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\tage\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag\tGyr'
+        np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
+                    delimiter='\t', header=header)
+        logger.info('saved resources/SN{}_chain.tsv')
 
         #only on a Mac, make corner plot of MCMC parameters & Age
         if platform.system() == 'Darwin':
