@@ -26,6 +26,7 @@ Function outline, here is what each function calls or required data. Model param
 """
 import logging
 import platform
+import warnings
 
 import numpy as np
 from scipy import integrate
@@ -437,9 +438,11 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
 
     #if SED, calculate SFH
     if isSED:
-        logger.info('Calculating SFH')
+        # logger.info('Calculating SFH')
         #no need for SNID. We can save in this function.
-        samples = calculateSFH(x, SEDerr, redshift, threads=threads)
+        # samples = calculateSFH(x, SEDerr, redshift, threads=threads)
+        logger.info('importing SFH to speed!!!!!')
+        samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
         #extract variables
         logzso, dust2, tau, tStart, sfTrans, sfSlope, c = np.hsplit(samples, 7)
         #reshape these to be 1D arrays
@@ -451,12 +454,11 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
         sfSlope = sfSlope.reshape(-1)
         c = c.reshape(-1)
     else:
-        logger.info('using SFH that was givenf')
+        logger.info('using SFH that was given')
         #unpack input parameters
         #todo(4 should not be hard coded)
         tau, tStart, sfTrans, sfSlope = np.hsplit(x, 4)
 
-    import pdb; pdb.set_trace()
     #with SFH -> Calculate age
     '''
     How do I maintain the information of the posterior distribution?
@@ -469,41 +471,64 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
     ##################
     #http://stackoverflow.com/questions/32877587/rampfunction-code
     ramp = lambda x: x if x >= 0 else 0 #Simha14's Delta function (eqn 6)
-    def starFormation(t):
-        #define piecewise around `sfTrans` time
+    heavyside = lambda x: 1 if x >=0 else 0
+    def starFormation(t, tau, tStart, sfTrans, sfSlope):
+        '''
+        Defined piecewise around `sfTrans` time. 
+        no variables can be arrays! ALso must return a float!
+        '''
         if t <= sfTrans:
-            sf = (t-tStart)*np.e**(-(t-tStart)/tau)
+            sf = heavyside(t-tStart)*(t-tStart)*np.e**(-(t-tStart)/tau)
         else:
-            sf = ( (sfTrans-tStart)*np.e**(-(sfTrans-tStart)/tau) + 
+            sf =( heavyside(t-tStart)*(t-tStart)*np.e**(-(t-tStart)/tau) +
                  sfSlope*ramp(t-sfTrans) ) #\Delta \def sfSlope*ramp() in Simha
+            # sf = (sfTrans-tStart)
+            # np.e**(-(sfTrans-tStart)/tau) + sfSlope*ramp(t-sfTrans) ) #\Delta \def sfSlope*ramp() in Simha
 
         #only return positive star formation
         if sf < 0:
             return 0
         else:
             return sf
-    tStarFormation = lambda t: t*starFormation(t)
+    tStarFormation = lambda t, *args: t*starFormation(t, *args)
     ##################
 
     ## Calculate Age!
     ageOfUniverse = cosmo.age(redshift)
-    lengthOfSF = ageOfUniverse.to('Gyr').value - tStart
-    numerator = integrate.quad(sfTFunc, 0, lengthOfSF)[0]
-    denominator = integrate.quad(sfFunc, 0, lengthOfSF)[0]
-    age = lengthOfSF - numerator/denominator
+    # lengthOfSF = ageOfUniverse.to('Gyr').value - tStart
+    numerator = np.array([])
+    denominator = np.array([])
+    for j, k, l, m in zip(tau, tStart, sfTrans, sfSlope):
+        #only need the value of `integrate.quad` not the absolute error
+        numerator = np.append(numerator, integrate.quad(tStarFormation, k, ageOfUniverse.to('Gyr').value, args=(j, k, l, m))[0])
+        denominator = np.append(denominator, integrate.quad(starFormation, k, ageOfUniverse.to('Gyr').value, args=(j, k, l, m))[0])
+        if denominator[-1] == 0:
+            logger.info('because of scipy issue need to use sample integration')
+            logger.warning('''SFH: {}, {}, {}, {} 
+                (emitted at z={}, ageOfUniverse={}) 
+                for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, k, l, m, redshift, ageOfUniverse.to('Gyr').value, SNID))
+            warnings.warn('Getting zero integrated SFH, check log.')
+            time, dx = np.linespace(k, ageOfUniverse.to('Gyr').value, num=1025,
+                                    retstep=True)
+            num_y = tStarFormation(time)
+            den_y = StarFormation(time)
+            numerator[-1] = integrate.romb(num_y, dx)
+            denominator[-1] = integrate.romb(den_y, dx)
+
+    age = ageOfUniverse.to('Gyr').value - numerator/denominator
 
     # if MCMC was ran --> save full MCMC results with age
     if isSED:
         logger.debug('saving full MCMC & age data')
-
+        samples = np.append(samples, age.reshape(age.size, 1), axis=-1)
 
         #only on a Mac, make corner plot of MCMC parameters & Age
         if platform.system() == 'Darwin':
             import corner
             fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$", "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c', 'age'])
-            fig.savefig("figures/SF_triangle.pdf")
+            fig.savefig("figures/SF_Age_triangle.pdf")
 
-        #
-        age = median(age)
+        print(np.nanmedian(age))
+        print(np.median(age))
     
     return age
