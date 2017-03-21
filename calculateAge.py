@@ -139,7 +139,7 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
     return ln_like
 
 
-def lnprior(theta):
+def lnprior(theta, redshfit):
     """flat-top, log-priors for the parameter space to be searched: p(model)
     
     Parameters
@@ -160,16 +160,17 @@ def lnprior(theta):
     """
     # Conroy 2009 says Charlot 2000 recommends (dust1, dust2) = (1.0, 0.3)
     logzsol, dust2, tau, tStart, sfTrans, sfSlope, c = theta
+    age = cosmo.age(redshift).to('Gyr').value
     # initial guess is `[0., 0., 1., 1., 10., 1., -20.]`
     # If `sfTrans` set to 0.0, there is no truncation.
     # should we allow sfTrans < tStart?
-    if (-1   < logzsol < 0.5  and 
-        0    < dust2   < 1.75 and 
-        0.1  < tau     < 10   and 
-        0.5  < tStart  < 10.0 and 
-        10.0 < sfTrans < 13.7 and
-        -10  < sfSlope < 10   and 
-        -35  < c       < -15):
+    if (-3.0  < logzsol < 0.5      and 
+        0.0   < dust2   < 1.75     and 
+        0.1   < tau     < 10.0     and 
+        0.5   < tStart  < sfTrans  and 
+        1.0   < sfTrans <= age     and
+        -20.0 < sfSlope < 20.0     and 
+        -35.0 < c       < -15.0):
         
         return 0.0
     
@@ -206,7 +207,7 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
     lnprior : 
     lnlike : 
     """
-    lp = lnprior(theta)
+    lp = lnprior(theta, redshfit)
     if not np.isfinite(lp):
         return -np.inf
     return lp + lnlike(theta, magnitudes, magerr, redshift, sp)
@@ -266,20 +267,21 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, threads=1, sp=None):
     # run MCMC because it has bounds
     # then select position with highest likelihood value.
     pos = np.zeros((nwalkers, ndim))
-    '''PRIOR BOUNDS!
-        -1   < logzsol < 0.5  and 
-        0    < dust2   < 1.75 and 
-        0.1  < tau     < 10   and 
-        0.5  < tStart  < 10.0 and 
-        10.0 < sfTrans < 13.7 and
-        -10  < sfSlope < 10   and 
-        -35  < c       < -15'''
-    pos[:,0] = np.random.uniform(-0.9, 0.4, size=nwalkers)   #logzsol
+    '''PRIOR BOUNDS! -- with age = cosmo.age(redshift).to('Gyr').value
+        -3.0  < logzsol < 0.5      and 
+        0.0   < dust2   < 1.75     and 
+        0.1   < tau     < 10.0     and 
+        0.5   < tStart  < sfTrans  and 
+        1.0   < sfTrans <= age     and
+        -20.0 < sfSlope < 20.0     and 
+        -35.0 < c       < -15.0'''
+    pos[:,0] = np.random.uniform(-2.9, 0.4, size=nwalkers)   #logzsol
     pos[:,1] = np.random.uniform(0.1, 1.25, size=nwalkers)   #dust2
     pos[:,2] = np.random.uniform(0.5, 5.0, size=nwalkers)    #tau
-    pos[:,3] = np.random.uniform(1.5, 8.0, size=nwalkers)    #tStart
-    pos[:,4] = np.random.uniform(11.0, 13.0, size=nwalkers)  #sfTrans
-    pos[:,5] = np.random.uniform(-5.0, 5.0, size=nwalkers)   #sfSlope
+    pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    #tStart
+    age = cosmo.age(redshift).to('Gyr').value
+    pos[:,4] = np.random.uniform(1.2, age - 0.1, size=nwalkers)  #sfTrans
+    pos[:,5] = np.random.uniform(-9.0, 9.0, size=nwalkers)   #sfSlope
     pos[:,6] = np.random.uniform(-30, -20, size=nwalkers)    #c
 
     print('Running MCMC for initial position')
