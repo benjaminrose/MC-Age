@@ -139,7 +139,7 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
     return ln_like
 
 
-def lnprior(theta, redshfit):
+def lnprior(theta, redshift):
     """flat-top, log-priors for the parameter space to be searched: p(model)
     
     Parameters
@@ -207,7 +207,7 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
     lnprior : 
     lnlike : 
     """
-    lp = lnprior(theta, redshfit)
+    lp = lnprior(theta, redshift)
     if not np.isfinite(lp):
         return -np.inf
     return lp + lnlike(theta, magnitudes, magerr, redshift, sp)
