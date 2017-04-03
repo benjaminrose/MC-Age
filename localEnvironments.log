@@ -253,3 +253,35 @@
 2017-03-22 03:18:02,522 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
 2017-03-22 03:18:39,053 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 100 walkers, for 2400 steps, using a burn in cut after 400 steps
 2017-03-22 03:18:39,226 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 300 steps
+2017-03-31 20:28:38,424 - localEnvironments - INFO - Starting
+2017-03-31 20:28:57,076 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-03-31 20:28:57,076 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-03-31 20:28:57,076 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-03-31 20:30:22,247 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 100 walkers, for 2400 steps, using a burn in cut after 400 steps
+2017-03-31 20:30:22,252 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 300 steps
+2017-03-31 21:51:40,188 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -1.70065658   1.40755325   7.25749      1.82916769   9.17461391
+  -6.37931776 -25.57004928]
+2017-03-31 21:51:40,201 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-04-01 06:13:19,970 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.14666667  0.10125     0.10833333  0.14541667  0.105       0.12375
+  0.12375     0.15583333  0.14666667  0.14        0.11541667  0.11        0.15625
+  0.14125     0.14833333  0.16        0.15041667  0.16083333  0.16791667
+  0.15        0.1175      0.16291667  0.09458333  0.135       0.08125
+  0.12208333  0.13708333  0.0725      0.11        0.14291667  0.14333333
+  0.14541667  0.13083333  0.13958333  0.10833333  0.08083333  0.14
+  0.11708333  0.15666667  0.11625     0.09        0.12        0.1225      0.085
+  0.14625     0.1625      0.1075      0.14041667  0.14125     0.16583333
+  0.10291667  0.1275      0.12708333  0.07291667  0.17125     0.13291667
+  0.12916667  0.16208333  0.12416667  0.14041667  0.07666667  0.16
+  0.12666667  0.15458333  0.09333333  0.13333333  0.05708333  0.1
+  0.15916667  0.12833333  0.11541667  0.13708333  0.14458333  0.12        0.145
+  0.15541667  0.03041667  0.14125     0.13916667  0.1225      0.13041667
+  0.13958333  0.10125     0.12041667  0.14791667  0.14666667  0.095
+  0.04958333  0.10583333  0.14875     0.15291667  0.10625     0.13583333
+  0.13833333  0.145       0.12458333  0.12625     0.08958333  0.12083333
+  0.11375   ]
+2017-04-01 06:13:20,033 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for logzsol, dust2, tau, tStart, sfTrans, sfSlope, c:
+2017-04-01 06:13:20,033 - localEnvironments.calculateAge.calculateSFH - INFO - (-1.6607832116268422, 0.58595704556577144, 0.49131488646336985), (1.4237944419461335, 0.22113400106800363, 0.25359392743201914), (5.7241063572498856, 2.9579502555338379, 3.0025824327835822), (3.5647449344436497, 2.8252084683386105, 2.1925849903176706), (8.8046664351290502, 2.0010210543068148, 2.5557872837308349), (-8.5690283739970212, 5.42557208111654, 7.3807891620652022), (-25.531739150495184, 0.32119114063605636, 0.27989491276031941)
+2017-04-01 06:13:33,502 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-01 06:13:33,502 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 4.646145422706267, 9.39763364273661, 9.400194022885834, -9.13141662017871 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
