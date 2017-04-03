@@ -1,0 +1,35 @@
+[1] 20002
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:335: RuntimeWarning: invalid value encountered in subtract
+  lnpdiff = (self.dim - 1.) * np.log(zz) + newlnprob - lnprob0
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:336: RuntimeWarning: invalid value encountered in greater
+  accept = (lnpdiff > np.log(self._random.rand(len(lnpdiff))))
+/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/calculateAge.py:512: UserWarning: Getting zero integrated SFH, check log.
+  warnings.warn('Getting zero integrated SFH, check log.')
+Running MCMC for initial position
+Best position from initial search:  [ -1.70065658   1.40755325   7.25749      1.82916769   9.17461391
+  -6.37931776 -25.57004928]
+Running full MCMC fit
+Acceptance fraction: [ 0.14666667  0.10125     0.10833333  0.14541667  0.105       0.12375
+  0.12375     0.15583333  0.14666667  0.14        0.11541667  0.11        0.15625
+  0.14125     0.14833333  0.16        0.15041667  0.16083333  0.16791667
+  0.15        0.1175      0.16291667  0.09458333  0.135       0.08125
+  0.12208333  0.13708333  0.0725      0.11        0.14291667  0.14333333
+  0.14541667  0.13083333  0.13958333  0.10833333  0.08083333  0.14
+  0.11708333  0.15666667  0.11625     0.09        0.12        0.1225      0.085
+  0.14625     0.1625      0.1075      0.14041667  0.14125     0.16583333
+  0.10291667  0.1275      0.12708333  0.07291667  0.17125     0.13291667
+  0.12916667  0.16208333  0.12416667  0.14041667  0.07666667  0.16
+  0.12666667  0.15458333  0.09333333  0.13333333  0.05708333  0.1
+  0.15916667  0.12833333  0.11541667  0.13708333  0.14458333  0.12        0.145
+  0.15541667  0.03041667  0.14125     0.13916667  0.1225      0.13041667
+  0.13958333  0.10125     0.12041667  0.14791667  0.14666667  0.095
+  0.04958333  0.10583333  0.14875     0.15291667  0.10625     0.13583333
+  0.13833333  0.145       0.12458333  0.12625     0.08958333  0.12083333
+  0.11375   ]
+MCMC:  (-1.6607832116268422, 0.58595704556577144, 0.49131488646336985) (1.4237944419461335, 0.22113400106800363, 0.25359392743201914) (5.7241063572498856, 2.9579502555338379, 3.0025824327835822) (3.5647449344436497, 2.8252084683386105, 2.1925849903176706) (8.8046664351290502, 2.0010210543068148, 2.5557872837308349) (-8.5690283739970212, 5.42557208111654, 7.3807891620652022) (-25.531739150495184, 0.32119114063605636, 0.27989491276031941)
+Traceback (most recent call last):
+  File "/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/main.py", line 135, in <module>
+    results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, threads=1)
+  File "/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/calculateAge.py", line 513, in calculateAge
+    time, dx = np.linespace(k, ageOfUniverse.to('Gyr').value, num=1025,
+AttributeError: module 'numpy' has no attribute 'linespace'

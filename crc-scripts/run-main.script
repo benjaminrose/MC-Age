@@ -3,13 +3,15 @@
 #$ -M brose3@nd.edu  # email for notificatoins
 #$ -m abe            # send mail when begins, ends and aborts
 #$ -N main           # spcific job name
-#$ -pe smp 12        # what parallel evniroment, single machine process 12-core
+#   -pe smp 12        # what parallel evniroment, single machine process 12-core
 #$ -q long           # debug or long queue
 #$ -r y              # or n Tell SGE if your job is "rerunnable".
 
 #### #$ -v DISPLAY for matplotlib.pylot to work
 
 module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
+
+fsync -d 300 $SGE_STDOUT_PATH &
 
 cd ..
 python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/main.py 
