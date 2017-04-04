@@ -213,7 +213,7 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
     return lp + lnlike(theta, magnitudes, magerr, redshift, sp)
 
 
-def calculateSFH(SED, SEDerr, redshift, SNID=None sp=None):
+def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
     """calculates the SHF. Save posterior distributions to ???.
     
     Parameters
