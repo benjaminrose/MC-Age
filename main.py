@@ -130,9 +130,9 @@ redshift = 0.065
 # SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
 # SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
 # redshift = 0.084
-# results = calculateAge.calculateSFH(SED, SEDerr, redshift, 10028, threads=1)#, sp=sp)
+# results = calculateAge.calculateSFH(SED, SEDerr, redshift, 10028)#, sp=sp)
 # print('calculateSFH(): ', results)
-results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, threads=1)
+results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028)
 # print('calculateAge(): ', results)
 # Currently Fails!!
 
