@@ -27,6 +27,7 @@ Function outline, here is what each function calls or required data. Model param
 import logging
 import platform
 import warnings
+import time
 
 import numpy as np
 from scipy import integrate
@@ -213,7 +214,7 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
     return lp + lnlike(theta, magnitudes, magerr, redshift, sp)
 
 
-def calculateSFH(SED, SEDerr, redshift, SNID=None, threads=1, sp=None):
+def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
     """calculates the SHF. Save posterior distributions to ???.
     
     Parameters
@@ -228,9 +229,6 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, threads=1, sp=None):
     SNID : int, optional
         This is the ID number for the SN. Used for 'unique' ID while saving 
         data. If nothing is given, MCMC chain is not saved.
-    threads : int, optional
-        The number of threads the MCMC fit should use. Defaults to 1.
-        http://dan.iel.fm/emcee/current/user/advanced/#multiprocessing
     sp : fsps.fsps.StellarPopulation, optional
         An optional argument of an FSPS StellarPopulation if you don't want make a new one with the default settings.
     
@@ -243,7 +241,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, threads=1, sp=None):
     #set up logger
     logger = logging.getLogger("localEnvironments.calculateAge.calculateSFH")
     logger.info('called calculateSFH')
-    logger.debug('arguments are: {}, {}, {}, {}, {}'.format(SED, SEDerr, redshift, threads, sp, SNID))
+    logger.debug('arguments are: {}, {}, {}, {}, {}'.format(SED, SEDerr, redshift, sp, SNID))
 
     #set up StellarPopulation if need be
     if sp is None:
@@ -260,7 +258,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, threads=1, sp=None):
     burnInSize = 400
     maxLikilhoodSize = 300
     logger.info('Running with {} walkers, for {} steps, using a burn in cut after {} steps'.format(nwalkers, nsteps, burnInSize))
-    sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp), threads=threads)
+    sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
 
     # "Maximize" likelihood for initial guess
     # start with uniformly (not 100% of space) distributed walkers
@@ -302,6 +300,16 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, threads=1, sp=None):
     print('Running full MCMC fit')
     logger.info('Running full MCMC fit')
     sampler.run_mcmc(pos, nsteps)
+    logger.debug('Finished full MCMC fit')
+
+    #save temp results in case something else fails soon.
+    uuid = '{:.2f}'.format(time.time())
+    header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
+    np.savetxt('resources/temp/chain_'+uuid+'.tsv'.format(SNID), 
+                sampler.flatchain, delimiter='\t', header=header)
+    logger.info('saved resources/temp/chain_'+uuid+'.tsv')
+
+    #save acceptance fraction
     #note() acceptace_fraction has len == nwalkers
     logger.info('Acceptance fraction: {}'.format(sampler.acceptance_fraction)) 
     print('Acceptance fraction: {}'.format(sampler.acceptance_fraction))
@@ -378,8 +386,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, threads=1, sp=None):
     return samples
 
 
-def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
-                 sp=None):
+def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None):
     """calculateAge either from a given Star Formation History (SFH) or from a 
     *ugriz* SED. If a SED is given (the default) then it calculates the SFH by 
     calling `calculateSFH()`.
@@ -400,9 +407,6 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
     SNID : int, optional
         This is the ID number for the SN. Used for 'unique' ID while saving 
         data. Needed if `SED = True`.
-    threads : int, optional
-        The number of threads `calculateSFH()` should uses for its MCMC 
-        analysis.
     sp : fsps.fsps.StellarPopulation, optional
         An optional argument of an FSPS StellarPopulation if you don't want 
         make a new one with the default settings of `calculateSFH()`.
@@ -442,7 +446,7 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
     if isSED:
         logger.info('Calculating SFH')
         # no need for SNID. We can save in this function.
-        samples = calculateSFH(x, SEDerr, redshift, threads=threads)
+        samples = calculateSFH(x, SEDerr, redshift)
         # logger.info('importing SFH to speed!!!!!')
         # samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
         #extract variables
@@ -510,7 +514,7 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, threads=1,
                 (emitted at z={}, ageOfUniverse={}) 
                 for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, k, l, m, redshift, ageOfUniverse.to('Gyr').value, SNID))
             warnings.warn('Getting zero integrated SFH, check log.')
-            time, dx = np.linespace(k, ageOfUniverse.to('Gyr').value, num=1025,
+            time, dx = np.linspace(k, ageOfUniverse.to('Gyr').value, num=1025,
                                     retstep=True)
             num_y = tStarFormation(time)
             den_y = StarFormation(time)
