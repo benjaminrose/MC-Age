@@ -27,6 +27,7 @@ Function outline, here is what each function calls or required data. Model param
 import logging
 import platform
 import warnings
+import time
 
 import numpy as np
 from scipy import integrate
@@ -299,6 +300,16 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
     print('Running full MCMC fit')
     logger.info('Running full MCMC fit')
     sampler.run_mcmc(pos, nsteps)
+    logger.debug('Finished full MCMC fit')
+
+    #save temp results in case something else fails soon.
+    uuid = '{:.2f}'.format(time.time())
+    header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
+    np.savetxt('resources/temp/chain_'+uuid+'.tsv'.format(SNID), 
+                sampler.flatchain, delimiter='\t', header=header)
+    logger.info('saved resources/temp/chain_'+uuid+'.tsv')
+
+    #save acceptance fraction
     #note() acceptace_fraction has len == nwalkers
     logger.info('Acceptance fraction: {}'.format(sampler.acceptance_fraction)) 
     print('Acceptance fraction: {}'.format(sampler.acceptance_fraction))
