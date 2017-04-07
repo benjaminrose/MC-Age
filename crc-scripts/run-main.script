@@ -1,17 +1,15 @@
 #!/bin/csh
-
-#$ -M brose3@nd.edu  # email for notificatoins
+#$ -M brose3@nd.edu  # email for notifications
 #$ -m abe            # send mail when begins, ends and aborts
-#$ -N main           # spcific job name
-#   -pe smp 12        # what parallel evniroment, single machine process 12-core
+#$ -N testingMCMC           # specific job name
 #$ -q long           # debug or long queue
-#$ -r y              # or n Tell SGE if your job is "rerunnable".
+#$ -r y              # or n Tell SGE if your job is "re-runnable".
 
-#### #$ -v DISPLAY for matplotlib.pylot to work
+##$-pe smp 12        #what parallel environment, single machine process 12-core
+##$ -v DISPLAY       #for matplotlib.pylot to work
 
 module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
 
-fsync -d 300 $SGE_STDOUT_PATH &
-
-cd ..
+fsync -d 300 $SGE_STDOUT_PATH &  ## Save to output every 300 seconds
+cd ..    # get to the correct logging file folder
 python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/main.py 

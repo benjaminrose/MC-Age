@@ -312,3 +312,12 @@
 2017-04-04 16:00:41,691 - localEnvironments.calculateAge.calculateSFH - INFO - (-0.038407852059320437, 0.00014426646532409576, 0.00011138138573214829), (0.20829034004755345, 0.00058842803524525311, 0.00081447375007279166), (2.1254459619106481, 0.0074574385355958839, 0.0071326045425581519), (3.4246524704244892, 0.01113130904485482, 0.0098438948404839799), (7.7955748479319915, 0.025670226030208632, 0.025012767542656356), (-2.0134647365004832, 0.0083786803724912318, 0.0062863947726969904), (-24.966466735656425, 0.0082746410190885911, 0.008008237116726491)
 2017-04-04 16:00:45,361 - localEnvironments.calculateAge.calculateAge - INFO - saved resources/SN{}_chain.tsv
 2017-04-04 16:00:56,554 - localEnvironments - INFO - Done
+2017-04-06 15:04:36,927 - localEnvironments - INFO - Starting
+2017-04-06 15:04:42,631 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-04-06 15:04:42,632 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-04-06 15:04:42,632 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-04-06 15:05:18,240 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 100 walkers, for 2400 steps, using a burn in cut after 400 steps
+2017-04-06 15:05:18,244 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 300 steps
+2017-04-06 16:19:39,292 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -1.6022649    1.45918709   2.06043854   5.23578954   9.70720528
+ -16.74809564 -25.47236679]
+2017-04-06 16:19:39,304 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
