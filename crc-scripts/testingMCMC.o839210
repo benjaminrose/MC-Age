@@ -1,0 +1,19 @@
+[1] 13527
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:335: RuntimeWarning: invalid value encountered in subtract
+  lnpdiff = (self.dim - 1.) * np.log(zz) + newlnprob - lnprob0
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:336: RuntimeWarning: invalid value encountered in greater
+  accept = (lnpdiff > np.log(self._random.rand(len(lnpdiff))))
+Running MCMC for initial position
+Best position from initial search:  [ -1.6022649    1.45918709   2.06043854   5.23578954   9.70720528
+ -16.74809564 -25.47236679]
+Running full MCMC fit
+Traceback (most recent call last):
+  File "/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/main.py", line 135, in <module>
+    results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028)
+  File "/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/calculateAge.py", line 449, in calculateAge
+    samples = calculateSFH(x, SEDerr, redshift)
+  File "/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/calculateAge.py", line 309, in calculateSFH
+    sampler.flatchain, delimiter='\t', header=header)
+  File "/afs/crc.nd.edu/x86_64_linux/p/python/3.5.2/build/lib/python3.5/site-packages/numpy/lib/npyio.py", line 1096, in savetxt
+    fh = open(fname, 'wb')
+FileNotFoundError: [Errno 2] No such file or directory: 'resources/temp/chain_1491536012.81.tsv'
