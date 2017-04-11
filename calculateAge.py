@@ -514,10 +514,12 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None):
                 (emitted at z={}, ageOfUniverse={}) 
                 for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, k, l, m, redshift, ageOfUniverse.to('Gyr').value, SNID))
             warnings.warn('Getting zero integrated SFH, check log.')
-            time, dx = np.linspace(k, ageOfUniverse.to('Gyr').value, num=1025,
+            time, dx = np.linspace(k, ageOfUniverse.to('Gyr').value, num=8193,
                                     retstep=True)
-            num_y = tStarFormation(time)
-            den_y = StarFormation(time)
+            num_y, den_y = np.array([]), np.array([])
+            for n in time:
+                num_y = np.append(num_y, tStarFormation(n))
+                den_y = np.append(den_y, starFormation(n))
             numerator[-1] = integrate.romb(num_y, dx)
             denominator[-1] = integrate.romb(den_y, dx)
 
