@@ -518,8 +518,8 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None):
                                     retstep=True)
             num_y, den_y = np.array([]), np.array([])
             for n in time:
-                num_y = np.append(num_y, tStarFormation(n))
-                den_y = np.append(den_y, starFormation(n))
+                num_y = np.append(num_y, tStarFormation(n, j, k, l, m))
+                den_y = np.append(den_y, starFormation(n, j, k, l, m))
             numerator[-1] = integrate.romb(num_y, dx)
             denominator[-1] = integrate.romb(den_y, dx)
 
