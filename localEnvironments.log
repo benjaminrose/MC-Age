@@ -387,3 +387,506 @@
 2017-04-11 21:42:36,670 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.1964624555112784, 4.977592206241418, 4.986557866682051, -6.430770991595759 
                 (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
                 for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 14:54:13,235 - localEnvironments - INFO - Starting
+2017-04-13 14:54:18,651 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-04-13 14:54:18,651 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-04-13 14:54:18,651 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-04-13 14:54:52,051 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 100 walkers, for 2400 steps, using a burn in cut after 400 steps
+2017-04-13 14:54:52,053 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 300 steps
+2017-04-13 16:05:09,826 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -1.102036     1.19969291   2.22437781   4.6598726   10.61267313
+ -15.96919758 -25.24169581]
+2017-04-13 16:05:09,837 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-04-13 22:19:33,304 - localEnvironments.calculateAge.calculateSFH - INFO - saved resources/temp/chain_1492136370.36.tsv
+2017-04-13 22:19:33,306 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.04708333  0.105       0.11208333  0.075       0.12166667  0.11791667
+  0.11041667  0.13916667  0.12708333  0.09916667  0.07291667  0.1375
+  0.1125      0.11125     0.09        0.10833333  0.11291667  0.095       0.1075
+  0.13        0.08416667  0.1075      0.13375     0.12083333  0.13458333
+  0.1225      0.1375      0.08708333  0.14        0.09916667  0.1175
+  0.12041667  0.10416667  0.12291667  0.06291667  0.12583333  0.12625
+  0.09541667  0.135       0.12041667  0.12208333  0.14291667  0.10666667
+  0.13583333  0.12583333  0.12791667  0.10666667  0.11416667  0.10708333
+  0.12166667  0.13625     0.15166667  0.1         0.09708333  0.13041667
+  0.13291667  0.11375     0.1175      0.12583333  0.10041667  0.09625
+  0.1225      0.14208333  0.05916667  0.11916667  0.12041667  0.1         0.145
+  0.13416667  0.11666667  0.14        0.145       0.12708333  0.11166667
+  0.11583333  0.11083333  0.1125      0.10083333  0.14666667  0.13291667
+  0.10791667  0.08875     0.15583333  0.11916667  0.11666667  0.105       0.1225
+  0.09041667  0.075       0.11083333  0.08708333  0.09416667  0.09625
+  0.11875     0.10708333  0.1         0.12541667  0.1175      0.10125
+  0.1325    ]
+2017-04-13 22:19:33,361 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for logzsol, dust2, tau, tStart, sfTrans, sfSlope, c:
+2017-04-13 22:19:33,361 - localEnvironments.calculateAge.calculateSFH - INFO - (-1.3812629659056164, 0.51001934108267521, 0.42317588621010183), (1.349249075276556, 0.22120339368263919, 0.31081716149995819), (2.787074144427101, 2.6455526134311844, 1.4888373437955238), (4.3260723039862041, 2.7789848797587426, 2.7341318077006926), (10.018430086142509, 1.6232927568184614, 2.5415518549878708), (-11.040642963281158, 7.048589596721996, 6.3634986385667247), (-25.383856876437598, 0.28595062534271776, 0.23438461348370154)
+2017-04-13 22:20:24,926 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:20:24,926 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.47323920513710327, 6.838047554466206, 6.8450654598595975, -4.322301492215703 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:20:25,084 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:20:25,084 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.47323920513710327, 6.838047554466206, 6.8450654598595975, -4.322301492215703 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:20:25,239 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:20:25,240 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.47323920513710327, 6.838047554466206, 6.8450654598595975, -4.322301492215703 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:20:25,397 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:20:25,397 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.47323920513710327, 6.838047554466206, 6.8450654598595975, -4.322301492215703 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:31,865 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:31,865 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 6.0065032395759115, 6.575868212576248, 6.576731593512318, -12.019259496090964 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:32,021 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:32,021 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 6.0065032395759115, 6.575868212576248, 6.576731593512318, -12.019259496090964 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:32,177 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:32,177 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 6.0065032395759115, 6.575868212576248, 6.576731593512318, -12.019259496090964 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:32,335 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:32,335 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 6.0065032395759115, 6.575868212576248, 6.576731593512318, -12.019259496090964 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:32,492 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:32,492 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 6.0065032395759115, 6.575868212576248, 6.576731593512318, -12.019259496090964 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:32,649 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:32,649 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 6.0065032395759115, 6.575868212576248, 6.576731593512318, -12.019259496090964 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:32,806 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:32,806 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 6.0065032395759115, 6.575868212576248, 6.576731593512318, -12.019259496090964 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:32,963 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:32,963 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 6.0065032395759115, 6.575868212576248, 6.576731593512318, -12.019259496090964 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:33,118 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:33,118 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:33,277 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:33,277 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:33,433 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:33,433 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:33,590 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:33,591 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:33,748 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:33,748 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:33,905 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:33,905 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:34,062 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:34,063 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:34,220 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:34,220 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:34,377 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:34,377 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:34,533 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:34,533 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:34,693 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:34,693 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:34,849 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:34,849 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:35,007 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:35,007 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:35,164 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:35,164 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:35,321 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:35,322 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:35,479 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:35,479 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:35,636 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:35,637 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:35,797 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:35,797 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:22:35,954 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:22:35,955 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.92205146121176, 6.512954347996875, 6.520262104638463, -11.838524055605866 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:24:01,867 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:24:01,868 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.249844087912233, 8.265201113358874, 8.271962766314452, -8.343890465467393 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:24:02,024 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:24:02,025 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.249844087912233, 8.265201113358874, 8.271962766314452, -8.343890465467393 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:24:02,181 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:24:02,181 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.249844087912233, 8.265201113358874, 8.271962766314452, -8.343890465467393 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:24:02,338 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:24:02,339 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.249844087912233, 8.265201113358874, 8.271962766314452, -8.343890465467393 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:24:02,495 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:24:02,495 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.249844087912233, 8.265201113358874, 8.271962766314452, -8.343890465467393 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:24:02,652 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:24:02,652 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.249844087912233, 8.265201113358874, 8.271962766314452, -8.343890465467393 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:24:02,809 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:24:02,809 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.249844087912233, 8.265201113358874, 8.271962766314452, -8.343890465467393 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:24:04,930 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:24:04,930 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 1.475482653020686, 9.98698979849834, 9.988982544195778, -13.54957747576934 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:27:23,028 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:27:23,028 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.128074239362548, 7.5720162471676105, 7.574993893230947, -3.269990708477921 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:27:23,186 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:27:23,186 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.128074239362548, 7.5720162471676105, 7.574993893230947, -3.269990708477921 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:27:23,343 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:27:23,343 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 5.128074239362548, 7.5720162471676105, 7.574993893230947, -3.269990708477921 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:28:53,126 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:28:53,126 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.13342348869921272, 9.162672297686736, 9.165273291959954, -2.4774821481275158 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:28:53,285 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:28:53,285 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.13342348869921272, 9.162672297686736, 9.165273291959954, -2.4774821481275158 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:28:53,442 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:28:53,443 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.13342348869921272, 9.162672297686736, 9.165273291959954, -2.4774821481275158 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:28:53,599 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:28:53,599 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.13342348869921272, 9.162672297686736, 9.165273291959954, -2.4774821481275158 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:28:53,757 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:28:53,757 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.13342348869921272, 9.162672297686736, 9.165273291959954, -2.4774821481275158 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:28:53,913 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:28:53,914 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.13342348869921272, 9.162672297686736, 9.165273291959954, -2.4774821481275158 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:28:54,070 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:28:54,071 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.13342348869921272, 9.162672297686736, 9.165273291959954, -2.4774821481275158 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:01,960 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:01,960 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:02,116 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:02,116 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:02,272 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:02,272 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:02,428 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:02,429 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:02,587 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:02,587 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:02,743 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:02,743 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:02,900 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:02,900 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:03,057 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:03,057 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:03,214 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:03,214 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:03,370 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:03,370 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:03,527 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:03,527 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:03,684 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:03,684 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:03,844 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:03,844 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:04,000 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:04,000 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:04,157 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:04,157 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:04,314 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:04,314 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:04,472 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:04,472 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:04,627 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:04,628 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:04,784 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:04,784 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:04,941 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:04,941 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:05,098 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:05,098 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:05,257 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:05,257 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 7.67755864154628, 6.978034397454464, 6.988899183988558, -18.22955947082922 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:20,828 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:20,828 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:20,985 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:20,985 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:21,141 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:21,141 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:21,297 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:21,297 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:21,454 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:21,455 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:21,611 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:21,611 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:21,768 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:21,768 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:21,925 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:21,926 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:22,082 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:22,082 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:22,239 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:22,239 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:22,398 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:22,398 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:22,554 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:22,554 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:22,712 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:22,712 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:22,871 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:22,871 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:29:23,028 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:29:23,029 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 2.373270480527174, 6.364242469621593, 6.371212217396108, -14.256381048200444 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:05,716 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:05,716 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:05,873 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:05,874 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:06,031 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:06,031 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:06,189 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:06,189 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:06,348 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:06,348 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:06,507 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:06,507 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:06,664 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:06,664 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:06,821 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:06,821 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:06,979 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:06,979 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:07,137 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:07,137 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:07,296 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:07,296 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:07,453 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:07,453 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:07,611 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:07,612 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:07,769 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:07,769 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:07,926 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:07,926 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:08,084 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:08,084 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:08,241 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:08,241 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:08,399 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:08,399 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:08,556 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:08,556 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:08,713 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:08,713 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:08,869 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:08,870 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:09,025 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:09,026 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:09,184 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:09,184 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:09,342 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:09,342 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:09,499 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:09,499 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:09,656 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:09,656 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:09,813 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:09,813 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:09,971 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:09,971 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:10,128 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:10,128 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:10,285 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:10,285 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:10,442 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:10,442 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:31:10,600 - localEnvironments.calculateAge.calculateAge - INFO - because of scipy issue need to use sample integration
+2017-04-13 22:31:10,600 - localEnvironments.calculateAge.calculateAge - WARNING - SFH: 0.2722326256465699, 8.632015746905562, 8.636822507504164, -17.72819042416907 
+                (emitted at z=0.065, ageOfUniverse=12.992213943397989) 
+                for SN10028 produced a zero integrated SFH in the age calculation.
+2017-04-13 22:32:11,891 - localEnvironments.calculateAge.calculateAge - INFO - saved resources/SN{}_chain.tsv
+2017-04-13 22:32:11,958 - localEnvironments - INFO - Done
