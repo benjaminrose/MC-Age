@@ -1,7 +1,7 @@
 #!/bin/csh
 #$ -M brose3@nd.edu  # email for notifications
 #$ -m abe            # send mail when begins, ends and aborts
-#$ -N testingMCMC-04-13           # specific job name
+#$ -N testingMCMC-04-18           # specific job name
 #$ -q long           # debug or long queue
 #$ -r y              # or n Tell SGE if your job is "re-runnable".
 

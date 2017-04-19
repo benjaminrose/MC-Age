@@ -1,0 +1,39 @@
+[1] 4841
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:335: RuntimeWarning: invalid value encountered in subtract
+  lnpdiff = (self.dim - 1.) * np.log(zz) + newlnprob - lnprob0
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:336: RuntimeWarning: invalid value encountered in greater
+  accept = (lnpdiff > np.log(self._random.rand(len(lnpdiff))))
+/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/calculateAge.py:516: UserWarning: Getting zero integrated SFH, check log.
+  warnings.warn('Getting zero integrated SFH, check log.')
+/afs/crc.nd.edu/x86_64_linux/p/python/3.5.2/build/lib/python3.5/site-packages/scipy/integrate/quadpack.py:356: IntegrationWarning: The occurrence of roundoff error is detected, which prevents 
+  the requested tolerance from being achieved.  The error may be 
+  underestimated.
+  warnings.warn(msg, IntegrationWarning)
+/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/calculateAge.py:526: RuntimeWarning: invalid value encountered in true_divide
+  age = ageOfUniverse.to('Gyr').value - numerator/denominator
+/afs/crc.nd.edu/x86_64_linux/p/python/3.5.2/build/lib/python3.5/site-packages/numpy/lib/function_base.py:3569: RuntimeWarning: Invalid value encountered in median
+  RuntimeWarning)
+Running MCMC for initial position
+Best position from initial search:  [ -1.29462481   1.29616741   2.41026631   3.53574397  10.94434607
+ -13.33878984 -25.36760299]
+Running full MCMC fit
+Acceptance fraction: [ 0.09066667  0.09933333  0.112       0.09816667  0.0665      0.1055
+  0.10316667  0.11766667  0.076       0.10833333  0.12166667  0.04166667
+  0.13016667  0.0825      0.08933333  0.11116667  0.103       0.0845
+  0.04483333  0.10383333  0.1145      0.0845      0.06883333  0.093
+  0.09016667  0.092       0.08        0.1115      0.09083333  0.09916667
+  0.1035      0.0735      0.10233333  0.0895      0.05866667  0.1265
+  0.11916667  0.11533333  0.08766667  0.11966667  0.08066667  0.10716667
+  0.10683333  0.11416667  0.0915      0.11583333  0.13433333  0.12916667
+  0.10916667  0.07416667  0.11966667  0.1055      0.0785      0.09933333
+  0.09033333  0.11033333  0.09833333  0.0735      0.12133333  0.095       0.0935
+  0.08016667  0.12216667  0.08683333  0.0735      0.06233333  0.096
+  0.10266667  0.10866667  0.119       0.1175      0.11616667  0.03233333
+  0.089       0.12433333  0.097       0.08383333  0.108       0.1125      0.11
+  0.1205      0.12183333  0.07083333  0.127       0.10833333  0.11033333
+  0.142       0.09816667  0.11716667  0.07316667  0.128       0.0725
+  0.1015      0.11316667  0.039       0.057       0.11533333  0.12366667
+  0.10716667  0.09366667]
+MCMC:  (-1.5382640206576172, 0.51264828778059468, 0.53505873060108211) (1.4301049867057787, 0.19114345350306272, 0.26271573417748684) (3.6478448359816436, 3.626621893626043, 2.146575494360738) (3.9752476631435982, 2.9032449543836876, 2.4665238824512192) (9.6545009234912769, 1.8132106766605034, 2.7794167769281186) (-10.371134733583707, 6.6195244800822159, 6.682308403298661) (-25.471026183600348, 0.30451826491831469, 0.29145932334684233)
+5.86542654523
+nan

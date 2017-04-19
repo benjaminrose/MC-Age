@@ -254,8 +254,8 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
     #Setup MCMC
     logger.debug('initializing MCMC')
     ndim, nwalkers = 7, 100
-    nsteps = 2400
-    burnInSize = 400
+    nsteps = 6000
+    burnInSize = 500
     maxLikilhoodSize = 300
     logger.info('Running with {} walkers, for {} steps, using a burn in cut after {} steps'.format(nwalkers, nsteps, burnInSize))
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
