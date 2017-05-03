@@ -11,6 +11,6 @@
 *.sublime-workspace
 
 #data
-data/*
+data/*/
 figures/*
 resources/temp/*
