@@ -1,5 +1,8 @@
-#SNID	objid	ra	dec	PetroRad_r	u	g	r	i	z	err_u	err_g	err_r	err_i	err_z	redshift
-#		degree	degree	arcsec	mag	mag	mag	mag	mag	mag	mag	mag	mag	mag	
+This is the global photometry for the host galaxies of many SDSS-II SN
+From DR12 via astroquery 0.3.4, by hand on SkyServer DR13, and Gupta 2011 redshift if none was found before
+
+SNID	objid	ra	dec	PetroRad_r	u	g	r	i	z	err_u	err_g	err_r	err_i	err_z	redshift
+		degree	degree	arcsec	mag	mag	mag	mag	mag	mag	mag	mag	mag	mag	
 1166	1237663716555293384	9.35528557207	0.97394632287	2.431473	22.54063	21.82741	20.04021	19.37542	19.03431	0.4768956	0.1145905	0.03561216	0.03015191	0.07806965	0.3819667
 1253	1237663457779384632	323.798590322	0.162846098904	3.491167	24.67281	20.42491	19.06269	18.45856	18.09226	2.281077	0.04389307	0.02137817	0.01907718	0.05796956	0.2630881
 1371	1237663277923106978	349.373744326	0.429687074666	3.021059	20.60242	18.61513	17.54534	17.10148	16.68448	0.08341342	0.009110699	0.005850279	0.006095658	0.01183973	0.1190151
