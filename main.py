@@ -132,7 +132,7 @@ redshift = 0.065
 # redshift = 0.084
 # results = calculateAge.calculateSFH(SED, SEDerr, redshift, 10028)#, sp=sp)
 # print('calculateSFH(): ', results)
-results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028)
+results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, debug=True)
 # print('calculateAge(): ', results)
 # Currently Fails!!
 

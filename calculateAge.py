@@ -214,7 +214,7 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
     return lp + lnlike(theta, magnitudes, magerr, redshift, sp)
 
 
-def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
+def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
     """calculates the SHF. Save posterior distributions to ???.
     
     Parameters
@@ -231,6 +231,10 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
         data. If nothing is given, MCMC chain is not saved.
     sp : fsps.fsps.StellarPopulation, optional
         An optional argument of an FSPS StellarPopulation if you don't want make a new one with the default settings.
+    debug : bool
+        Flag to have MCMC run incredibly short and in no way accurately. Also 
+        does not save resulting chain. Should take around ~12 mins to get a 
+        value of one SN.
     
     Returns
     -------
@@ -253,11 +257,17 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
 
     #Setup MCMC
     logger.debug('initializing MCMC')
-    ndim, nwalkers = 7, 100
-    nsteps = 6000
-    burnInSize = 500
-    maxLikilhoodSize = 300
-    logger.info('Running with {} walkers, for {} steps, using a burn in cut after {} steps'.format(nwalkers, nsteps, burnInSize))
+    if debug:
+        ndim, nwalkers = 7, 14
+        logger.debug('running a shorter MCMC run')
+        nsteps = 20
+        burnInSize = 10
+        maxLikilhoodSize = 10
+    else:
+        ndim, nwalkers = 7, 100
+        nsteps = 6000
+        burnInSize = 500
+        maxLikilhoodSize = 300
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
 
     # "Maximize" likelihood for initial guess
@@ -283,7 +293,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
     pos[:,6] = np.random.uniform(-30, -20, size=nwalkers)    #c
 
     print('Running MCMC for initial position')
-    logger.info('Running MCMC for initial position with {} steps'.format(maxLikilhoodSize))
+    logger.info('Running MCMC for initial position with {} walkers, for {} steps'.format(nwalkers, maxLikilhoodSize))
     pos, prob, state = sampler.run_mcmc(pos, maxLikilhoodSize)
     
     #get position with "maximum" likelihood from limited run
@@ -298,6 +308,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
 
     #Run full MCMC analysis
     print('Running full MCMC fit')
+    logger.info('Running with {} walkers, for {} steps, using a burn in cut after {} steps'.format(nwalkers, nsteps, burnInSize))
     logger.info('Running full MCMC fit')
     sampler.run_mcmc(pos, nsteps)
     logger.debug('Finished full MCMC fit')
@@ -386,7 +397,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None):
     return samples
 
 
-def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None):
+def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug=False):
     """calculateAge either from a given Star Formation History (SFH) or from a 
     *ugriz* SED. If a SED is given (the default) then it calculates the SFH by 
     calling `calculateSFH()`.
@@ -410,6 +421,10 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None):
     sp : fsps.fsps.StellarPopulation, optional
         An optional argument of an FSPS StellarPopulation if you don't want 
         make a new one with the default settings of `calculateSFH()`.
+    debug : bool
+        Flag to have MCMC run incredibly short and in no way accurately. Also 
+        does not save resulting chain. Should take around ~12 mins to get a 
+        value of one SN.
     
     Returns
     -------
@@ -446,7 +461,7 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None):
     if isSED:
         logger.info('Calculating SFH')
         # no need for SNID. We can save in this function.
-        samples = calculateSFH(x, SEDerr, redshift)
+        samples = calculateSFH(x, SEDerr, redshift, debug=debug)
         # logger.info('importing SFH to speed!!!!!')
         # samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
         #extract variables
@@ -525,23 +540,34 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None):
 
     age = ageOfUniverse.to('Gyr').value - numerator/denominator
 
-    # if MCMC was ran --> save full MCMC results with age
-    if isSED:
-        logger.debug('saving full MCMC & age data')
-        samples = np.append(samples, age.reshape(age.size, 1), axis=-1)
+    # get median +/- 1 sigma like from MCMC example. 
+    #Reshape to (1,3) so all 3 values are passed to lambda over 1 iteration.
+    age_precentiels = list(map(lambda v: (v[1], v[2]-v[1], v[1]-v[0]), 
+                               np.percentile(age, [16, 50, 84]).reshape(1,3)))
+    logger.info('Age is: '+ str(age_precentiels))
 
-        header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\tage\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag\tGyr'
-        np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
+    #only save data/figure if running full run.
+    if debug:
+        logger.info('skipping saving of data while debugging')
+    else:
+        # if MCMC was ran --> save full MCMC results with age
+        if isSED:
+            logger.debug('saving full MCMC & age data')
+            samples = np.append(samples, age.reshape(age.size, 1), axis=-1)
+
+            header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\tage\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag\tGyr'
+
+            np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
                     delimiter='\t', header=header)
-        logger.info('saved resources/SN{}_chain.tsv')
+            logger.info('saved resources/SN{}_chain.tsv'.format(SNID))
 
-        #only on a Mac, make corner plot of MCMC parameters & Age
-        if platform.system() == 'Darwin':
-            import corner
-            fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$", "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c', 'age'])
-            fig.savefig("figures/SF_Age_triangle.pdf")
+            #only on a Mac, make corner plot of MCMC parameters & Age
+            if platform.system() == 'Darwin':
+                import corner
+                fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$", "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c', 'age'])
+                fig.savefig("figures/SF_Age_triangle.pdf")
 
         print(np.nanmedian(age))
         print(np.median(age))
     
-    return age
+    return np.nanmedian(age)
