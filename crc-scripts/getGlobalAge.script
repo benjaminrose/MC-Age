@@ -1,0 +1,13 @@
+#!/bin/csh
+#$ -M brose3@nd.edu  # email for notifications
+#$ -m abe            # send mail when begins, ends and aborts
+#$ -N global-age-05-05          # specific job name
+#$ -q long           # debug or long queue
+#$ -r y              # or n Tell SGE if your job is "re-runnable"
+#$ -t 1-13:1       # set up job array
+
+module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
+
+fsync -d 300 $SGE_STDOUT_PATH &  ## Save to output every 300 seconds
+cd ..    # get to the correct logging file folder
+python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/main.py ${SGE_TASK_ID}
