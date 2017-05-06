@@ -3973,3 +3973,86 @@
                 for SN10028 produced a zero integrated SFH in the age calculation.
 2017-04-19 08:35:40,500 - localEnvironments.calculateAge.calculateAge - INFO - saved resources/SN{}_chain.tsv
 2017-04-19 08:35:40,727 - localEnvironments - INFO - Done
+2017-05-02 17:39:28,263 - localEnvironments - INFO - Starting
+2017-05-02 17:39:52,531 - localEnvironments - INFO - Starting
+2017-05-02 17:39:53,949 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-05-02 17:39:53,949 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-05-02 17:39:53,949 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-05-02 17:40:22,596 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 100 walkers, for 6000 steps, using a burn in cut after 500 steps
+2017-05-02 17:40:22,611 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 300 steps
+2017-05-02 21:45:22,290 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -1.50046434   1.3585933    2.35582652   4.5755652    8.71152907
+  -1.14436999 -25.46343518]
+2017-05-02 21:45:22,326 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-05-03 11:46:43,246 - localEnvironments - INFO - Starting
+2017-05-03 11:46:44,711 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-05-03 11:46:44,712 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-05-03 11:46:44,712 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-05-03 11:47:06,860 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 100 walkers, for 6000 steps, using a burn in cut after 500 steps
+2017-05-03 11:47:06,874 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 300 steps
+2017-05-03 12:01:49,000 - localEnvironments - INFO - Starting
+2017-05-03 12:01:50,470 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-05-03 12:01:50,470 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-05-03 12:01:50,470 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-05-03 12:02:13,297 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 100 walkers, for 6000 steps, using a burn in cut after 500 steps
+2017-05-03 12:02:13,306 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 300 steps
+2017-05-03 13:52:00,320 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -1.19007319   1.3077925    2.53829948   6.21760062   9.88718028
+  -3.29911346 -25.24164502]
+2017-05-03 13:52:00,359 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-05-05 10:56:55,967 - localEnvironments - INFO - Starting
+2017-05-05 10:56:57,500 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-05-05 10:56:57,501 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-05-05 10:56:57,501 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-05-05 10:57:21,580 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 100 walkers, for 6000 steps, using a burn in cut after 500 steps
+2017-05-05 10:57:21,596 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 300 steps
+2017-05-05 11:49:44,778 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -0.85876445   1.07381844   5.77145665   8.59708779   8.89088488
+  -5.98047741 -25.02828464]
+2017-05-05 11:49:44,828 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-05-05 12:04:51,589 - localEnvironments - INFO - Starting
+2017-05-05 12:04:53,249 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-05-05 12:04:53,249 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-05-05 12:04:53,249 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-05-05 12:05:18,378 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 14 walkers, for 150 steps, using a burn in cut after 25 steps
+2017-05-05 12:05:18,400 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 10 steps
+2017-05-05 12:16:16,026 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -1.45444156   1.01017374   2.59729167   3.25396557   5.36323415
+  -0.69794786 -25.41671306]
+2017-05-05 12:16:16,030 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-05-05 12:19:41,151 - localEnvironments.calculateAge.calculateSFH - INFO - saved resources/temp/chain_1494001181.12.tsv
+2017-05-05 12:19:41,153 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.4         0.56666667  0.40666667  0.40666667  0.36666667  0.38        0.4
+  0.42666667  0.46        0.35333333  0.36        0.42666667  0.46666667
+  0.48      ]
+2017-05-05 12:19:41,157 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for logzsol, dust2, tau, tStart, sfTrans, sfSlope, c:
+2017-05-05 12:19:41,157 - localEnvironments.calculateAge.calculateSFH - INFO - (-1.3398095755012105, 0.091001542361861532, 0.11533484177405762), (1.0351165799378244, 0.08695263542341003, 0.025913726123734548), (2.5471624781642515, 0.31703598757375273, 0.29404540202399243), (3.1588711914979353, 0.5964107133165637, 0.49453891148175355), (5.1036028361775774, 0.27240997347285578, 0.61111830494285702), (-0.71462820219564693, 0.17266514156874857, 0.12805516465460942), (-25.46646056377994, 0.062614242207914117, 0.052955476758661746)
+2017-05-05 12:19:55,368 - localEnvironments.calculateAge.calculateAge - INFO - saved resources/SN{}_chain.tsv
+2017-05-05 12:20:05,450 - localEnvironments - INFO - Done
+2017-05-05 13:09:29,786 - localEnvironments - INFO - Starting
+2017-05-05 13:10:10,831 - localEnvironments - INFO - Starting
+2017-05-05 13:10:12,374 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-05-05 13:10:12,374 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-05-05 13:10:12,374 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-05-05 13:10:37,076 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 14 walkers, for 10 steps
+2017-05-05 13:20:24,369 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -0.9387983    1.31042533   4.02503792   6.38870302  10.96631753
+  -0.07359481 -24.3643928 ]
+2017-05-05 13:20:24,374 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 14 walkers, for 20 steps, using a burn in cut after 10 steps
+2017-05-05 13:20:24,374 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-05-05 13:20:54,429 - localEnvironments.calculateAge.calculateSFH - INFO - saved resources/temp/chain_1494004854.42.tsv
+2017-05-05 13:20:54,430 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.5   0.5   0.35  0.45  0.5   0.35  0.45  0.55  0.65  0.55  0.5   0.4
+  0.65  0.55]
+2017-05-05 13:20:54,431 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for logzsol, dust2, tau, tStart, sfTrans, sfSlope, c:
+2017-05-05 13:20:54,431 - localEnvironments.calculateAge.calculateSFH - INFO - (-0.93776663390711001, 0.00086402707684596347, 0.00079635248282472482), (1.3148371503735585, 0.0018248873389885567, 0.0030459500910071657), (4.023220698901012, 0.014544953270569927, 0.0065676956021105681), (6.3807497334154455, 0.010814701250939862, 0.015186940285345507), (10.973371852837047, 0.017634688652812258, 0.025675633284382826), (-0.073584952143344456, 0.00015787950562951014, 5.1191080871287875e-05), (-24.394987175182983, 0.010042077776653002, 0.0075242289090944325)
+2017-05-05 13:24:35,461 - localEnvironments - INFO - Starting
+2017-05-05 13:24:36,705 - localEnvironments.calculateAge.calculateAge - INFO - called calculateAge
+2017-05-05 13:24:36,706 - localEnvironments.calculateAge.calculateAge - INFO - Calculating SFH
+2017-05-05 13:24:36,706 - localEnvironments.calculateAge.calculateSFH - INFO - called calculateSFH
+2017-05-05 13:24:59,697 - localEnvironments.calculateAge.calculateSFH - INFO - Running MCMC for initial position with 14 walkers, for 10 steps
+2017-05-05 13:35:27,916 - localEnvironments.calculateAge.calculateSFH - INFO - Best position from initial search: [ -0.96727871   0.71752468   3.04672123   3.81485503  10.03901436
+  -5.33853316 -24.83442689]
+2017-05-05 13:35:27,919 - localEnvironments.calculateAge.calculateSFH - INFO - Running with 14 walkers, for 20 steps, using a burn in cut after 10 steps
+2017-05-05 13:35:27,919 - localEnvironments.calculateAge.calculateSFH - INFO - Running full MCMC fit
+2017-05-05 13:35:58,950 - localEnvironments.calculateAge.calculateSFH - INFO - saved resources/temp/chain_1494005758.94.tsv
+2017-05-05 13:35:58,951 - localEnvironments.calculateAge.calculateSFH - INFO - Acceptance fraction: [ 0.4   0.6   0.5   0.5   0.25  0.65  0.4   0.6   0.6   0.4   0.5   0.6
+  0.65  0.55]
+2017-05-05 13:35:58,952 - localEnvironments.calculateAge.calculateSFH - INFO - MCMC values for logzsol, dust2, tau, tStart, sfTrans, sfSlope, c:
+2017-05-05 13:35:58,953 - localEnvironments.calculateAge.calculateSFH - INFO - (-0.96642895337659962, 0.002541665131197246, 0.0016438300470985601), (0.71764380976494713, 0.0028405390934590491, 0.0011324164336736775), (3.0436870711712216, 0.0038494359128748989, 0.0060559183418140705), (3.8141698854971779, 0.0042120740883428986, 0.010185474465628008), (10.042388641246857, 0.0087130633914096478, 0.040359051177196292), (-5.3363943409086421, 0.019960368534681194, 0.023539996591463996), (-24.852115045947929, 0.012944568654432942, 0.01645232862430035)
+2017-05-05 13:35:59,989 - localEnvironments.calculateAge.calculateAge - INFO - Age is: [(5.7756438574492721, 0.022948299492579594, 0.0049946005901224666)]
+2017-05-05 13:35:59,990 - localEnvironments.calculateAge.calculateAge - INFO - skipping saving of data while debugging
+2017-05-05 13:35:59,990 - localEnvironments - INFO - Done

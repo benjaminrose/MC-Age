@@ -1,0 +1,1 @@
+These files are split copies of `../GlobalPhotometry-Gupta.tsv` so that we can submit jobs as an array. We will submit 13 jobs of ~15 calculations each. Since the MCMC can not run well in parallel this is how I improve in my processing time: running in my serial jobs in parallel. 

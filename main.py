@@ -7,6 +7,7 @@ University of Notre Dame
 2017-01-19
 Python 3
 """
+from sys import argv
 
 import numpy as np
 import fsps
@@ -16,7 +17,13 @@ import logging
 logger = logging.getLogger("localEnvironments")
 logger.setLevel(logging.INFO)
 #create handler object to be able to change settings.
-fh = logging.FileHandler("localEnvironments.log")
+try:
+    #if a command line argument is given, this is from a job-array on the crc
+    #http://wiki.crc.nd.edu/wiki/index.php/Submitting_an_array_Job_to_SGE
+    #use log associated with this job array.
+    fh = logging.FileHandler("localEnvironments_{}.log".format(argv[1]))
+except IndexError:
+    fh = logging.FileHandler("localEnvironments.log")
 #update logging formating
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
@@ -79,12 +86,8 @@ Does dust type influence the extinction curve, and `dust1`, `dust2`, `dust_tesc`
 # fspsParameters.test_add_neb_emission()
 
 """
-# Test on global SED's
-
-We want to redo what Gupta did to make sure we can actually do something before we analyze on new data. 
+# Get MCMC running and be able to calculate an age with uncertainties.
 """
-# import redoGupta
-
 
 import calculateAge
 #####
@@ -132,7 +135,8 @@ redshift = 0.065
 # redshift = 0.084
 # results = calculateAge.calculateSFH(SED, SEDerr, redshift, 10028)#, sp=sp)
 # print('calculateSFH(): ', results)
-results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, debug=True)
+# results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028)
+# results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, debug=True)
 # print('calculateAge(): ', results)
 # Currently Fails!!
 
@@ -143,5 +147,15 @@ results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, debug=Tru
 # redshift = 0.084
 # results = calculateAge.calculateAge(redshift, SED, SEDerr)
 # print('calcualteAge()')
+
+"""
+# Test on global SED's
+
+We want to redo what Gupta did to make sure we can actually do something before we analyze on new data. 
+"""
+import redoGupta
+
+# redoGupta.redoGupta(argv[1], debug=True)
+redoGupta.redoGupta(argv[1])
 
 logger.info('Done')

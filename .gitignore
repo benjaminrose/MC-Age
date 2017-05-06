@@ -12,5 +12,6 @@
 
 #data
 data/*/
+!data/GlobalPhotometry-Split/
 figures/*
 resources/temp/*

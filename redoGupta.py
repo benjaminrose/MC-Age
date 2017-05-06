@@ -8,13 +8,21 @@ University of Notre Dame
 2017-03-23
 Python 3.5
 """
+import logging
+
 import numpy as np
 import pandas as pd
 from astropy import units as u
 from astropy.coordinates import SkyCoord
-from astroquery.sdss import SDSS
+
+import calculateAge
+
+module_logger = logging.getLogger("localEnvironments.redoGupta")
 
 def getPhotometry():
+    #this gives annoying warnings, so I moved it here
+    from astroquery.sdss import SDSS
+
     #Get global photometry of objects observed by Gupta
     data = pd.read_csv('data/Gupta11_table2.txt', delimiter='\t', 
                        skiprows=[0,1,2], skipinitialspace=True, 
@@ -73,5 +81,58 @@ def getPhotometry():
 #Run `calculateAge.py` running 15 objects (~5 days on CRC) per job array 
 #Gupta has ~210 objects so a complete job array needs 14 objects
 
+def redoGupta(jobID, debug=False):
+    """This runs through each broken-up tsv of the global photometry and calling
+     calculateAge to save global age calculations.
+    
+    Parameters
+    ----------
+    jobID : int
+        This is the ID of the global photometry tsv to be used. Should come from
+        the crc job-array ID.
+
+    debug : bool
+        Flag to have MCMC run incredibly short and in no way accurately. Also 
+        does not save resulting chain. Should take around ~12 mins to get a 
+        value of one SN.
+
+    Raises
+    ------
+    
+    Notes
+    -----
+    
+    Examples
+    --------
+    
+    """
+
+    # Import data file
+    data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
+                       delimiter='\t', skiprows=[0,1,2,4],
+                       skipinitialspace=True, na_values='...', index_col=False)
+
+    # Iterate over each SN in data file
+    i = 0
+    #iterate over a zip of SNID, photometry (zipped together), photometry 
+    #uncertainty (zipped together), and redshift
+    #note http://stackoverflow.com/questions/10729210/iterating-row-by-row-through-a-pandas-dataframe 
+    #and http://stackoverflow.com/questions/7837722/what-is-the-most-efficient-way-to-loop-through-dataframes-with-pandas/34311080#34311080
+    for sn, photometry, uncertainty, redshift in zip(
+                data['SNID'], 
+                zip(data['u'], data['g'], data['r'], data['i'], data['g']),
+                zip(data['err_u'], data['err_g'], data['err_r'], data['err_i'],
+                    data['err_g']),
+                data['redshift']
+            ):
+
+        # calculate age
+        #does this save the data tagged as global?
+        age = calculateAge.calculateAge(redshift, photometry, uncertainty, 
+                                        SNID=sn, debug=debug)
+        print("redoGupta's age: ", age)
+        break
+
 if __name__ == '__main__':
-    getPhotometry()
+    # getPhotometry()
+    redoGupta(1)
