@@ -265,8 +265,8 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
         maxLikilhoodSize = 10
     else:
         ndim, nwalkers = 7, 100
-        nsteps = 6000
-        burnInSize = 500
+        nsteps = 3000 #6000 for long run
+        burnInSize = 400
         maxLikilhoodSize = 300
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
 
