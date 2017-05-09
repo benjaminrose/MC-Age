@@ -106,6 +106,7 @@ def redoGupta(jobID, debug=False):
     --------
     
     """
+    logger = logging.getLogger("localEnvironments.redoGupta.redoGupta")
 
     # Import data file
     logger.info('importing GlobalPhotometry-Gupta-{}.tsv'.format(jobID))
