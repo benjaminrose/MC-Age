@@ -540,10 +540,14 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
 
     age = ageOfUniverse.to('Gyr').value - numerator/denominator
 
+    #Warn if any age calculations produce NaN
+    if np.isnan(age).any():
+        logger.warning("part of the age calculations for SN{} are not a number".format(SNID))
     # get median +/- 1 sigma like from MCMC example. 
     #Reshape to (1,3) so all 3 values are passed to lambda over 1 iteration.
+    #ignore NaNs. They should be such a small percent and will be followed up
     age_precentiels = list(map(lambda v: (v[1], v[2]-v[1], v[1]-v[0]), 
-                               np.percentile(age, [16, 50, 84]).reshape(1,3)))
+                               np.nanpercentile(age, [16, 50, 84]).reshape(1,3)))
     logger.info('Age is: '+ str(age_precentiels))
 
     #only save data/figure if running full run.

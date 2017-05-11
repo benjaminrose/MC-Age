@@ -133,7 +133,7 @@ def redoGupta(jobID, debug=False):
         logger.info('getting age for SN' + str(sn))
         age = calculateAge.calculateAge(redshift, photometry, uncertainty, 
                                         SNID=sn, debug=debug)
-        logger.info("redoGupta's age for SN{}: ".format(sn) + 'age')
+        logger.info("redoGupta's age for SN{}: ".format(sn) + str(age))
         print("redoGupta's age for SN{}: ".format(sn), age)
         
 
