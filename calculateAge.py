@@ -487,32 +487,6 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
     just calculate the expected age for each index. This gives us the same 
     number of ages as samples and gives a us a distribution for the age.
     '''
-    ##################
-    #helper functions
-    ##################
-    #http://stackoverflow.com/questions/32877587/rampfunction-code
-    ramp = lambda x: x if x >= 0 else 0 #Simha14's Delta function (eqn 6)
-    heavyside = lambda x: 1 if x >=0 else 0
-    def starFormation(t, tau, tStart, sfTrans, sfSlope):
-        '''
-        Defined piecewise around `sfTrans` time. 
-        no variables can be arrays! ALso must return a float!
-        '''
-        if t <= sfTrans:
-            sf = heavyside(t-tStart)*(t-tStart)*np.e**(-(t-tStart)/tau)
-        else:
-            sf =( heavyside(t-tStart)*(t-tStart)*np.e**(-(t-tStart)/tau) +
-                 sfSlope*ramp(t-sfTrans) ) #\Delta \def sfSlope*ramp() in Simha
-            # sf = (sfTrans-tStart)
-            # np.e**(-(sfTrans-tStart)/tau) + sfSlope*ramp(t-sfTrans) ) #\Delta \def sfSlope*ramp() in Simha
-
-        #only return positive star formation
-        if sf < 0:
-            return 0
-        else:
-            return sf
-    tStarFormation = lambda t, *args: t*starFormation(t, *args)
-    ##################
 
     ## Calculate Age!
     ageOfUniverse = cosmo.age(redshift)
@@ -538,6 +512,9 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
             numerator[-1] = integrate.romb(num_y, dx)
             denominator[-1] = integrate.romb(den_y, dx)
 
+    # This is from Gupta 2011 Equation 3 but with a change in t_0. He used t_0
+    # = start of star formation, I use t_0 = big bang. Explained in FIndings 
+    # on 2017-05-10.
     age = ageOfUniverse.to('Gyr').value - numerator/denominator
 
     #Warn if any age calculations produce NaN
@@ -568,10 +545,46 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
             #only on a Mac, make corner plot of MCMC parameters & Age
             if platform.system() == 'Darwin':
                 import corner
-                fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", "$tau$", "$t_{start}$", "$t_{trans}$", '$sf slope$', 'c', 'age'])
+                fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", 
+                                    "$tau$", "$t_{start}$", "$t_{trans}$", 
+                                    '$sf slope$', 'c', 'age'])
                 fig.savefig("figures/SF_Age_triangle.pdf")
 
         print(np.nanmedian(age))
         print(np.median(age))
     
     return np.nanmedian(age)
+
+##################
+#helper functions for Star Formation History
+#All these functions use t_0 = Big Band. Gupta 2011 Age calculation 
+#assumes t_0 is the start of star formation. Details in Findings 2017-05-10
+##################
+#http://stackoverflow.com/questions/32877587/rampfunction-code
+ramp = lambda x: x if x >= 0 else 0 #Simha14's Delta function (eqn 6)
+
+heavyside = lambda x: 1 if x >=0 else 0
+
+def starFormation(t, tau, tStart, sfTrans, sfSlope):
+    '''
+    Defined piecewise around `sfTrans` time. 
+    no variables can be arrays! ALso must return a float!
+    '''
+    if t <= sfTrans:
+        sf = heavyside(t-tStart)*(t-tStart)*np.e**(-(t-tStart)/tau)
+    else:
+        sf = ( starFormation(sfTrans, tau, tStart, sfTrans, sfSlope) +
+             sfSlope*ramp(t-sfTrans) ) #\Delta \def sfSlope*ramp() in Simha
+
+    #only return a positive star formation
+    if sf <= 0:
+        return 0
+    else:
+        return sf
+
+# This needs to multiply star formation by t-tStart for integral in numerator of
+# age calculation. Details on why it is different then Gupta 2011 equation 3 is
+# in Findings "Can I redo Gupta's results with our improved SFH?" on 2017-05-10.
+#Note: args[1] needs to be `tStart` to work when passed to `starFormation()`
+tStarFormation = lambda t, *args: (t-args[1])*starFormation(t, *args)
+##################
