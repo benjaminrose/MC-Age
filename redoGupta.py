@@ -47,7 +47,7 @@ def getPhotometry():
                                                      'err_z']
                                      )
         if results is None:
-            print(f'host of SN{data.loc[i, "SN ID"]} not found with a spectrum')
+            print('host of SN{} not found with a spectrum'.format(data.loc[i, "SN ID"]))
             #remove spec option
             results = SDSS.query_region(Galpos, radius=3*u.arcsec, 
                                     photoobj_fields=['objid', 'ra', 'dec', 
@@ -57,7 +57,7 @@ def getPhotometry():
                                                      'err_z']
                                      )
             if results is None:
-                print(f'host of SN{data.loc[i, "SN ID"]} not found')
+                print('host of SN{} not found'.format(data.loc[i, "SN ID"]))
                 continue
         # import pdb; pdb.set_trace()
         if len(results) == 1:
@@ -106,8 +106,10 @@ def redoGupta(jobID, debug=False):
     --------
     
     """
+    logger = logging.getLogger("localEnvironments.redoGupta.redoGupta")
 
     # Import data file
+    logger.info('importing GlobalPhotometry-Gupta-{}.tsv'.format(jobID))
     data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
                        delimiter='\t', skiprows=[0,1,2,4],
                        skipinitialspace=True, na_values='...', index_col=False)
@@ -128,10 +130,12 @@ def redoGupta(jobID, debug=False):
 
         # calculate age
         #does this save the data tagged as global?
+        logger.info('getting age for SN' + str(sn))
         age = calculateAge.calculateAge(redshift, photometry, uncertainty, 
                                         SNID=sn, debug=debug)
-        print("redoGupta's age: ", age)
-        break
+        logger.info("redoGupta's age for SN{}: ".format(sn) + str(age))
+        print("redoGupta's age for SN{}: ".format(sn), age)
+        
 
 if __name__ == '__main__':
     # getPhotometry()
