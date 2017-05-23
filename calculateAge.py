@@ -514,8 +514,8 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
 
     # This is from Gupta 2011 Equation 3 but with a change in t_0. He used t_0
     # = start of star formation, I use t_0 = big bang. Explained in FIndings 
-    # on 2017-05-10.
-    age = ageOfUniverse.to('Gyr').value - numerator/denominator
+    # on 2017-05-10 & updated on 2017-05-15
+    age = ageOfUniverse.to('Gyr').value - tStart - numerator/denominator
 
     #Warn if any age calculations produce NaN
     if np.isnan(age).any():
