@@ -1,4 +1,5 @@
 # General
+
 *.pyc
 *.tar.gz
 .DS_Store
@@ -7,17 +8,28 @@
 .ipynb_checkpoints/
 *.log
 
-# Specific
-data/notUsedYet/   #these are raw files that might be used later in the project
-data/SDSS - coadded/   #ugriz photometry images of field containing hosts
-data/SDSS - spectra/   #spectra of hosts (global?) from ???
-data/SMP-photometry/   #results of Holtzman 2008
 
+# Specific
+
+## these are raw files that might be used later in the project
+data/notUsedYet/
+## ugriz photometry images of field containing hosts
+data/SDSS\ -\ coadded/
+## spectra of hosts (global?) from ???
+data/SDSS\ -\ spectra/
+## results of Holtzman 2008
+data/SMP-photometry/
+
+## Don't save figures
 *.pdf
 *.png
 
+## this is for mcmc chains before the age is calculated, they are redundant
 resources/temp/*
+## This folder is 10GB
 resources/global/*
 
+
 # May track later
+
 test*.py
