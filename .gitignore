@@ -1,18 +1,23 @@
-# python
+# General
 *.pyc
-
-# general
 *.tar.gz
-
-# Spotlight index
 .DS_Store
-
-# user specific sublime project data
 *.sublime-workspace
+.cache/
+.ipynb_checkpoints/
+*.log
 
-#data
-data/*/
-!data/GlobalPhotometry-Split/
-figures/*
+# Specific
+data/notUsedYet/   #these are raw files that might be used later in the project
+data/SDSS - coadded/   #ugriz photometry images of field containing hosts
+data/SDSS - spectra/   #spectra of hosts (global?) from ???
+data/SMP-photometry/   #results of Holtzman 2008
+
+*.pdf
+*.png
+
 resources/temp/*
 resources/global/*
+
+# May track later
+test*.py
