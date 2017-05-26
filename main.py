@@ -1,4 +1,15 @@
-""" main.py -- Looking for correlations between HR and local environments/ages
+"""Local Environment Effects on SNIa -- Looking for correlations between HR
+and local environments/ages via SDSS Scene Modeling Photometry
+
+Usage:
+    main.py testFspsParameters
+    main.py calculateAge [-sn=SNID]
+    main.py gupta
+    main.py (-h | --help)
+    main.py --version
+
+Option:
+    -d --debug
 
 Benjamin Rose
 brose3@nd.edu
@@ -9,27 +20,11 @@ Python 3
 """
 from sys import argv
 
+from docopt import docopt
+
 import numpy as np
 import fsps
 import logging
-
-#initiate logger
-logger = logging.getLogger("localEnvironments")
-logger.setLevel(logging.INFO)
-#create handler object to be able to change settings.
-try:
-    #if a command line argument is given, this is from a job-array on the crc
-    #http://wiki.crc.nd.edu/wiki/index.php/Submitting_an_array_Job_to_SGE
-    #use log associated with this job array.
-    fh = logging.FileHandler("localEnvironments_{}.log".format(argv[1]))
-except IndexError:
-    fh = logging.FileHandler("localEnvironments.log")
-#update logging formating
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-fh.setFormatter(formatter)
-# add handler to logger object
-logger.addHandler(fh)
-logger.info('Starting')
 
 """
 # Background
@@ -79,83 +74,108 @@ How important is this? I think it is very important for hosts with large positiv
 
 Does dust type influence the extinction curve, and `dust1`, `dust2`, `dust_tesc` account for attenuation? Note young stars get both `dust1` **&** `dust2`. 
 """
-# import fspsParameters 
+def testFspsParameters():
+    import fspsParameters 
 
-# print(fspsParameters.test_compute_vega_mags())
-# fspsParameters.test_neg_ri_color()
-# fspsParameters.test_add_neb_emission()
+    # print(fspsParameters.test_compute_vega_mags())
+    # fspsParameters.test_neg_ri_color()
+    # fspsParameters.test_add_neb_emission()
 
 """
 # Get MCMC running and be able to calculate an age with uncertainties.
 """
 
-import calculateAge
-#####
-#unit tests
-#####
-# runFSPS()
-# - should return a list with 5 arguments
-# sp = fsps.StellarPopulation(zcontinuous=2, logzsol=0, dust1=1.0, dust2=0.5,
-        # cloudy_dust=True, sfh=4)
-# redshift = 0.084
-logzsol = 0.0
-dust2 = 0.1
-tau = 1
-tStart = 1
-sfTrans = 10
-sfSlope = 1
-# results = calculateAge.runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope)
-# print('runFSPS(): ', results)
-# currently succeeds! We get a list with 5 parameters
+def calculateAge(SNID):
+    import calculateAge
+    #####
+    #unit tests
+    #####
+    # runFSPS()
+    # - should return a list with 5 arguments
+    # sp = fsps.StellarPopulation(zcontinuous=2, logzsol=0, dust1=1.0, dust2=0.5,
+            # cloudy_dust=True, sfh=4)
+    # redshift = 0.084
+    logzsol = 0.0
+    dust2 = 0.1
+    tau = 1
+    tStart = 1
+    sfTrans = 10
+    sfSlope = 1
+    # results = calculateAge.runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope)
+    # print('runFSPS(): ', results)
+    # currently succeeds! We get a list with 5 parameters
 
-#lnlike() 
-# - should return a float
-#[logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]`.
-c = -20
-theta = [logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]
-#from SN12781, or 2006er just using the values in the file
-# SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
-# SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
-# redshift = 0.084
-#from SN10028, or ? just using the values in the file
-SED = np.array([21.22, 19.45, 18.64, 18.27, 17.98])
-SEDerr = np.array([0.041, 0.004, 0.019, 0.012, 0.004])
-redshift = 0.065
-# results = calculateAge.lnlike(theta, SED, SEDerr, redshift, sp)
-# print('lnlike(): ')
-# print(type(results))
-# print(results)
-# print('where is this X < 0 coming from?')
+    #lnlike() 
+    # - should return a float
+    #[logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]`.
+    c = -20
+    theta = [logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]
+    #from SN12781, or 2006er just using the values in the file
+    # SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
+    # SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
+    # redshift = 0.084
+    #from SN10028, or ? just using the values in the file
+    SED = np.array([21.22, 19.45, 18.64, 18.27, 17.98])
+    SEDerr = np.array([0.041, 0.004, 0.019, 0.012, 0.004])
+    redshift = 0.065
+    # results = calculateAge.lnlike(theta, SED, SEDerr, redshift, sp)
+    # print('lnlike(): ')
+    # print(type(results))
+    # print(results)
+    # print('where is this X < 0 coming from?')
 
-#calculateSFH()
-# sp = fsps.StellarPopulation(zcontinuous=2, logzsol=0, dust1=1.0, dust2=0.5,
-        # cloudy_dust=True, sfh=4)
-# SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
-# SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
-# redshift = 0.084
-# results = calculateAge.calculateSFH(SED, SEDerr, redshift, 10028)#, sp=sp)
-# print('calculateSFH(): ', results)
-# results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028)
-# results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, debug=True)
-# print('calculateAge(): ', results)
-# Currently Fails!!
+    #calculateSFH()
+    # sp = fsps.StellarPopulation(zcontinuous=2, logzsol=0, dust1=1.0, dust2=0.5,
+            # cloudy_dust=True, sfh=4)
+    # SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
+    # SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
+    # redshift = 0.084
+    # results = calculateAge.calculateSFH(SED, SEDerr, redshift, 10028)#, sp=sp)
+    # print('calculateSFH(): ', results)
+    # results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028)
+    # results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, debug=True)
+    # print('calculateAge(): ', results)
+    # Currently Fails!!
 
 
-#from SN12781, or 2006er just using the values in the file
-# SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
-# SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
-# redshift = 0.084
-# results = calculateAge.calculateAge(redshift, SED, SEDerr)
-# print('calcualteAge()')
+    #from SN12781, or 2006er just using the values in the file
+    # SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
+    # SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
+    # redshift = 0.084
+    # results = calculateAge.calculateAge(redshift, SED, SEDerr)
+    # print('calcualteAge()')
 
 """
 # Test on global SED's
 
 We want to redo what Gupta did to make sure we can actually do something before we analyze on new data. 
 """
-import redoGupta
+def redoGupta(jobID, debug):
+    import redoGupta
 
-# redoGupta.redoGupta(argv[1], debug=True)
-redoGupta.redoGupta(argv[1])
+    if debug:
+        redoGupta.redoGupta(jobID, debug=True)
+    else:
+        redoGupta.redoGupta(jobID)
 
-logger.info('Done')
+if __name__ == '__main__':
+
+    #initiate logger
+    logger = logging.getLogger("localEnvironments")
+    logger.setLevel(logging.INFO)
+    #create handler object to be able to change settings.
+    try:
+        #if a command line argument is given, this is from a job-array on the crc
+        #http://wiki.crc.nd.edu/wiki/index.php/Submitting_an_array_Job_to_SGE
+        #use log associated with this job array.
+        fh = logging.FileHandler("localEnvironments_{}.log".format(argv[1]))
+    except IndexError:
+        fh = logging.FileHandler("localEnvironments.log")
+    #update logging formating
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    # add handler to logger object
+    logger.addHandler(fh)
+    logger.info('Starting')
+
+    logger.info('Done')
