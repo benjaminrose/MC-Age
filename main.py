@@ -118,9 +118,15 @@ theta = [logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]
 # SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
 # redshift = 0.084
 #from SN10028, or ? just using the values in the file
+SNID=10028
 SED = np.array([21.22, 19.45, 18.64, 18.27, 17.98])
 SEDerr = np.array([0.041, 0.004, 0.019, 0.012, 0.004])
 redshift = 0.065
+#from SN15776 (global) that should be red and dead, but on 2017-05-11 was young and dusty
+SNID=15776
+SED = np.array([23.14426, 21.00639, 19.41827, 18.82437, 18.46391 ])
+SEDerr = np.array([0.8009404, 0.04814964, 0.01899451, 0.01771959, 0.04554904])
+redshift = 0.305
 # results = calculateAge.lnlike(theta, SED, SEDerr, redshift, sp)
 # print('lnlike(): ')
 # print(type(results))
@@ -135,7 +141,7 @@ redshift = 0.065
 # redshift = 0.084
 # results = calculateAge.calculateSFH(SED, SEDerr, redshift, 10028)#, sp=sp)
 # print('calculateSFH(): ', results)
-# results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028)
+results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID)
 # results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, debug=True)
 # print('calculateAge(): ', results)
 # Currently Fails!!
