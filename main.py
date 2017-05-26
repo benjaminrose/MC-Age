@@ -159,9 +159,9 @@ results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID)
 
 We want to redo what Gupta did to make sure we can actually do something before we analyze on new data. 
 """
-import redoGupta
+# import redoGupta
 
 # redoGupta.redoGupta(argv[1], debug=True)
-redoGupta.redoGupta(argv[1])
+# redoGupta.redoGupta(argv[1])
 
 logger.info('Done')

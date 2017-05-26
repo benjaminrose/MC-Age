@@ -180,7 +180,7 @@ def lnprior(theta, redshift):
         #return ln-prior of dust2. Centered at 0 with sigma from above. 
         #Note that this return only takes place if `dust2`>0, so this is only
         #the right and side of the Gaussian. 
-        return -1*np.log(np.sqrt(2*np.pi)sigma)-(center-dust2)**2/(2*sigma**2)
+        return -1*np.log(np.sqrt(2*np.pi)*sigma)-(center-dust2)**2/(2*sigma**2)
     
     return -np.inf
 
