@@ -283,15 +283,15 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
     # then select position with highest likelihood value.
     pos = np.zeros((nwalkers, ndim))
     '''PRIOR BOUNDS! -- with age = cosmo.age(redshift).to('Gyr').value
-        -3.0  < logzsol < 0.5      and 
-        0.0   < dust2   < 1.75     and 
+        -2.5  < logzsol < 0.5      and 
+        0.0   < dust2   <          and 
         0.1   < tau     < 10.0     and 
         0.5   < tStart  < sfTrans  and 
         1.0   < sfTrans <= age     and
         -20.0 < sfSlope < 20.0     and 
         -35.0 < c       < -15.0'''
-    pos[:,0] = np.random.uniform(-2.9, 0.4, size=nwalkers)   #logzsol
-    pos[:,1] = np.random.uniform(0.1, 1.25, size=nwalkers)   #dust2
+    pos[:,0] = np.random.uniform(-2.4, 0.4, size=nwalkers)   #logzsol
+    pos[:,1] = np.random.uniform(0.1, 0.9, size=nwalkers)   #dust2
     pos[:,2] = np.random.uniform(0.5, 5.0, size=nwalkers)    #tau
     pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    #tStart
     age = cosmo.age(redshift).to('Gyr').value
