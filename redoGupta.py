@@ -81,7 +81,7 @@ def getPhotometry():
 #Run `calculateAge.py` running 15 objects (~5 days on CRC) per job array 
 #Gupta has ~210 objects so a complete job array needs 14 objects
 
-def redoGupta(jobID, debug=False):
+def redoGupta(jobID, debug=False, useGupta=False):
     """This runs through each broken-up tsv of the global photometry and calling
      calculateAge to save global age calculations.
     
@@ -96,6 +96,11 @@ def redoGupta(jobID, debug=False):
         does not save resulting chain. Should take around ~12 mins to get a 
         value of one SN.
 
+    useGupta : bool
+        flag to switch between two "calibration" methods: redoing Gupta's
+        analysis and looking about ~10 local galaxies and making sure their
+        ages are as roughly expected.
+
     Raises
     ------
     
@@ -109,10 +114,19 @@ def redoGupta(jobID, debug=False):
     logger = logging.getLogger("localEnvironments.redoGupta.redoGupta")
 
     # Import data file
-    logger.info('importing GlobalPhotometry-Gupta-{}.tsv'.format(jobID))
-    data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
-                       delimiter='\t', skiprows=[0,1,2,4],
-                       skipinitialspace=True, na_values='...', index_col=False)
+    if useGupta:
+        logger.info('importing GlobalPhotometry-Gupta-{}.tsv'.format(jobID))
+        data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
+                           delimiter='\t', skiprows=[0,1,2,4],
+                           skipinitialspace=True, na_values='...', index_col=False)
+    else:
+        #use the alternative test -- "known" galaxies
+        logger.info('importing galaxyPhotometry.tsv')
+        data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t', 
+                            skiprows=[1], skipinitialspace=True, 
+                            na_values='...', index_col=False)
+
+        
 
     # Iterate over each SN in data file
     i = 0
