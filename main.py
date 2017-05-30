@@ -141,7 +141,7 @@ redshift = 0.305
 # redshift = 0.084
 # results = calculateAge.calculateSFH(SED, SEDerr, redshift, 10028)#, sp=sp)
 # print('calculateSFH(): ', results)
-results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID)
+## results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID)
 # results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID=10028, debug=True)
 # print('calculateAge(): ', results)
 # Currently Fails!!
@@ -159,9 +159,9 @@ results = calculateAge.calculateAge(redshift, SED, SEDerr, SNID)
 
 We want to redo what Gupta did to make sure we can actually do something before we analyze on new data. 
 """
-# import redoGupta
+import redoGupta
 
-# redoGupta.redoGupta(argv[1], debug=True)
+redoGupta.redoGupta(argv[1], lenJobs=10, debug=True, useGupta=False)
 # redoGupta.redoGupta(argv[1])
 
 logger.info('Done')
