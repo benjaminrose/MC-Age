@@ -21,9 +21,9 @@ try:
     #if a command line argument is given, this is from a job-array on the crc
     #http://wiki.crc.nd.edu/wiki/index.php/Submitting_an_array_Job_to_SGE
     #use log associated with this job array.
-    fh = logging.FileHandler("localEnvironments_{}.log".format(argv[1]))
+    fh = logging.FileHandler("logs/localEnvironments_{}.log".format(argv[1]))
 except IndexError:
-    fh = logging.FileHandler("localEnvironments.log")
+    fh = logging.FileHandler("logs/localEnvironments.log")
 #update logging formating
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
