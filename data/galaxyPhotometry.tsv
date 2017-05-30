@@ -1,4 +1,4 @@
-Galaxy Name	SNID	Type	ra	dec	u	g	r	I	z	err_u	err_g	err_r	err_i	err_z	redshift	notes
+Galaxy Name	SNID	Type	ra	dec	u	g	r	i	z	err_u	err_g	err_r	err_i	err_z	redshift	notes
 M82	82	Starburst	148.9674999	69.6797222222222	19.501	17.321	15.656	15.145	14.151	0.057	0.006	0.004	0.004	0.004	0.000677	
 M87	87	Elliptical	187.705929166667	12.3911222222222	13.48	11.563	10.703	10.272	9.917	0.003	0.002	0.002	0.002	0.002	0.0043	Virgo A NGC 4486
 M101	101	Spiral	210.802429166667	54.34875	13.671	12.219	11.529	11.237	10.883	0.004	0.002	0.002	0.002	0.002	0.000804	Pinwheel Galaxy, host of 2011fe
