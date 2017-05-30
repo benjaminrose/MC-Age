@@ -89,7 +89,7 @@ def redoGupta(jobID, lenJobs=50, debug=False, useGupta=False):
     ----------
     jobID : int
         This is the ID of the global photometry tsv to be used. Should come from
-        the crc job-array ID. Assumed to be zero-indexed.
+        the crc job-array ID. CRC says it NEEDS to be 1 indexed.
 
     lenJobs : int
         The total number of jobs that will be run when "embarrassingly"
@@ -134,7 +134,7 @@ def redoGupta(jobID, lenJobs=50, debug=False, useGupta=False):
 
     #cut down dataset
     stepSize = int(np.ceil(len(data)/lenJobs))
-    statIndex = int(jobID)*stepSize
+    statIndex = (int(jobID)-1)*stepSize
     endIndex = statIndex + stepSize
     #use `.loc` or else zips won't work
     if endIndex >= len(data):
