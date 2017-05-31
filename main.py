@@ -161,7 +161,8 @@ We want to redo what Gupta did to make sure we can actually do something before 
 """
 import redoGupta
 
-redoGupta.redoGupta(argv[1], lenJobs=10, debug=True, useGupta=False)
+redoGupta.redoGupta(argv[1], lenJobs=8, useGupta=False)
+# redoGupta.redoGupta(argv[1], lenJobs=10, debug=True, useGupta=False)
 # redoGupta.redoGupta(argv[1])
 
 logger.info('Done')
