@@ -3,3 +3,7 @@ python:
     - "3.5"
     - "3.6"
 script: pytest
+notifications:
+  email:
+    on_success: always
+    on_failure: always
