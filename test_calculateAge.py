@@ -17,4 +17,4 @@ class Test_calcualteAge_passes:
     def test_middle_of_prior_space(self):
         redshift = 0.1
         theta = [0, 1, 1, 2, 5, 0, -25]
-        assert calculateAge.lnprior(theta, redshift) == 0, "Should this fail?"
+        assert calculateAge.lnprior(theta, redshift) > -np.inf, "Should this fail?"
