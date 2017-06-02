@@ -2,21 +2,27 @@
 and local environments/ages via SDSS Scene Modeling Photometry
 
 Usage:
-    main.py testFspsParameters
-    main.py calculateAge [-sn=SNID]
-    main.py gupta
+    main.py global JOBID JOBLENGTH (gupta | messier) (-d | --debug)
     main.py (-h | --help)
     main.py --version
 
 Option:
-    -d --debug
+    -d --debug    Run shorter and with more logs
+    -h --help     Show this screen
+    --version     Show version
+    JOBID
 
 Benjamin Rose
 brose3@nd.edu
 benjamin.rose@me.com
 University of Notre Dame
 2017-01-19
-Python 3
+Python 3.5
+"""
+"""future options.
+    main.py testFspsParameters (-d | --debug)
+    main.py calculateAge [--sn=SNID] (-d | --debug)
+    main.py local (-d | --debug)
 """
 from sys import argv
 
@@ -118,6 +124,12 @@ def calculateAge(SNID):
     SED = np.array([21.22, 19.45, 18.64, 18.27, 17.98])
     SEDerr = np.array([0.041, 0.004, 0.019, 0.012, 0.004])
     redshift = 0.065
+
+    #from SN15776 (global) that should be red and dead, but on 2017-05-11 was young and dusty
+    SNID=15776
+    SED = np.array([23.14426, 21.00639, 19.41827, 18.82437, 18.46391 ])
+    SEDerr = np.array([0.8009404, 0.04814964, 0.01899451, 0.01771959, 0.04554904])
+    redshift = 0.305
     # results = calculateAge.lnlike(theta, SED, SEDerr, redshift, sp)
     # print('lnlike(): ')
     # print(type(results))
@@ -159,18 +171,35 @@ def redoGupta(jobID, debug):
         redoGupta.redoGupta(jobID)
 
 if __name__ == '__main__':
+    #parse docopts
+    args = docopt(__doc__, version='0.1')
+    print(args)
+    from sys import exit; exit()
 
-    #initiate logger
+    #Setup logger
+    ##initiate
     logger = logging.getLogger("localEnvironments")
-    logger.setLevel(logging.INFO)
+    ##set level
+    if args['--debug']:
+        logger.setLevel(logging.DEBUG)
+    else:
+        logger.setLevel(logging.INFO)
+    ##choose saving location
+    if args['global']:
+        fh = logging.FileHandler('logs/global/localEnvironments_{}.log'.format(args['JOBID']))
+    # elif args['calculateAge']
+    else:
+        fh = logging.FileHandles('logs/localEnvironments_{}.log')
+
+
     #create handler object to be able to change settings.
     try:
         #if a command line argument is given, this is from a job-array on the crc
         #http://wiki.crc.nd.edu/wiki/index.php/Submitting_an_array_Job_to_SGE
         #use log associated with this job array.
-        fh = logging.FileHandler("localEnvironments_{}.log".format(argv[1]))
+        fh = logging.FileHandler("logs/localEnvironments_{}.log".format(argv[1]))
     except IndexError:
-        fh = logging.FileHandler("localEnvironments.log")
+        fh = logging.FileHandler("logs/localEnvironments.log")
     #update logging formating
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     fh.setFormatter(formatter)

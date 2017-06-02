@@ -165,15 +165,22 @@ def lnprior(theta, redshift):
     # initial guess is `[0., 0., 1., 1., 10., 1., -20.]`
     # If `sfTrans` set to 0.0, there is no truncation.
     # should we allow sfTrans < tStart?
-    if (-3.0  < logzsol < 0.5      and 
-        0.0   < dust2   < 1.75     and 
+    if (-2.5  < logzsol < 0.5      and 
+        0.0   < dust2              and 
         0.1   < tau     < 10.0     and 
         0.5   < tStart  < sfTrans  and 
         1.0   < sfTrans <= age     and
         -20.0 < sfSlope < 20.0     and 
         -35.0 < c       < -15.0):
         
-        return 0.0
+        #high dust (dust2>1) is (starburst) is ~1% of galaxies
+        #also Conroy 2009 2.6 says 0.3 is fine for most.
+        sigma = 0.3
+        center = 0.0
+        #return ln-prior of dust2. Centered at 0 with sigma from above. 
+        #Note that this return only takes place if `dust2`>0, so this is only
+        #the right and side of the Gaussian. 
+        return -1*np.log(np.sqrt(2*np.pi)*sigma)-(center-dust2)**2/(2*sigma**2)
     
     return -np.inf
 
@@ -276,15 +283,15 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
     # then select position with highest likelihood value.
     pos = np.zeros((nwalkers, ndim))
     '''PRIOR BOUNDS! -- with age = cosmo.age(redshift).to('Gyr').value
-        -3.0  < logzsol < 0.5      and 
-        0.0   < dust2   < 1.75     and 
+        -2.5  < logzsol < 0.5      and 
+        0.0   < dust2   <          and 
         0.1   < tau     < 10.0     and 
         0.5   < tStart  < sfTrans  and 
         1.0   < sfTrans <= age     and
         -20.0 < sfSlope < 20.0     and 
         -35.0 < c       < -15.0'''
-    pos[:,0] = np.random.uniform(-2.9, 0.4, size=nwalkers)   #logzsol
-    pos[:,1] = np.random.uniform(0.1, 1.25, size=nwalkers)   #dust2
+    pos[:,0] = np.random.uniform(-2.4, 0.4, size=nwalkers)   #logzsol
+    pos[:,1] = np.random.uniform(0.1, 0.9, size=nwalkers)   #dust2
     pos[:,2] = np.random.uniform(0.5, 5.0, size=nwalkers)    #tau
     pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    #tStart
     age = cosmo.age(redshift).to('Gyr').value

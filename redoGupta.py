@@ -81,7 +81,7 @@ def getPhotometry():
 #Run `calculateAge.py` running 15 objects (~5 days on CRC) per job array 
 #Gupta has ~210 objects so a complete job array needs 14 objects
 
-def redoGupta(jobID, debug=False):
+def redoGupta(jobID, lenJobs=50, debug=False, useGupta=False):
     """This runs through each broken-up tsv of the global photometry and calling
      calculateAge to save global age calculations.
     
@@ -89,12 +89,23 @@ def redoGupta(jobID, debug=False):
     ----------
     jobID : int
         This is the ID of the global photometry tsv to be used. Should come from
-        the crc job-array ID.
+        the crc job-array ID. Assumed to be zero-indexed.
+
+    lenJobs : int
+        The total number of jobs that will be run when "embarrassingly"
+        parallelize through the input file. This lets each `jobID` know what
+        line of data it should analyze. This is not the max value of jobID, 
+        but the total number of jobID's, like `len()`.
 
     debug : bool
         Flag to have MCMC run incredibly short and in no way accurately. Also 
         does not save resulting chain. Should take around ~12 mins to get a 
         value of one SN.
+
+    useGupta : bool
+        flag to switch between two "calibration" methods: redoing Gupta's
+        analysis and looking about ~10 local galaxies and making sure their
+        ages are as roughly expected.\
 
     Raises
     ------
@@ -109,10 +120,29 @@ def redoGupta(jobID, debug=False):
     logger = logging.getLogger("localEnvironments.redoGupta.redoGupta")
 
     # Import data file
-    logger.info('importing GlobalPhotometry-Gupta-{}.tsv'.format(jobID))
-    data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
-                       delimiter='\t', skiprows=[0,1,2,4],
-                       skipinitialspace=True, na_values='...', index_col=False)
+    if useGupta:
+        logger.info('importing GlobalPhotometry-Gupta-{}.tsv'.format(jobID))
+        data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
+                           delimiter='\t', skiprows=[0,1,2,4],
+                           skipinitialspace=True, na_values='...', index_col=False)
+    else:
+        #use the alternative test -- "known" galaxies
+        logger.info('importing galaxyPhotometry.tsv')
+        data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t', 
+                            skiprows=[1], skipinitialspace=True, 
+                            na_values='...', index_col=False)
+
+    #cut down dataset
+    stepSize = int(np.ceil(len(data)/lenJobs))
+    statIndex = int(jobID)*stepSize
+    endIndex = statIndex + stepSize
+    #use `.loc` or else zips won't work
+    if endIndex >= len(data):
+        #using `[x:x]` returns a DataFrame, Using `[x]` returns a Series
+        data = data.loc[statIndex:statIndex]
+    else:
+        #`loc` is inclusive, WHY!!
+        data = data.loc[statIndex:endIndex-1]
 
     # Iterate over each SN in data file
     i = 0
@@ -133,8 +163,8 @@ def redoGupta(jobID, debug=False):
         logger.info('getting age for SN' + str(sn))
         age = calculateAge.calculateAge(redshift, photometry, uncertainty, 
                                         SNID=sn, debug=debug)
-        logger.info("redoGupta's age for SN{}: ".format(sn) + str(age))
-        print("redoGupta's age for SN{}: ".format(sn), age)
+        logger.info("Global age for SN{}: ".format(sn) + str(age))
+        print("Global age for SN{}: ".format(sn), age)
         
 
 if __name__ == '__main__':
