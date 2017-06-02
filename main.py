@@ -162,49 +162,49 @@ def calculateAge(SNID):
 
 We want to redo what Gupta did to make sure we can actually do something before we analyze on new data. 
 """
-def redoGupta(jobID, debug):
+def redoGupta(cli):
+    """ run redoGupta.py
+
+    Parameters
+    ----------
+    cli : dictionary
+        The result of docopt's parsing of the CLI.
+    """
     import redoGupta
 
-    if debug:
-        redoGupta.redoGupta(jobID, debug=True)
-    else:
-        redoGupta.redoGupta(jobID)
+    #todo: how should the CLI switch between Messier and Gupta?
+    redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
+                        cli['--debug'], cli['gupta'])
 
 if __name__ == '__main__':
     #parse docopts
-    args = docopt(__doc__, version='0.1')
-    print(args)
-    from sys import exit; exit()
+    cli = docopt(__doc__, version='alpha')
 
     #Setup logger
     ##initiate
     logger = logging.getLogger("localEnvironments")
     ##set level
-    if args['--debug']:
+    if cli['--debug']:
         logger.setLevel(logging.DEBUG)
     else:
         logger.setLevel(logging.INFO)
+
+    #create handler object to be able to change settings.    
     ##choose saving location
-    if args['global']:
-        fh = logging.FileHandler('logs/global/localEnvironments_{}.log'.format(args['JOBID']))
-    # elif args['calculateAge']
+    if cli['global']:
+        fh = logging.FileHandler('logs/global/localEnvironments_{}.log'.format(cli['JOBID']))
+        # elif cli['calculateAge']
     else:
         fh = logging.FileHandles('logs/localEnvironments_{}.log')
 
-
-    #create handler object to be able to change settings.
-    try:
-        #if a command line argument is given, this is from a job-array on the crc
-        #http://wiki.crc.nd.edu/wiki/index.php/Submitting_an_array_Job_to_SGE
-        #use log associated with this job array.
-        fh = logging.FileHandler("logs/localEnvironments_{}.log".format(argv[1]))
-    except IndexError:
-        fh = logging.FileHandler("logs/localEnvironments.log")
     #update logging formating
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     fh.setFormatter(formatter)
     # add handler to logger object
     logger.addHandler(fh)
     logger.info('Starting')
+
+    if cli['global']:
+        redoGupta(cli)
 
     logger.info('Done')

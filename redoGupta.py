@@ -121,31 +121,29 @@ def redoGupta(jobID, lenJobs=50, debug=False, useGupta=False):
 
     # Import data file
     if useGupta:
-        logger.info('importing GlobalPhotometry-Gupta-{}.tsv'.format(jobID))
-        data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
-                           delimiter='\t', skiprows=[0,1,2,4],
-                           skipinitialspace=True, na_values='...', index_col=False)
+        # logger.info('importing GlobalPhotometry-Gupta-{}.tsv'.format(jobID))
+        # data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
+        #                    delimiter='\t', skiprows=[0,1,2,4],
+        #                    skipinitialspace=True, na_values='...', index_col=False)
+        pass
     else:
         #use the alternative test -- "known" galaxies
         logger.info('importing galaxyPhotometry.tsv')
-        data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t', 
-                            skiprows=[1], skipinitialspace=True, 
-                            na_values='...', index_col=False)
-
+        data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t')
+    
     #cut down dataset
     stepSize = int(np.ceil(len(data)/lenJobs))
-    statIndex = (int(jobID)-1)*stepSize
-    endIndex = statIndex + stepSize
+    startIndex = (int(jobID)-1)*stepSize
+    endIndex = startIndex + stepSize
     #use `.loc` or else zips won't work
     if endIndex >= len(data):
         #using `[x:x]` returns a DataFrame, Using `[x]` returns a Series
-        data = data.loc[statIndex:statIndex]
+        data = data.loc[startIndex:startIndex]
     else:
         #`loc` is inclusive, WHY!!
-        data = data.loc[statIndex:endIndex-1]
+        data = data.loc[startIndex:endIndex-1]
 
     # Iterate over each SN in data file
-    i = 0
     #iterate over a zip of SNID, photometry (zipped together), photometry 
     #uncertainty (zipped together), and redshift
     #note http://stackoverflow.com/questions/10729210/iterating-row-by-row-through-a-pandas-dataframe 
