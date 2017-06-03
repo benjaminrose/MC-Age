@@ -28,8 +28,3 @@ data/SMP-photometry/
 resources/temp/*
 ## This folder is 10GB
 resources/global/*
-
-
-# May track later
-
-test*.py
