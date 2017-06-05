@@ -2,7 +2,7 @@
 and local environments/ages via SDSS Scene Modeling Photometry
 
 Usage:
-    main.py global JOBID JOBLENGTH (gupta | messier) (-d | --debug)
+    main.py global JOBID JOBLENGTH (gupta | messier) [-d | --debug]
     main.py (-h | --help)
     main.py --version
 
@@ -20,9 +20,9 @@ University of Notre Dame
 Python 3.5
 """
 """future options.
-    main.py testFspsParameters (-d | --debug)
-    main.py calculateAge [--sn=SNID] (-d | --debug)
-    main.py local (-d | --debug)
+    main.py testFspsParameters [-d | --debug]
+    main.py calculateAge (--sn=SNID) [-d | --debug]
+    main.py local [-d | --debug]
 """
 from sys import argv
 
