@@ -1,7 +1,7 @@
 language: python
 os: 
   - linux
-  - osx
+  # - osx
 
 python:
   - "3.5"
@@ -14,7 +14,7 @@ notifications:
 
 branches:
   only:
-    - master
+    - travis
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
@@ -25,5 +25,22 @@ before_install:
       brew install gcc;
     fi
 
-install: "pip install -r requirements.txt"
+addons:
+    apt:
+        packages:
+            - gfortran
+
+install: 
+  #download fsps
+  - git clone https://github.com/cconroy20/fsps libfsps
+  - cd libfsps/src
+  # replace with a travis specific makefile
+  # thanks to https://github.com/dfm/python-fsps/blob/master/.travis.yml
+  - cp ../../.travis.Makefile Makefile
+  - make all
+  - cd ../..
+  - export SPS_HOME=`pwd`/libfsps
+  # install other packages
+  - pip install -r requirements.txt
+
 script: pytest
