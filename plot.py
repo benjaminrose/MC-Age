@@ -25,7 +25,9 @@ def plotCorner(SN):
     #                   format='ascii.commented_header', delimiter='\t')
     # data = Table.read(f'resources/2017-05-11 correct age calcuation/SN{SN}_chain.tsv', 
     #                   format='ascii.commented_header', delimiter='\t')
-    data = Table.read(f'resources/global/SN{SN}_chain.tsv', 
+    # data = Table.read(f'resources/global/SN{SN}_chain.tsv', 
+    #                   format='ascii.commented_header', delimiter='\t')
+    data = Table.read(f'resources/SN{SN}_chain.tsv', 
                       format='ascii.commented_header', delimiter='\t')
 
     #clean data -- needed for SN10028 on 2017-04-18
@@ -42,9 +44,9 @@ def plotCorner(SN):
                         )
 
     # plt.show()
-    fig.savefig(f'figures/global_05-11run_SN{SN}.pdf')
+    fig.savefig(f'figures/global_06-03run_SN{SN}.pdf')
     # fig.savefig("figures/SF_Age_triangle.pdf")
 
 if __name__ == '__main__':
     # plotCorner(10028) #Original tests
-    plotCorner(18749) #from long run on crc
+    plotCorner(63) #from long run on crc
