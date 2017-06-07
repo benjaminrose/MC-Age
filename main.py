@@ -7,10 +7,12 @@ Usage:
     main.py --version
 
 Option:
-    -d --debug    Run shorter and with more logs
-    -h --help     Show this screen
-    --version     Show version
-    JOBID
+    JOBID           the ID for the piece of the data set to be analyzed
+    JOBLENGTH       the total number of objects looked at
+    gupta messier   select the dataset to analyses
+    -d --debug      Run shorter and with more logs
+    -h --help       Show this screen
+    --version       Show version
 
 Benjamin Rose
 brose3@nd.edu
@@ -24,62 +26,16 @@ Python 3.5
     main.py calculateAge (--sn=SNID) [-d | --debug]
     main.py local [-d | --debug]
 """
-from sys import argv
+__author__ = "Benjamin Rose"
+__version__ = "alpha"
+__license__ = ""
 
-from docopt import docopt
-
-import numpy as np
-import fsps
 import logging
 
-"""
-# Background
+from docopt import docopt
+import numpy as np
+import fsps
 
-"""
-
-"""
-# Goals
-
-"""
-
-"""
-# Data Selection
-
-"""
-
-"""
-# FSPS Parameters
-
-FSPS has a large number of parameters, many have clear choices, but few need investigation.
-
-## add_igm_absorption
-
-I am going to leave IGM off.
-
-## zcontinuous
-
-We want to use `logzsol` and  let the metallicity of the sample vary a bit (`pmetals`), so we set `zcontinuous = 2`
-
-## cloudy_dust
-
-`True`, dust matters!
-
-## sfh
-
-Looking at Simha 2014, we select the 4 parameter lin-exp + late time linear model. This get around the systematically over estimate of age of that basic tau-model. (`sfh = 5`)
-
-## compute_vega_mags
-
-The default is `False`, but the examples explicitly set it. Verified below and the default is `False` as expected and desired!
-
-## add_neb_emission
-
-How important is this? I think it is very important for hosts with large positive r-i (> 1). Yes it is.
-
-## dust
-
-Does dust type influence the extinction curve, and `dust1`, `dust2`, `dust_tesc` account for attenuation? Note young stars get both `dust1` **&** `dust2`. 
-"""
 def testFspsParameters():
     import fspsParameters 
 
@@ -87,11 +43,11 @@ def testFspsParameters():
     # fspsParameters.test_neg_ri_color()
     # fspsParameters.test_add_neb_emission()
 
-"""
-# Get MCMC running and be able to calculate an age with uncertainties.
-"""
 
 def calculateAge(SNID):
+    """
+    # Get MCMC running and be able to calculate an age with uncertainties.
+    """
     import calculateAge
     #####
     #unit tests
@@ -157,12 +113,12 @@ def calculateAge(SNID):
     # results = calculateAge.calculateAge(redshift, SED, SEDerr)
     # print('calcualteAge()')
 
-"""
-# Test on global SED's
-
-We want to redo what Gupta did to make sure we can actually do something before we analyze on new data. 
-"""
 def redoGupta(cli):
+    """
+    # Test on global SED's
+
+    We want to redo what Gupta did to make sure we can actually do something before we analyze on new data. 
+    """
     """ run redoGupta.py
 
     Parameters
@@ -178,7 +134,7 @@ def redoGupta(cli):
 
 if __name__ == '__main__':
     #parse docopts
-    cli = docopt(__doc__, version='alpha')
+    cli = docopt(__doc__, version=__version__)
 
     #Setup logger
     ##initiate

@@ -11,6 +11,8 @@ notifications:
   email:
     on_success: change
     on_failure: always
+  slack: 
+    rooms: ndastrophysics:E9JMFDBpGWYdRcDneK7CTFdr
 
 branches:
   only:
@@ -43,4 +45,4 @@ install:
   # install other packages
   - pip install -r requirements.txt
 
-script: pytest
+script: pytest -v
