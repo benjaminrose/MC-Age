@@ -172,7 +172,7 @@ def lnprior(theta, redshift):
         0.5   < tStart  < sfTrans  and 
         1.0   < sfTrans <= age     and
         -20.0 < sfSlope < 20.0     and 
-        -35.0 < c       < -5.0):
+        -45.0 < c       < -5.0):
         
         #high dust (dust2>1) is (starburst) is ~1% of galaxies
         #also Conroy 2009 2.6 says 0.3 is fine for most.
@@ -306,9 +306,14 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
     
     #get position with "maximum" likelihood from limited run
     best_pos = sampler.flatchain[sampler.flatlnprobability.argmax()]
-    sampler.reset()
     print('Best position from initial search: ', best_pos)
     logger.info('Best position from initial search: {}'.format(best_pos))
+    logger.info("Mean ln-probability for each walker: {}".format(
+                sampler.lnprobability.mean(-1)))
+    logger.info("Max ln-probability for each walker: {}".format(
+                sampler.lnprobability.max(-1)))
+    sampler.reset()
+    logger.info("Reset sampler's chain and lnprobability arrays")
     
     #Set up new start position as a Gaussian ball around "max" likelihood
     pos = emcee.utils.sample_ball(best_pos, best_pos/1000., size=nwalkers)
@@ -316,8 +321,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
 
     #Run full MCMC analysis
     print('Running full MCMC fit')
-    logger.info('Running with {} walkers, for {} steps, using a burn in cut after {} steps'.format(nwalkers, nsteps, burnInSize))
-    logger.info('Running full MCMC fit')
+    logger.info('Running full MCMC with {} walkers, for {} steps, using a burn in cut after {} steps'.format(nwalkers, nsteps, burnInSize))
     sampler.run_mcmc(pos, nsteps)
     logger.debug('Finished full MCMC fit')
 
@@ -328,7 +332,11 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
                 sampler.flatchain, delimiter='\t', header=header)
     logger.info('saved resources/temp/chain_'+uuid+'.tsv')
 
-    #save acceptance fraction
+    #save acceptance fraction & ln-probability
+    logger.info("Mean ln-probability for each walker: {}".format(
+                sampler.lnprobability.mean(-1)))
+    logger.info("Max ln-probability for each walker: {}".format(
+                sampler.lnprobability.max(-1)))
     #note() acceptace_fraction has len == nwalkers
     logger.info('Acceptance fraction: {}'.format(sampler.acceptance_fraction)) 
     print('Acceptance fraction: {}'.format(sampler.acceptance_fraction))
