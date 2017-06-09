@@ -1,4 +1,5 @@
-"""calculateAge.py -- This routine takes the *ugriz* and returns age PDF
+"""calculateAge.py -- This routine takes the SED photometry and computes an 
+age probability distribution
 
 Benjamin Rose
 brose3@nd.edu
