@@ -290,7 +290,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
         0.5   < tStart  < sfTrans  and 
         1.0   < sfTrans <= age     and
         -20.0 < sfSlope < 20.0     and 
-        -35.0 < c       < -5.0'''
+        -45.0 < c       < -5.0'''
     pos[:,0] = np.random.uniform(-2.4, 0.4, size=nwalkers)   #logzsol
     pos[:,1] = np.random.uniform(0.1, 0.9, size=nwalkers)   #dust2
     pos[:,2] = np.random.uniform(0.5, 5.0, size=nwalkers)    #tau
@@ -298,7 +298,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
     age = cosmo.age(redshift).to('Gyr').value
     pos[:,4] = np.random.uniform(1.2, age - 0.1, size=nwalkers)  #sfTrans
     pos[:,5] = np.random.uniform(-9.0, 9.0, size=nwalkers)   #sfSlope
-    pos[:,6] = np.random.uniform(-30, -8.0, size=nwalkers)    #c
+    pos[:,6] = np.random.uniform(-42, -8.0, size=nwalkers)    #c
 
     print('Running MCMC for initial position')
     logger.info('Running MCMC for initial position with {} walkers, for {} steps'.format(nwalkers, maxLikilhoodSize))
