@@ -1,11 +1,26 @@
 language: python
-os: 
-  - linux
-  - osx
 
-python:
-  - "3.5"
-  - "3.6"
+#matrix and generic is the best way to get travis to work with python & OSX
+matrix:
+  allow_failures:
+    - os: osx
+  include:
+      - os: linux
+        python: 3.5
+      - os: linux
+        python: 3.6
+      - os: osx
+        language: generic
+      - os: osx
+        language: generic
+
+# the old stuff
+# os: 
+#   - linux
+#   - osx
+# python:
+#   - "3.5"
+#   - "3.6"
 
 notifications:
   email: never
