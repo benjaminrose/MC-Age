@@ -11,8 +11,8 @@ matrix:
         python: 3.6
       - os: osx
         language: generic
-      - os: osx
-        language: generic
+        #will be python3 from homebrew
+        env: PYVERSION=python3
 
 # the old stuff
 # os: 
@@ -29,9 +29,9 @@ notifications:
     on_success: change
     on_failure: always
 
-branches:
-  only:
-    - master
+# branches:
+#   only:
+#     - master
 
 # get gfortran for linux builds
 addons:
@@ -41,7 +41,7 @@ addons:
 
 # get gfortran for mac builds
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc PYVERSION; fi
 
 install: 
   #download fsps
