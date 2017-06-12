@@ -1,0 +1,37 @@
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:335: RuntimeWarning: invalid value encountered in subtract
+  lnpdiff = (self.dim - 1.) * np.log(zz) + newlnprob - lnprob0
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:336: RuntimeWarning: invalid value encountered in greater
+  accept = (lnpdiff > np.log(self._random.rand(len(lnpdiff))))
+/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/calculateAge.py:521: UserWarning: Getting zero integrated SFH, check log.
+  warnings.warn('Getting zero integrated SFH, check log.')
+/afs/crc.nd.edu/x86_64_linux/p/python/3.5.2/build/lib/python3.5/site-packages/scipy/integrate/quadpack.py:356: IntegrationWarning: The integral is probably divergent, or slowly convergent.
+  warnings.warn(msg, IntegrationWarning)
+/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/calculateAge.py:534: RuntimeWarning: invalid value encountered in true_divide
+  age = ageOfUniverse.to('Gyr').value - tStart - numerator/denominator
+/afs/crc.nd.edu/x86_64_linux/p/python/3.5.2/build/lib/python3.5/site-packages/numpy/lib/function_base.py:3569: RuntimeWarning: Invalid value encountered in median
+  RuntimeWarning)
+Running MCMC for initial position
+Best position from initial search:  [ -1.55877501e+00   6.93568313e-03   8.69279177e+00   1.02089580e+00
+   1.40648935e+00  -1.27943642e+01  -1.72644330e+01]
+Running full MCMC fit
+Acceptance fraction: [ 0.35933333  0.41766667  0.36433333  0.368       0.387       0.35533333
+  0.401       0.36033333  0.34166667  0.29933333  0.39533333  0.34333333
+  0.38233333  0.36766667  0.33933333  0.33133333  0.35666667  0.35966667
+  0.38233333  0.341       0.36633333  0.351       0.39266667  0.343
+  0.38433333  0.37666667  0.36166667  0.38933333  0.37866667  0.35533333
+  0.376       0.367       0.387       0.36866667  0.35466667  0.382       0.373
+  0.36133333  0.343       0.36        0.38166667  0.35033333  0.37666667
+  0.39533333  0.40266667  0.34966667  0.42266667  0.41533333  0.31366667
+  0.33566667  0.31833333  0.356       0.367       0.34266667  0.32966667
+  0.34233333  0.32866667  0.33133333  0.338       0.35        0.38533333
+  0.366       0.391       0.325       0.342       0.31733333  0.40333333
+  0.33666667  0.38233333  0.33566667  0.32433333  0.38866667  0.36966667
+  0.37466667  0.41066667  0.40933333  0.357       0.384       0.332
+  0.39133333  0.39166667  0.38433333  0.39        0.36466667  0.35066667
+  0.32233333  0.374       0.35766667  0.31933333  0.31266667  0.37733333
+  0.40333333  0.39333333  0.38966667  0.341       0.39333333  0.35166667
+  0.394       0.348       0.33666667]
+MCMC:  (-1.6305763344084914, 0.021163978594783694, 0.020197158997845355) (0.002386108687593415, 0.0037988492381661465, 0.001768326047771147) (5.1509130083251682, 3.3399541102356318, 3.4322898955376679) (1.2161540564262316, 0.02490749931503089, 0.041096173959299431) (1.2590670539738789, 0.024440578184876882, 0.020048776966323567) (-15.228672285079305, 4.6534207053056686, 3.367295573567862) (-17.252833673611462, 0.0035375879434305091, 0.0044165392237331957)
+12.6053802279
+nan
+Global age for SN82:  12.6053802279
