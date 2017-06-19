@@ -1,10 +1,14 @@
-"""Local Environment Effects on SNIa -- Looking for correlations between HR
-and local environments/ages via SDSS Scene Modeling Photometry
+"""fsps-age.py -- Estimates the age of a Photometric SED using FSPS. 
+
+Science goal: 
+    Check local environment effects on SNIa by looking for correlations 
+    between HR and the age of the local environment calculated from SDSS Scene 
+    Modeling Photometry
 
 Usage:
-    main.py global JOBID JOBLENGTH (gupta | messier) [-d | --debug]
-    main.py (-h | --help)
-    main.py --version
+    fsps-age.py global JOBID JOBLENGTH (gupta | messier) [-d | --debug]
+    fsps-age.py (-h | --help)
+    fsps-age.py --version
 
 Option:
     JOBID           the ID for the piece of the data set to be analyzed
@@ -24,6 +28,7 @@ Python 3.5
 """future options.
     main.py testFspsParameters [-d | --debug]
     main.py calculateAge (--sn=SNID) [-d | --debug]
+    main.py age NAME U G R I Z U_ERR G_ERR R_ERR I_ERR Z_ERR
     main.py local [-d | --debug]
 """
 __author__ = "Benjamin Rose"
@@ -135,6 +140,8 @@ def redoGupta(cli):
 if __name__ == '__main__':
     #parse docopts
     cli = docopt(__doc__, version=__version__)
+    print(cli)
+    # from sys import exit; exit()                                                                                         
 
     #Setup logger
     ##initiate

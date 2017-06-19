@@ -41,7 +41,7 @@ addons:
 
 # get gfortran for mac builds
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc PYVERSION; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc $PYVERSION; fi
 
 install: 
   #download fsps
