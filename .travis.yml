@@ -53,8 +53,7 @@ install:
   - make all
   - cd ../..
   - export SPS_HOME=`pwd`/libfsps
-  # install other packages (after cleaning up any previously installed)
-  - pip uninstall -r requirements.txt
+  # install other packages
   - pip install -r requirements.txt
 
 script: pytest -v
