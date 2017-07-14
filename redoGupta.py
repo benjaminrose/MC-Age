@@ -17,7 +17,7 @@ from astropy.coordinates import SkyCoord
 
 import calculateAge
 
-module_logger = logging.getLogger("localEnvironments.redoGupta")
+module_logger = logging.getLogger("fsps-age.redoGupta")
 
 def getPhotometry():
     #this gives annoying warnings, so I moved it here
@@ -117,7 +117,7 @@ def redoGupta(jobID, lenJobs=50, debug=False, useGupta=False):
     --------
     
     """
-    logger = logging.getLogger("localEnvironments.redoGupta.redoGupta")
+    logger = logging.getLogger("fsps-age.redoGupta.redoGupta")
 
     # Import data file
     if useGupta:

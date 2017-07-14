@@ -41,7 +41,7 @@ addons:
 
 # get gfortran, python3 & pystest for mac builds
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc $PYVERSION && pip install --upgrade pip && pip install pytest; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc $PYVERSION && pip3 install --upgrade pip3 && pip3 install pytest; fi
 
 install: 
   #download fsps

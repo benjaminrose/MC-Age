@@ -42,7 +42,7 @@ from astropy.cosmology import FlatLambdaCDM
 
 cosmo = FlatLambdaCDM(H0=70, Om0=0.27) ## Kessler 2009a but flat and 2-sig figs (Gupta 2011, §2.3)
 # CampbellCosmo = FlatLambdaCDM(H0=73.8, Om0=0.24) 
-module_logger = logging.getLogger("localEnvironments.calculateAge")
+module_logger = logging.getLogger("fsps-age.calculateAge")
 
 def runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope):
     """Calculates expected SED for given stellar population (`sp`) and allows for variations in `redshift`, `logzsol`, `dust2`, `tau`, `tStart`, `sfTrans`, and `sfSlope`. It makes sense to use this function to minimize over metallicity, dust, and SFH. 
@@ -251,7 +251,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
 
     """
     #set up logger
-    logger = logging.getLogger("localEnvironments.calculateAge.calculateSFH")
+    logger = logging.getLogger("fsps-age.calculateAge.calculateSFH")
     logger.info('called calculateSFH')
     logger.debug('arguments are: {}, {}, {}, {}, {}'.format(SED, SEDerr, redshift, sp, SNID))
 
@@ -261,7 +261,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
         sp = fsps.StellarPopulation(zcontinuous=2, 
                   cloudy_dust=True, add_neb_emission = True,
                   sfh=5)
-        logger.debug('no stellar population now created')
+        logger.debug('stellar population now created')
 
     #Setup MCMC
     logger.debug('initializing MCMC')
@@ -470,7 +470,7 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
     --------
     
     """
-    logger = logging.getLogger("localEnvironments.calculateAge.calculateAge")
+    logger = logging.getLogger("fsps-age.calculateAge.calculateAge")
     logger.info('called calculateAge')
 
     #if SED, calculate SFH
