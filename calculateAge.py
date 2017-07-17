@@ -222,8 +222,9 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
     return lp + lnlike(theta, magnitudes, magerr, redshift, sp)
 
 
-def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
-    """calculates the SHF. Save posterior distributions to ???.
+def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False, 
+                 burin=False):
+    """Calculates the SFH. Returns the cleaned chain.
     
     Parameters
     ----------
@@ -238,16 +239,20 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
         This is the ID number for the SN. Used for 'unique' ID while saving 
         data. If nothing is given, MCMC chain is not saved.
     sp : fsps.fsps.StellarPopulation, optional
-        An optional argument of an FSPS StellarPopulation if you don't want make a new one with the default settings.
+        An optional argument of an FSPS StellarPopulation if you don't want 
+        make a new one with the default settings of this analysis.
     debug : bool
         Flag to have MCMC run incredibly short and in no way accurately. Also 
         does not save resulting chain. Should take around ~12 mins to get a 
         value of one SN.
+    burnin : bool
+        Should MCMC run with a smaller number of walkers, smaller search for initial Maximum Likelihood location, and not throw away any 'burn-in' steps? This is used to test and validate what burn-in size should be used. This argument does nothing if `debug` is `True`.
     
     Returns
     -------
-    ? : ? 
-        PDF of age
+    samples : numpy.array 
+        The resulting chain of the MCMC analysis. If `burnin` is `True` then 
+        the shape would be ??? else it will be (`nsteps`*`nwalkers`, `ndim`)
 
     """
     #set up logger
@@ -266,17 +271,28 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
     #Setup MCMC
     logger.debug('initializing MCMC')
     if debug:
-        ndim, nwalkers = 7, 14
         logger.debug('running a shorter MCMC run')
-        nsteps = 20
-        burnInSize = 10
+        ndim, nwalkers = 7, 14
         maxLikilhoodSize = 10
+        burnInSize = 10
+        nsteps = 20
+    elif burnin:
+        logger.debug('testing burnin')
+        ndim, nwalkers = 7, 28
+        maxLikilhoodSize = 10
+        burnInSize = 0
+        nsteps = 1000
     else:
+        logger.debug('testing')
         ndim, nwalkers = 7, 100
-        nsteps = 3000 #6000 for long run
-        burnInSize = 400
         maxLikilhoodSize = 300
+        burnInSize = 400
+        nsteps = 3000 #6000 for long run
+    logger.info('running {} walkers,\n\t\t {} initial search steps,\n\t\t {} final steps,\n\t\twith {} burnin steps remove'.format(nwalkers, maxLikilhoodSize, nsteps, burnInSize))
+
+
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
+
 
     # "Maximize" likelihood for initial guess
     # start with uniformly (not 100% of space) distributed walkers
@@ -315,9 +331,11 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
     sampler.reset()
     logger.info("Reset sampler's chain and lnprobability arrays")
     
+
     #Set up new start position as a Gaussian ball around "max" likelihood
     pos = emcee.utils.sample_ball(best_pos, best_pos/1000., size=nwalkers)
     logger.debug('Sample ball returned: {}'.format(pos))
+
 
     #Run full MCMC analysis
     print('Running full MCMC fit')
@@ -341,39 +359,15 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False):
     logger.info('Acceptance fraction: {}'.format(sampler.acceptance_fraction)) 
     print('Acceptance fraction: {}'.format(sampler.acceptance_fraction))
 
-    ###################
-    #plot burn in test
-    # samples = sampler.chain  ##size == (nwalkers, nsteps, ndim)
-    # lnprop_resutls = sampler.lnprobability  ##size == (nwalkers, nsteps)
-    # import matplotlib.pyplot as plt
-    # f, axarr = plt.subplots(8, sharex=True)
-    # axarr[0].plot(samples[:,:,0].T)
-    # axarr[0].set_title('Testing for Burn-in value')
-    # axarr[0].set_ylabel('logzsol')
-    # axarr[1].plot(samples[:,:,1].T)
-    # axarr[1].set_ylabel('dust')
-    # axarr[2].plot(samples[:,:,2].T)
-    # axarr[2].set_ylabel('tau')
-    # axarr[3].plot(samples[:,:,3].T)
-    # axarr[3].set_ylabel('tStart')
-    # axarr[4].plot(samples[:,:,4].T)
-    # axarr[4].set_ylabel('sfTrans')
-    # axarr[5].plot(samples[:,:,5].T)
-    # axarr[5].set_ylabel('sfSlope')
-    # axarr[6].plot(samples[:,:,6].T)
-    # axarr[6].set_ylabel('c')
-    # axarr[7].plot(lnprop_resutls.T)
-    # axarr[7].set_ylabel('ln')
-    # plt.savefig('figures/burnin.pdf')
-    # logger.info('saved "figures/burnin.pdf"')
-    # plt.show()
-    ###################
-
     #Select only after "burn in" is complete
     #flatchain works if you run burn in specularly then full run
     # samples = sampler.flatchain      #size == (nsteps*nwalkers, ndim)
-    #This method is a bit strange, but cuts the "burn in" section with ease
-    samples = sampler.chain[:, burnInSize:, :].reshape((-1, ndim))
+    if burnin:
+        return sampler.chain
+    else: 
+        #This method is a bit strange, but cuts the "burn in" section with ease
+        # And makes it 
+        samples = sampler.chain[:, burnInSize:, :].reshape((-1, ndim))
     
     #Save basic results to standard out & log
     logzso, dust2, tau, tStart, sfTrans, sfSlope, c = map(
@@ -436,7 +430,8 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
         data. Needed if `SED = True`.
     sp : fsps.fsps.StellarPopulation, optional
         An optional argument of an FSPS StellarPopulation if you don't want 
-        make a new one with the default settings of `calculateSFH()`.
+        make a new one with the default settings of `calculateSFH()` and this 
+        analysis.
     debug : bool
         Flag to have MCMC run incredibly short and in no way accurately. Also 
         does not save resulting chain. Should take around ~12 mins to get a 

@@ -7,6 +7,7 @@ Science goal:
 
 Usage:
     fsps-age.py global JOBID JOBLENGTH (gupta | messier) [-d | --debug]
+    fsps-age.py burnin (--data=ID)
     fsps-age.py (-h | --help)
     fsps-age.py --version
 
@@ -40,6 +41,16 @@ import logging
 from docopt import docopt
 import numpy as np
 import fsps
+
+def formatLogging():
+    """Setting up the logger parts that are the same for all commands
+    """
+    #update logging formating
+    formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s - %(message)s', datefmt='%Y-%m-%dT%I:%M:%S')
+    fh.setFormatter(formatter)
+    # add handler to logger object
+    logger.addHandler(fh)
+    logger.info('Starting')
 
 def testFspsParameters():
     import fspsParameters 
@@ -137,11 +148,19 @@ def redoGupta(cli):
     redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
                         cli['--debug'], cli['gupta'])
 
+def burnin(cli):
+    """
+    """
+    import burnIn
+
+    burnin.burnin()
+
+
 if __name__ == '__main__':
     #parse docopts
     cli = docopt(__doc__, version=__version__)
     print(cli)
-    # from sys import exit; exit()                                                                                         
+    # from sys import exit; exit()
 
     #Setup logger
     ##initiate
@@ -155,19 +174,28 @@ if __name__ == '__main__':
     #create handler object to be able to change settings.    
     ##choose saving location
     if cli['global']:
-        fh = logging.FileHandler('logs/global/localEnvironments_{}.log'.format(cli['JOBID']))
-        # elif cli['calculateAge']
-    else:
-        fh = logging.FileHandles('logs/localEnvironments_{}.log')
-
-    #update logging formating
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    fh.setFormatter(formatter)
-    # add handler to logger object
-    logger.addHandler(fh)
-    logger.info('Starting')
-
-    if cli['global']:
+        fh = logging.FileHandler('logs/global/fsps-age_{}.log'.format(cli['JOBID']))
+        formatLogging()
         redoGupta(cli)
+    elif cli['burnin']:
+        fh = logging.FileHandler('logs/burnin/fsps-age.log')
+        formatLogging()
+        logger.info('testing')
+
+
+        ndim, nwalkers = 7, 100
+        maxLikilhoodSize = 300
+        burnInSize = 400
+        nsteps = 3000 #6000 for long run
+        logger.info('running {} walkers,\n' + '\t'*11 + 
+                    '{} initial search steps,\n' + '\t'*11 + 
+                    '{} final steps,\n' + '\t'*11 + 
+                    'with {} burnin steps remove'.format(nwalkers, maxLikilhoodSize, nsteps, burnInSize))
+        from sys import exit; exit()
+
+        burnin(cli)
+    else:
+        fh = logging.FileHandles('logs/fsps-age.log')
+        formatLogging()
 
     logger.info('Done')
