@@ -223,7 +223,7 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
 
 
 def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False, 
-                 burin=False):
+                 burnin=False):
     """Calculates the SFH. Returns the cleaned chain.
     
     Parameters

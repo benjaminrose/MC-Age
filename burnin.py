@@ -1,14 +1,16 @@
-"""burnin.py - 
+"""burnin.py - a method to verify mcmc burnin length
 
 Benjamin Rose
 2017-06-22
-python 3.5
+Python 3.5
 """
-from calculateAge import 
+import logging
+
+from calculateAge import calculateSFH
 
 module_logger = logging.getLogger("fsps-age.burnin")
 
-def brunin(SED, SEDerr, redshift):
+def burnin(SED, SEDerr, redshift):
     """
     """
     # Set up logger
@@ -16,11 +18,11 @@ def brunin(SED, SEDerr, redshift):
 
     # call `calculateSFH with burnin
     # size should be (1000, 28, 7)
-    samples = calculateSFH(SED, SEDerr, redshift, burin=False)
+    samples = calculateSFH(SED, SEDerr, redshift, burnin=True)
 
     #save data
     # Note header should be:
     # logzsol, dust2, tau, tStart, sfTrans, sfSlope, c
     # dex, 1/Gyr, Gyr, Gyr, , mag
     np.save('burnin', samples)
-    logger.info('saved )
+    logger.info('saved')

@@ -7,7 +7,7 @@ Science goal:
 
 Usage:
     fsps-age.py global JOBID JOBLENGTH (gupta | messier) [-d | --debug]
-    fsps-age.py burnin (--data=ID)
+    fsps-age.py burnin OBJID
     fsps-age.py (-h | --help)
     fsps-age.py --version
 
@@ -15,6 +15,7 @@ Option:
     JOBID           the ID for the piece of the data set to be analyzed
     JOBLENGTH       the total number of objects looked at
     gupta messier   select the dataset to analyses
+    OBJID           The SN (or Messier) ID of the object to observe
     -d --debug      Run shorter and with more logs
     -h --help       Show this screen
     --version       Show version
@@ -151,16 +152,26 @@ def redoGupta(cli):
 def burnin(cli):
     """
     """
-    import burnIn
+    import burnin
+    
+    if cli['OBJID'] == '15776':
+        data = {
+            'SNID' : 15776,
+            'SED' :  np.array([23.14426, 21.00639, 19.41827, 18.82437, 
+                               18.46391]),
+            'SEDerr' : np.array([0.8009404, 0.04814964, 0.01899451, 0.01771959,
+                                 0.04554904]),
+            'redshift' : 0.305
+        }
+    else:
+        raise ValueError('OBJID can only be 15776 at this time.')
 
-    burnin.burnin()
+    burnin.burnin(data['SED'], data['SEDerr'], data['redshift'])
 
 
 if __name__ == '__main__':
     #parse docopts
     cli = docopt(__doc__, version=__version__)
-    print(cli)
-    # from sys import exit; exit()
 
     #Setup logger
     ##initiate
@@ -181,18 +192,6 @@ if __name__ == '__main__':
         fh = logging.FileHandler('logs/burnin/fsps-age.log')
         formatLogging()
         logger.info('testing')
-
-
-        ndim, nwalkers = 7, 100
-        maxLikilhoodSize = 300
-        burnInSize = 400
-        nsteps = 3000 #6000 for long run
-        logger.info('running {} walkers,\n' + '\t'*11 + 
-                    '{} initial search steps,\n' + '\t'*11 + 
-                    '{} final steps,\n' + '\t'*11 + 
-                    'with {} burnin steps remove'.format(nwalkers, maxLikilhoodSize, nsteps, burnInSize))
-        from sys import exit; exit()
-
         burnin(cli)
     else:
         fh = logging.FileHandles('logs/fsps-age.log')
