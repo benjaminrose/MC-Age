@@ -23,7 +23,7 @@ def burnin(SED, SEDerr, redshift):
     sampler = calculateSFH(SED, SEDerr, redshift, burnin=True)
 
     samples = sampler.chain             # size == (nwalker, nsteps, ndim)
-    samples = sampler.lnprobability     # size == (nwalkers, nsteps)
+    lnprob = sampler.lnprobability     # size == (nwalkers, nsteps)
 
 
     #save data
@@ -31,5 +31,5 @@ def burnin(SED, SEDerr, redshift):
     # logzsol, dust2, tau, tStart, sfTrans, sfSlope, c
     # dex, 1/Gyr, Gyr, Gyr, , mag
     np.save('resources/burnin/samples', samples)
-    np.save('resources/burnin/lnprob', arr)
+    np.save('resources/burnin/lnprob', lnprob)
     logger.info('saved samples and ln probability')
