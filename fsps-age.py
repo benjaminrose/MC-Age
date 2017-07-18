@@ -1,8 +1,8 @@
-"""fsps-age.py -- Estimates the age of a Photometric SED using FSPS. 
+"""fsps-age.py -- Estimates the age of a Photometric SED using FSPS.
 
-Science goal: 
-    Check local environment effects on SNIa by looking for correlations 
-    between HR and the age of the local environment calculated from SDSS Scene 
+Science goal:
+    Check local environment effects on SNIa by looking for correlations
+    between HR and the age of the local environment calculated from SDSS Scene
     Modeling Photometry
 
 Usage:
@@ -33,28 +33,32 @@ Python 3.5
     main.py age NAME U G R I Z U_ERR G_ERR R_ERR I_ERR Z_ERR
     main.py local [-d | --debug]
 """
-__author__ = "Benjamin Rose"
-__version__ = "alpha"
-__license__ = ""
-
 import logging
 
 from docopt import docopt
 import numpy as np
 import fsps
 
+__author__ = "Benjamin Rose"
+__version__ = "alpha"
+__license__ = ""
+
+
 def formatLogging():
     """Setting up the logger parts that are the same for all commands
     """
-    #update logging formating
-    formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s - %(message)s', datefmt='%Y-%m-%dT%I:%M:%S')
+    # update logging formating
+    formatter = logging.Formatter(
+        '%(asctime)s:%(name)s:%(levelname)s - %(message)s',
+        datefmt='%Y-%m-%dT%I:%M:%S')
     fh.setFormatter(formatter)
     # add handler to logger object
     logger.addHandler(fh)
     logger.info('Starting')
 
+
 def testFspsParameters():
-    import fspsParameters 
+    import fspsParameters
 
     # print(fspsParameters.test_compute_vega_mags())
     # fspsParameters.test_neg_ri_color()
@@ -67,12 +71,12 @@ def calculateAge(SNID):
     """
     import calculateAge
     #####
-    #unit tests
+    # unit tests
     #####
     # runFSPS()
     # - should return a list with 5 arguments
-    # sp = fsps.StellarPopulation(zcontinuous=2, logzsol=0, dust1=1.0, dust2=0.5,
-            # cloudy_dust=True, sfh=4)
+    # sp = fsps.StellarPopulation(zcontinuous=2, logzsol=0, dust1=1.0,
+    #    dust2=0.5, cloudy_dust=True, sfh=4)
     # redshift = 0.084
     logzsol = 0.0
     dust2 = 0.1
@@ -80,16 +84,17 @@ def calculateAge(SNID):
     tStart = 1
     sfTrans = 10
     sfSlope = 1
-    # results = calculateAge.runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope)
+    # results = calculateAge.runFSPS(sp, redshift, logzsol, dust2, tau,
+    #    tStart, sfTrans, sfSlope)
     # print('runFSPS(): ', results)
     # currently succeeds! We get a list with 5 parameters
 
-    #lnlike() 
+    # lnlike()
     # - should return a float
-    #[logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]`.
+    # [logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]`.
     c = -20
     theta = [logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]
-    #from SN12781, or 2006er just using the values in the file
+    # from SN12781, or 2006er just using the values in the file
     # SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
     # SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
     # redshift = 0.084
@@ -98,9 +103,9 @@ def calculateAge(SNID):
     SEDerr = np.array([0.041, 0.004, 0.019, 0.012, 0.004])
     redshift = 0.065
 
-    #from SN15776 (global) that should be red and dead, but on 2017-05-11 was young and dusty
-    SNID=15776
-    SED = np.array([23.14426, 21.00639, 19.41827, 18.82437, 18.46391 ])
+    # from SN15776 (global) that should be red and dead, but on 2017-05-11 was young and dusty
+    SNID = 15776
+    SED = np.array([23.14426, 21.00639, 19.41827, 18.82437, 18.46391])
     SEDerr = np.array([0.8009404, 0.04814964, 0.01899451, 0.01771959, 0.04554904])
     redshift = 0.305
     # results = calculateAge.lnlike(theta, SED, SEDerr, redshift, sp)
@@ -109,7 +114,7 @@ def calculateAge(SNID):
     # print(results)
     # print('where is this X < 0 coming from?')
 
-    #calculateSFH()
+    # calculateSFH()
     # sp = fsps.StellarPopulation(zcontinuous=2, logzsol=0, dust1=1.0, dust2=0.5,
             # cloudy_dust=True, sfh=4)
     # SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
@@ -123,18 +128,20 @@ def calculateAge(SNID):
     # Currently Fails!!
 
 
-    #from SN12781, or 2006er just using the values in the file
+    # from SN12781, or 2006er just using the values in the file
     # SED = np.array([24.41, 23.92, 23.08, 22.68, 22.01])
     # SEDerr = np.array([0.49, 0.10, 0.05, 0.05, 0.10])
     # redshift = 0.084
     # results = calculateAge.calculateAge(redshift, SED, SEDerr)
     # print('calcualteAge()')
 
+
 def redoGupta(cli):
     """
     # Test on global SED's
 
-    We want to redo what Gupta did to make sure we can actually do something before we analyze on new data. 
+    We want to redo what Gupta did to make sure we can actually do something
+    before we analyze on new data.
     """
     """ run redoGupta.py
 
@@ -145,23 +152,24 @@ def redoGupta(cli):
     """
     import redoGupta
 
-    #todo: how should the CLI switch between Messier and Gupta?
+    # todo: how should the CLI switch between Messier and Gupta?
     redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
                         cli['--debug'], cli['gupta'])
+
 
 def burnin(cli):
     """
     """
     import burnin
-    
+
     if cli['OBJID'] == '15776':
         data = {
-            'SNID' : 15776,
-            'SED' :  np.array([23.14426, 21.00639, 19.41827, 18.82437, 
-                               18.46391]),
-            'SEDerr' : np.array([0.8009404, 0.04814964, 0.01899451, 0.01771959,
-                                 0.04554904]),
-            'redshift' : 0.305
+            'SNID': 15776,
+            'SED':  np.array([23.14426, 21.00639, 19.41827, 18.82437,
+                              18.46391]),
+            'SEDerr': np.array([0.8009404, 0.04814964, 0.01899451, 0.01771959,
+                                0.04554904]),
+            'redshift': 0.305
         }
     else:
         raise ValueError('OBJID can only be 15776 at this time.')
@@ -170,20 +178,20 @@ def burnin(cli):
 
 
 if __name__ == '__main__':
-    #parse docopts
+    # parse docopts
     cli = docopt(__doc__, version=__version__)
 
-    #Setup logger
-    ##initiate
+    # Setup logger
+    ## initiate
     logger = logging.getLogger("localEnvironments")
-    ##set level
+    ## set level
     if cli['--debug']:
         logger.setLevel(logging.DEBUG)
     else:
         logger.setLevel(logging.INFO)
 
-    #create handler object to be able to change settings.    
-    ##choose saving location
+    # create handler object to be able to change settings.
+    ## choose saving location
     if cli['global']:
         fh = logging.FileHandler('logs/global/fsps-age_{}.log'.format(cli['JOBID']))
         formatLogging()
