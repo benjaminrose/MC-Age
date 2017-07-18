@@ -6,6 +6,8 @@ Python 3.5
 """
 import logging
 
+import numpy as np
+
 from calculateAge import calculateSFH
 
 module_logger = logging.getLogger("fsps-age.burnin")
