@@ -251,8 +251,12 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     Returns
     -------
     samples : numpy.array 
-        The resulting chain of the MCMC analysis. If `burnin` is `True` then 
-        the shape would be ??? else it will be (`nsteps`*`nwalkers`, `ndim`)
+        The resulting chain of the MCMC analysis. The shape will be (`nsteps`*`nwalkers`, `ndim`)
+
+    or
+
+    sampler : emcee.EnsembleSampler
+        The whole sampler is returned if If `burnin` is `True`.
 
     """
     #set up logger
@@ -363,7 +367,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     #flatchain works if you run burn in specularly then full run
     # samples = sampler.flatchain      #size == (nsteps*nwalkers, ndim)
     if burnin:
-        return sampler.chain
+        return sampler
     else: 
         #This method is a bit strange, but cuts the "burn in" section with ease
         # And makes it 
