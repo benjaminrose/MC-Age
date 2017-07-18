@@ -1,0 +1,19 @@
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:335: RuntimeWarning: invalid value encountered in subtract
+  lnpdiff = (self.dim - 1.) * np.log(zz) + newlnprob - lnprob0
+/afs/crc.nd.edu/user/b/brose3/.local/lib/python3.5/site-packages/emcee/ensemble.py:336: RuntimeWarning: invalid value encountered in greater
+  accept = (lnpdiff > np.log(self._random.rand(len(lnpdiff))))
+Running MCMC for initial position
+Best position from initial search:  [ -1.53029024   0.28144775   6.49448406   2.16458939   7.49592554
+ -10.14481609 -27.46159037]
+Running full MCMC fit
+Acceptance fraction: [ 0.275  0.247  0.286  0.3    0.202  0.239  0.16   0.244  0.301  0.319
+  0.257  0.299  0.25   0.313  0.203  0.317  0.339  0.273  0.276  0.291
+  0.281  0.315  0.303  0.303  0.281  0.197  0.254  0.292]
+Traceback (most recent call last):
+  File "/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fsps-age.py", line 195, in <module>
+    burnin(cli)
+  File "/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fsps-age.py", line 169, in burnin
+    burnin.burnin(data['SED'], data['SEDerr'], data['redshift'])
+  File "/afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/burnin.py", line 27, in burnin
+    np.save('burnin', samples)
+NameError: name 'np' is not defined
