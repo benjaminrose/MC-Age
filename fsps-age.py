@@ -162,17 +162,32 @@ def burnin(cli):
     """
     import burnin
 
-    if cli['OBJID'] == '15776':
-        data = {
-            'SNID': 15776,
-            'SED':  np.array([23.14426, 21.00639, 19.41827, 18.82437,
-                              18.46391]),
-            'SEDerr': np.array([0.8009404, 0.04814964, 0.01899451, 0.01771959,
-                                0.04554904]),
-            'redshift': 0.305
-        }
-    else:
-        raise ValueError('OBJID can only be 15776 at this time.')
+    all_data = {'15776': {'SNID': 15776,
+                          'SED':  np.array([23.14426, 21.00639, 19.41827,
+                                            18.82437, 18.46391]),
+                          'SEDerr': np.array([0.8009404, 0.04814964,
+                                              0.01899451, 0.01771959,
+                                              0.04554904]),
+                          'redshift': 0.305
+                         },
+                '63': {'SNID': 63,
+                       'SED': np.array([11.006, 11.076, 10.179, 8.925, 9.317]),
+                       'SEDerr': np.array([0.002, 0.002, 0.001, 0.001, 0.002]),
+                       'redshift': 0.001681
+                      },
+                '101': {'SNID': 101,
+                        'SED':  np.array([13.671, 12.219, 11.529, 11.237,
+                                          10.883]),
+                        'SEDerr': np.array([0.004, 0.002, 0.002, 0.002,
+                                            0.002]),
+                        'redshift': 0.000804
+                       },
+               }
+    try:
+        data = all_data[cli['OBJID']]
+    except KeyError as e:
+        raise ValueError('The OBJID argument can only be 15776 or 101 at this'
+                         ' time.')
 
     burnin.burnin(data['SED'], data['SEDerr'], data['redshift'])
 
