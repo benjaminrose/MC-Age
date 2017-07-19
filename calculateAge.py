@@ -336,8 +336,11 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     logger.info("Reset sampler's chain and lnprobability arrays")
     
 
-    #Set up new start position as a Gaussian ball around "max" likelihood
-    pos = emcee.utils.sample_ball(best_pos, best_pos/1000., size=nwalkers)
+    # Set up new start position as a Gaussian ball around "max" likelihood
+    # make ball a gaussian of "1/2" expected sigma for each parameter
+    # needs to one for every dimension
+    spread = [0.1, 0.05, 0.1, 0.05, 0.05, 1.0, 0.1]
+    pos = emcee.utils.sample_ball(best_pos, spread, size=nwalkers)
     logger.debug('Sample ball returned: {}'.format(pos))
 
 
