@@ -272,85 +272,122 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
                   sfh=5)
         logger.debug('stellar population now created')
 
-    #Setup MCMC
-    logger.debug('initializing MCMC')
+
+    ############
+    # Setup MCMC
+    ############
+    logger.debug('initializing MCMC parameters')
     if debug:
-        logger.debug('running a shorter MCMC run')
+        # This is minimum value to test if the code runs. Resulting values will
+        # be meaningless.
         ndim, nwalkers = 7, 14
-        maxLikilhoodSize = 10
-        burnInSize = 10
-        nsteps = 20
+        maxLikilhoodSize = 3
+        burnInSize = 3
+        nsteps = 6
     elif burnin:
-        logger.debug('testing burnin')
-        ndim, nwalkers = 7, 28
+        # This is a smaller test to see how the sampling is progressing.
+        # Hopefully these values will not effect how it samples, but it will
+        # likely effect how well it sampled.
+        ndim, nwalkers = 7, 100
         maxLikilhoodSize = 10
         burnInSize = 0
-        nsteps = 1000
+        nsteps = 300
     else:
-        logger.debug('testing')
-        ndim, nwalkers = 7, 100
+        # Gupta's grid search was over 2592 points (in 4D, roughly 7 points
+        # per dimension).
+        # MCMC should walk at least that many or I do not improve on his work.
+        # Initial course search (via "maximum-likelihood") could be an order 
+        # of magnitude less. So `nwalkers` ~ 200 and the `maxLikeilhoodSize`
+        # would say how well that area is searched.
+        # To search 7 dimensions 200 walkers would sample each dimension 2.1
+        # times (200**(1/7)). If we wanted 4 samples per dimension we would
+        # need 16,384 walkers! 3 samples per dimension would be 2,187.
+        # `emcee`'s "stretch move" will fill in the gaps by pulling all the low likelihood walkers harder to the high likelihood zones. We just need to run this section long enough for a low likelihood walker to get paired with a high likelihood walker, ~N the number of walkers.
+        ndim, nwalkers = 7, 300
         maxLikilhoodSize = 300
-        burnInSize = 400
-        nsteps = 3000 #6000 for long run
+        burnInSize = 200
+        nsteps = 2000
+        # We want ~250,000 accepted values: nwalkers*(nsteps - burninSize).
+        # We want this many because it looks good?
     logger.info('running {} walkers,\n\t\t {} initial search steps,\n\t\t {} final steps,\n\t\twith {} burnin steps remove'.format(nwalkers, maxLikilhoodSize, nsteps, burnInSize))
-
 
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
 
-
-    # "Maximize" likelihood for initial guess
-    # start with uniformly (not 100% of space) distributed walkers
-    # run MCMC because it has bounds
-    # then select position with highest likelihood value.
+    ############
+    # mostly-maximize likelihood to find initial MCMC position
+    ############
+    # Use MCMC because it can simply force boundary conditions
+    # Set up initial array
     pos = np.zeros((nwalkers, ndim))
-    '''PRIOR BOUNDS! -- with age = cosmo.age(redshift).to('Gyr').value
-        -2.5  < logzsol < 0.5           and
-        0.0   < dust2                   and
-        0.1   < tau     < 10.0          and
-        0.5   < tStart  < sfTrans - 2.0 and
-        2.5   < sfTrans <= age          and
-        -20.0 < sfSlope < 20.0          and
-        -45.0 < c       < -5.0):'''
-    pos[:,0] = np.random.uniform(-2.4, 0.4, size=nwalkers)   #logzsol
-    pos[:,1] = np.random.uniform(0.1, 0.9, size=nwalkers)    #dust2-to 3-sigma
-    pos[:,2] = np.random.uniform(0.5, 8.0, size=nwalkers)    #tau
-    pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    #tStart
+    # PRIOR BOUNDS! -- with age = cosmo.age(redshift).to('Gyr').value
+    #     -2.5  < logzsol < 0.5           and
+    #     0.0   < dust2                   and
+    #     0.1   < tau     < 10.0          and
+    #     0.5   < tStart  < sfTrans - 2.0 and
+    #     2.5   < sfTrans <= age          and
+    #     -20.0 < sfSlope < 20.0          and
+    #     -45.0 < c       < -5.0):
+    # Keep
+    # Assuming you have enough walkers, These random numbers will "uniformly
+    # fill" the 7-d parameter space. More walkers (or a smaller initial search
+    # space) will make this assumption more valid.
+    # Metallicity should not bee too metal poor. Minimize search space by not
+    # removing the some of the edge. Also z=0.1 objects unlikely to be more
+    # metal rich then the Sun.
+    pos[:,0] = np.random.uniform(-2.0, 0.0, size=nwalkers)   # logzsol
+    pos[:,1] = np.random.uniform(0.1, 0.4, size=nwalkers)    # dust2 to ~1σ
+    pos[:,2] = np.random.uniform(0.5, 8.0, size=nwalkers)    # tau
+    pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    # tStart
     age = cosmo.age(redshift).to('Gyr').value
-    pos[:,4] = np.random.uniform(3.0, age - 0.1, size=nwalkers)  #sfTrans
-    pos[:,5] = np.random.uniform(-15.0, 15.0, size=nwalkers)   #sfSlope
-    pos[:,6] = np.random.uniform(-42, -8.0, size=nwalkers)    #c
+    pos[:,4] = np.random.uniform(3.0, age - 0.1, size=nwalkers)   # sfTrans
+    # Keep this one a bit tight because it should have a diminithing influace
+    # as it approaches it bounds.
+    pos[:,5] = np.random.uniform(-10.0, 10.0, size=nwalkers)   # sfSlope
+    # Keep values tight if expected value is well understood
+    # Also this variable is highly influential to the likelihood
+    pos[:,6] = np.random.uniform(-28, -15.0, size=nwalkers)    # c
 
     print('Running MCMC for initial position')
     logger.info('Running MCMC for initial position with {} walkers, for {} steps'.format(nwalkers, maxLikilhoodSize))
     pos, prob, state = sampler.run_mcmc(pos, maxLikilhoodSize)
     
-    #get position with "maximum" likelihood from limited run
+    # get position with "maximum" likelihood from limited run
     best_pos = sampler.flatchain[sampler.flatlnprobability.argmax()]
     print('Best position from initial search: ', best_pos)
     logger.info('Best position from initial search: {}'.format(best_pos))
-    logger.info("Mean ln-probability for each walker: {}".format(
+    logger.debug("Mean ln-probability for each walker: {}".format(
                 sampler.lnprobability.mean(-1)))
-    logger.info("Max ln-probability for each walker: {}".format(
+    logger.debug("Max ln-probability for each walker: {}".format(
                 sampler.lnprobability.max(-1)))
     sampler.reset()
-    logger.info("Reset sampler's chain and lnprobability arrays")
+    logger.debug("Reset sampler's chain and lnprobability arrays")
     
 
-    # Set up new start position as a Gaussian ball around "max" likelihood
-    # make ball a gaussian of "1/2" expected sigma for each parameter
-    # needs to one for every dimension
+    ############
+    # Set up new start position as a Gaussian ball around "max" likelihood.
+    ############
+    # This starts the run in a high-probability zone, reducing the need to cut
+    # any burnin.
+    # Make ball a gaussian of "1/2" expected sigma for each parameter
+    # needs to one for every dimension -- This starts all the walkers in a
+    # position that resembles the expected distribution. Reducing the need for
+    # burnin to be cut out.
     spread = [0.1, 0.05, 0.1, 0.05, 0.05, 1.0, 0.1]
     pos = emcee.utils.sample_ball(best_pos, spread, size=nwalkers)
     logger.debug('Sample ball returned: {}'.format(pos))
 
 
-    #Run full MCMC analysis
+    ############
+    # Run full MCMC analysis
+    ############
     print('Running full MCMC fit')
     logger.info('Running full MCMC with {} walkers, for {} steps, using a burn in cut after {} steps'.format(nwalkers, nsteps, burnInSize))
     sampler.run_mcmc(pos, nsteps)
     logger.debug('Finished full MCMC fit')
 
-    #save temp results in case something else fails soon.
+    ############
+    # save temp results in case something else fails soon.
+    ############
     uuid = '{:.2f}'.format(time.time())
     header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
     np.savetxt('resources/temp/chain_'+uuid+'.tsv'.format(SNID), 
