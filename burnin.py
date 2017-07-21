@@ -12,15 +12,15 @@ from calculateAge import calculateSFH
 
 module_logger = logging.getLogger("fsps-age.burnin")
 
-def burnin(SED, SEDerr, redshift):
+def burnin(SED, SEDerr, redshift, SNID=None):
     """
     """
     # Set up logger
     logger = logging.getLogger("fsps-age.burnin.burnin")
 
     # call `calculateSFH with burnin
-    # size should be (1000, 28, 7)
-    sampler = calculateSFH(SED, SEDerr, redshift, burnin=True)
+    # size should be (50, 1000, 7)
+    sampler = calculateSFH(SED, SEDerr, redshift, SNID, burnin=True)
 
     samples = sampler.chain             # size == (nwalker, nsteps, ndim)
     lnprob = sampler.lnprobability     # size == (nwalkers, nsteps)
@@ -30,6 +30,6 @@ def burnin(SED, SEDerr, redshift):
     # Note header should be:
     # logzsol, dust2, tau, tStart, sfTrans, sfSlope, c
     # dex, 1/Gyr, Gyr, Gyr, , mag
-    np.save('resources/burnin/samples', samples)
-    np.save('resources/burnin/lnprob', lnprob)
+    np.save('resources/burnin/samples-{}'.format(SNID), samples)
+    np.save('resources/burnin/lnprob-{}'.format(SNID), lnprob)
     logger.info('saved samples and ln probability')

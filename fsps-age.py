@@ -189,7 +189,7 @@ def burnin(cli):
         raise ValueError('The OBJID argument can only be 15776 or 101 at this'
                          ' time.')
 
-    burnin.burnin(data['SED'], data['SEDerr'], data['redshift'])
+    burnin.burnin(data['SED'], data['SEDerr'], data['redshift'], data['SNID'])
 
 
 if __name__ == '__main__':
