@@ -66,7 +66,7 @@ install:
   - pip install -r requirements.txt
   # install coverage uploader & pytest plugin to test coverage.
   - pip install codecov
-  - pip install coverage
+  - pip install pytest-cov
 
 script: $MAIN_CMD
 
