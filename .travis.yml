@@ -4,15 +4,21 @@ language: python
 matrix:
   allow_failures:
     - os: osx
+    - env: LINT==True
   include:
       - os: linux
         python: 3.5
+        env: MAIN_CMD="pytest -v"
       - os: linux
         python: 3.6
+        env: MAIN_CMD="pytest -v"
       - os: osx
         language: generic
         #will be python3 from homebrew
         env: PYVERSION=python3
+        env: MAIN_CMD="pytest -v"
+      - os: linux
+        env: MAIN_CMD="pylint fsps-age.py"
 
 # the old stuff
 # os: 
@@ -41,7 +47,7 @@ addons:
 
 # get gfortran, python3 & pystest for mac builds
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc $PYVERSION && pip3 install --upgrade pip3 && pip3 install pytest; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc $PYVERSION && pip3 install --upgrade pip && pip3 install pytest; fi
 
 install: 
   #download fsps
@@ -56,4 +62,6 @@ install:
   # install other packages
   - pip install -r requirements.txt
 
-script: pytest -v
+script: $MAIN_CMD
+
+after_success: if [["python" == 3.6]]; pylint *.py fi
