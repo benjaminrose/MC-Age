@@ -1,6 +1,6 @@
 # Looking at SN Ia Local Environments with SDSS Data
 
-[![Build Status](https://travis-ci.com/benjaminrose/SNIa-Local-Environments.svg?token=4zcThx8qWuKzVAuCdesD&branch=master)](https://travis-ci.com/benjaminrose/SNIa-Local-Environments) [![astropy](http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat)](http://www.astropy.org/) 
+[![Build Status](https://travis-ci.com/benjaminrose/SNIa-Local-Environments.svg?token=4zcThx8qWuKzVAuCdesD&branch=master)](https://travis-ci.com/benjaminrose/SNIa-Local-Environments) [![codecov](https://codecov.io/gh/benjaminrose/SNIa-Local-Environments/branch/master/graph/badge.svg?token=sID9V6UFre)](https://codecov.io/gh/benjaminrose/SNIa-Local-Environments) [![astropy](http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat)](http://www.astropy.org/)
 
 This project has the goal of calculating the average age of the local environment where a SNIa occurred and seeing if stellar populations age produces a noticeable bias in the Hubble diagram residuals. 
 

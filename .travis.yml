@@ -2,23 +2,24 @@ language: python
 
 #matrix and generic is the best way to get travis to work with python & OSX
 matrix:
-  fast_finis: true
+  fast_finish: true
   allow_failures:
     - os: osx
     - env: MAIN_CMD="pylint fsps-age.py"
   include:
       - os: linux
         python: 3.5
-        env: MAIN_CMD="pytest -v --cov=./"
+        env: MAIN_CMD="pytest -v --cov-config=.coveragerc --cov"
       - os: linux
         python: 3.6
-        env: MAIN_CMD="pytest -v --cov=./"
+        env: MAIN_CMD="pytest -v --cov-config=.coveragerc --cov"
       - os: osx
-        language: generic
         #will be python3 from homebrew
+        language: generic
         env: 
           - PYVERSION=python3
-          - MAIN_CMD="pytest -v --cov=./"
+          # Only run tests, not coverage
+          - MAIN_CMD="pytest -v"
       - os: linux
         python: 3.6
         env: MAIN_CMD="pylint fsps-age.py"
@@ -50,7 +51,7 @@ addons:
 
 # get gfortran, python3 & pystest for mac builds
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc $PYVERSION && pip install --upgrade pip && pip install pytest; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc $PYVERSION && pip3 install --upgrade pip && pip3 install pytest; fi
 
 install: 
   #download fsps
@@ -63,11 +64,10 @@ install:
   - cd ../..
   - export SPS_HOME=`pwd`/libfsps
   # install other packages
-  - pip install -r requirements.txt
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r requirements.txt; else; pip3 install -r requirements.txt; fi
   # install coverage uploader & pytest plugin to test coverage.
-  - pip install codecov
-  - pip install pytest-cov
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r test_requirements.txt; fi
 
 script: $MAIN_CMD
 
-after_success: codecov --token=38195770-d996-401c-b093-c245b36046f7
+after_success: if [[ "$TRAVIS_OS_NAME" == "linux" ]]; codecov --token=38195770-d996-401c-b093-c245b36046f7; if

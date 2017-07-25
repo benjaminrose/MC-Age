@@ -15,6 +15,12 @@ module_logger = logging.getLogger("fsps-age.burnin")
 def burnin(SED, SEDerr, redshift, SNID=None):
     """
     """
+    # Test inputs
+    if len(SED) != 5 & len(SEDerr) != 5:
+        raise TypeError("The SED and it's errors need to represent the 5 SDSS filters")
+    if redshift <= 0:
+        raise ValueError("Redshifts should be greater than zero.")
+    
     # Set up logger
     logger = logging.getLogger("fsps-age.burnin.burnin")
 

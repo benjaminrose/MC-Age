@@ -1,0 +1,11 @@
+# add pytest plugins
+pytest-pep8
+pytest-cov
+
+# to push results to codecov.io
+codecov
+
+# for linting tests
+pylint
+pycodestyle
+pydocstyle
