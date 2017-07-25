@@ -306,7 +306,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
         ndim, nwalkers = 7, 300
         maxLikilhoodSize = 300
         burnInSize = 200
-        nsteps = 2000
+        nsteps = 1000
         # We want ~250,000 accepted values: nwalkers*(nsteps - burninSize).
         # We want this many because it looks good?
     logger.info('running {} walkers,\n\t\t {} initial search steps,\n\t\t {} final steps,\n\t\twith {} burnin steps remove'.format(nwalkers, maxLikilhoodSize, nsteps, burnInSize))
