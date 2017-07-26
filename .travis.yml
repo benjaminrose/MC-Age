@@ -64,7 +64,8 @@ install:
   - cd ../..
   - export SPS_HOME=`pwd`/libfsps
   # install other packages
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r requirements.txt; else; pip3 install -r requirements.txt; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip3 install -r requirements.txt; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r requirements.txt; fi
   # install coverage uploader & pytest plugin to test coverage.
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r test_requirements.txt; fi
 

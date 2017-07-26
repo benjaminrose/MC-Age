@@ -166,6 +166,8 @@ def lnprior(theta, redshift):
     # initial guess is `[0., 0., 1., 1., 10., 1., -20.]`
     # If `sfTrans` set to 0.0, there is no truncation.
     # should we allow sfTrans < tStart?
+
+    # Initially set flat priors, except for variables to follow if-statement
     if (-2.5  < logzsol < 0.5           and
         0.0   < dust2                   and
         0.1   < tau     < 10.0          and
@@ -174,6 +176,17 @@ def lnprior(theta, redshift):
         -20.0 < sfSlope < 20.0          and
         -45.0 < c       < -5.0):
         
+        # logzsol #
+        # http://www.nature.com/nature/journal/v534/n7608/full/nature18322.html
+        # Mean metallicity vs redshift (figure 6)
+        # not much change over 0 < redshift < 0.5
+        # Simply, this distribution can be characterized as a normal
+        # distribution (between logzsol & redshift) centered at -0.5, and
+        # sigma = 0.5 dex
+        CENTER_Z = -0.5
+        SIGMA_Z = 0.5
+
+        # dust2 #
         #high dust (dust2>1) is (starburst) is ~1% of galaxies
         #also Conroy 2009 2.6 says 0.3 is fine for most.
         sigma = 0.3
@@ -181,7 +194,17 @@ def lnprior(theta, redshift):
         #return ln-prior of dust2. Centered at 0 with sigma from above. 
         #Note that this return only takes place if `dust2`>0, so this is only
         #the right and side of the Gaussian. 
-        return -1*np.log(np.sqrt(2*np.pi)*sigma)-(center-dust2)**2/(2*sigma**2)
+
+        # sfSlope #
+        # Note that slope should not be flat-top if it was uninformed.
+        # check out jakevdp.github.io/blog/2014/06/14/
+        # frequentism-and-bayesianism-4-bayesian-in-python/
+
+        return -1*(1.5*np.log(1 + sfSlope**2) +
+                   (center-dust2)**2/(2*sigma**2) +
+                   np.log(np.sqrt(2*np.pi)*sigma) +
+                   (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2)) +
+                   np.log(np.sqrt(2*np.pi)*SIGMA_Z)
     
     return -np.inf
 
@@ -334,7 +357,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     # Metallicity should not bee too metal poor. Minimize search space by not
     # removing the some of the edge. Also z=0.1 objects unlikely to be more
     # metal rich then the Sun.
-    pos[:,0] = np.random.uniform(-2.0, 0.0, size=nwalkers)   # logzsol
+    pos[:,0] = np.random.uniform(-1.0, 0.0, size=nwalkers)   # logzsol to ~1σ
     pos[:,1] = np.random.uniform(0.1, 0.4, size=nwalkers)    # dust2 to ~1σ
     pos[:,2] = np.random.uniform(0.5, 8.0, size=nwalkers)    # tau
     pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    # tStart
