@@ -203,8 +203,8 @@ def lnprior(theta, redshift):
         return -1*(1.5*np.log(1 + sfSlope**2) +
                    (center-dust2)**2/(2*sigma**2) +
                    np.log(np.sqrt(2*np.pi)*sigma) +
-                   (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2)) +
-                   np.log(np.sqrt(2*np.pi)*SIGMA_Z)
+                   (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) +
+                   np.log(np.sqrt(2*np.pi)*SIGMA_Z))
     
     return -np.inf
 

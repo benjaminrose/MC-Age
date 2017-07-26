@@ -67,7 +67,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip3 install -r requirements.txt; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r requirements.txt; fi
   # install coverage uploader & pytest plugin to test coverage.
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r test_requirements.txt; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r test-requirements.txt; fi
 
 script: $MAIN_CMD
 
