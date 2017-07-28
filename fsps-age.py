@@ -6,15 +6,16 @@ Science goal:
     Modeling Photometry
 
 Usage:
-    fsps-age.py global JOBID JOBLENGTH (gupta | messier) [-d | --debug]
     fsps-age.py burnin OBJID
+    fsps-age.py run (circle | messier | gupta) JOBID JOBLENGTH [-d | --debug]
     fsps-age.py (-h | --help)
     fsps-age.py --version
 
 Option:
     JOBID           the ID for the piece of the data set to be analyzed
     JOBLENGTH       the total number of objects looked at
-    gupta messier   select the dataset to analyses
+    circle
+    gupta messier   select the dataset to test
     OBJID           The SN (or Messier) ID of the object to observe
     -d --debug      Run shorter and with more logs
     -h --help       Show this screen
@@ -153,8 +154,19 @@ def redoGupta(cli):
     import redoGupta
 
     # todo: how should the CLI switch between Messier and Gupta?
-    redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
+    if cli['gupta']:
+        redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
                         cli['--debug'], cli['gupta'])
+    elif cli['messier']:
+redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
+                        cli['--debug'], cli['gupta'])
+    elif cli['circle']:
+        redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
+                        cli['--debug'], 'circle')
+    else:
+        raise ValueError("The test functionality only works if 'gupta',",
+                         " 'messier' or 'circle' is called. You somehow got",
+                         " passed the CLI and did not select one of these.")
 
 
 def burnin(cli):
@@ -207,7 +219,7 @@ if __name__ == '__main__':
 
     # create handler object to be able to change settings.
     ## choose saving location
-    if cli['global']:
+    if cli['run']:
         fh = logging.FileHandler('logs/global/fsps-age_{}.log'.format(cli['JOBID']))
         formatLogging()
         redoGupta(cli)

@@ -81,7 +81,8 @@ def getPhotometry():
 #Run `calculateAge.py` running 15 objects (~5 days on CRC) per job array 
 #Gupta has ~210 objects so a complete job array needs 14 objects
 
-def redoGupta(jobID, lenJobs=50, debug=False, useGupta=False):
+# todo this might need a new name.
+def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
     """This runs through each broken-up tsv of the global photometry and calling
      calculateAge to save global age calculations.
     
@@ -102,10 +103,9 @@ def redoGupta(jobID, lenJobs=50, debug=False, useGupta=False):
         does not save resulting chain. Should take around ~12 mins to get a 
         value of one SN.
 
-    useGupta : bool
+    dataset : str, ['gupta', 'messier', 'circle']
         flag to switch between two "calibration" methods: redoing Gupta's
-        analysis and looking about ~10 local galaxies and making sure their
-        ages are as roughly expected.\
+        analysis (with `'gupta'`), looking at about ~10 local galaxies and making sure spirals are younger then ellipticals (with `'messier'`), or testing to recover "known" star formation histories (with `'circle'). This defaults to `'circle'`. More details on circle photometry can be found at
 
     Raises
     ------
@@ -120,16 +120,21 @@ def redoGupta(jobID, lenJobs=50, debug=False, useGupta=False):
     logger = logging.getLogger("fsps-age.redoGupta.redoGupta")
 
     # Import data file
-    if useGupta:
-        # logger.info('importing GlobalPhotometry-Gupta-{}.tsv'.format(jobID))
-        # data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
-        #                    delimiter='\t', skiprows=[0,1,2,4],
-        #                    skipinitialspace=True, na_values='...', index_col=False)
-        pass
-    else:
-        #use the alternative test -- "known" galaxies
-        logger.info('importing galaxyPhotometry.tsv')
-        data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t')
+    if dataset in ['gupta', 'messier', 'circle']:
+        if dataset == 'gupta':
+            # logger.info('importing GlobalPhotometry-Gupta.tsv'.format(jobID))
+            # data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
+            #                    delimiter='\t', skiprows=[0,1,2,4],
+            #                    skipinitialspace=True, na_values='...', index_col=False)
+            pass   # fix to work like messier
+        if dataset == "messier":
+            # these galaxies are more "known' then gupta, at least by type
+            logger.info('importing galaxyPhotometry.tsv')
+            data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t')
+        else:
+            # default to circle test
+            logger.info('importing circlePhotometry.tsv')
+            data = pd.read_csv('data/circlePhotometry.tsv', delimiter='\t')
     
     #cut down dataset
     stepSize = int(np.ceil(len(data)/lenJobs))
