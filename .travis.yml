@@ -71,4 +71,4 @@ install:
 
 script: $MAIN_CMD
 
-after_success: if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then codecov --token=38195770-d996-401c-b093-c245b36046f7; if
+after_success: if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then codecov --token=38195770-d996-401c-b093-c245b36046f7; fi
