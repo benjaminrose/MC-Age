@@ -158,7 +158,7 @@ def redoGupta(cli):
         redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
                         cli['--debug'], cli['gupta'])
     elif cli['messier']:
-redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
+        redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
                         cli['--debug'], cli['gupta'])
     elif cli['circle']:
         redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
