@@ -120,10 +120,17 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
     --------
     runFSPS : ? explains theta parameters. 
     """
+    if not len(theta) == 7:
+        raise ValueError('Likelihood expects 7 model variables')
+
+    if not len(magnitudes) == len(magerr) == 5:
+        raise ValueError('The inputs `magnitudes` and `magerr` need to be arrays of length 5. The lengths are {} and {} respectively.'.format(len(magnitudes), len(magerr)))
+
     #calculate what the FSPS model is for the appropriate values in `theta`.
     model = runFSPS(sp, redshift, *theta[:-1])
 
     #test if `magnitudes` and `magerr` and `model` are all the same length
+    # this verifies that `runFSPS()` has not changed what filters it is using.
     if not len(magnitudes) == len(magerr) == len(model):
         raise ValueError('The inputs `magnitudes` and `magerr` need to be the same length as the result of `calculateAge.runFSPS()`. The lengths are {}, {}, and {} respectively.'.format(len(magnitudes), len(magerr), len(model)))
 
@@ -169,7 +176,7 @@ def lnprior(theta, redshift):
 
     # Initially set flat priors, except for variables to follow if-statement
     if (-2.5  < logzsol < 0.5           and
-        0.0   < dust2                   and
+        0.0   <= dust2                  and
         0.1   < tau     < 10.0          and
         0.5   < tStart  < sfTrans - 2.0 and   #force at least 2 Gyr of tau
         2.5   < sfTrans <= age          and

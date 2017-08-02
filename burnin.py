@@ -16,8 +16,12 @@ def burnin(SED, SEDerr, redshift, SNID=None):
     """
     """
     # Test inputs
-    if len(SED) != 5 & len(SEDerr) != 5:
-        raise TypeError("The SED and it's errors need to represent the 5 SDSS filters")
+    if not isinstance(SED, (list, np.ndarray)):
+        raise TypeError('SED must be of type list or np.ndarray')
+    if not isinstance(SEDerr, (list, np.ndarray)):
+        raise TypeError('SEDerr must be of type list or np.ndarray')
+    if not len(SED) == len(SEDerr) == 5:
+        raise ValueError("The SED and it's errors need to represent the 5 SDSS filters")
     if redshift <= 0:
         raise ValueError("Redshifts should be greater than zero.")
     
