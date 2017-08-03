@@ -30,7 +30,11 @@ class Test_runFSPS(BaseTestCase):
     def test_modelStillWorks(self):
         """These have been calculated before (on crc) when creating new circle 
         test. Check out lab notes on 2017-07-28"""
-        assert np.allclose(calculateAge.runFSPS(self.sp, self.redshift, *self.sf_parameters1[:-1]), np.array(self.SED) - self.sf_parameters1[-1])
+        # is it the same to the 1/100th of a magnitude?
+        assert np.allclose(calculateAge.runFSPS(self.sp, self.redshift,
+                                                *self.sf_parameters1[:-1]),
+                           np.array(self.SED) - self.sf_parameters1[-1],
+                           atol=1e-02)
 
 
 class Test_lnlike(BaseTestCase):
@@ -132,7 +136,7 @@ class Test_lnprob(BaseTestCase):
         circle test 1 should have a higher posterior probability the MCMC
         results found on 2017-08-01 from CRC: 153454.1 ("globalCircle-07-31")
         """
-        assert calculateAge.lnprob(self.sf_parameters1[:-1], self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob([-2.5, 0.01, 7.17, 7.94, 10.40, -5.24, -23.48], self.SED, self.SED_err, self.redshift, self.sp)
+        assert calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob([-2.5, 0.01, 7.17, 7.94, 10.40, -5.24, -23.48], self.SED, self.SED_err, self.redshift, self.sp)
 
 
 class Test_SFH(BaseTestCase):
