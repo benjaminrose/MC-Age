@@ -9,10 +9,11 @@ matrix:
   include:
       - os: linux
         python: 3.5
-        env: MAIN_CMD="pytest -v --cov-config=.coveragerc --cov"
+        # pytest verbose report-on-xfail converage-configuration coverage-plugin
+        env: MAIN_CMD="pytest -v -rx --cov-config=.coveragerc --cov"
       - os: linux
         python: 3.6
-        env: MAIN_CMD="pytest -v --cov-config=.coveragerc --cov"
+        env: MAIN_CMD="pytest -v -rx --cov-config=.coveragerc --cov"
       - os: osx
         #will be python3 from homebrew
         language: generic
