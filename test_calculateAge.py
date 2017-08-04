@@ -27,7 +27,7 @@ class BaseTestCase():
 
 
 class Test_runFSPS(BaseTestCase):
-    @pytest.mark.xfail(reason="Too tight of a tolerance. Newest FSPS adds too much variability.")
+    @pytest.mark.xfail(reason="Too tight of a tolerance for changes in newer FSPS.")
     def test_modelStillWorks_oldFSPS(self):
         """These have been calculated before (on crc) when creating new circle 
         test. Check out lab notes on 2017-07-28"""
@@ -35,7 +35,7 @@ class Test_runFSPS(BaseTestCase):
         assert np.allclose(calculateAge.runFSPS(self.sp, self.redshift,
                                                 *self.sf_parameters1[:-1]),
                            np.array(self.SED) - self.sf_parameters1[-1],
-                           atol=1e-02)
+                           atol=9e-03)
 
     def test_modelStillWorks_newFSPS(self):
         """These have been calculated before (on crc) when creating new circle 
@@ -92,8 +92,10 @@ class Test_lnprior(BaseTestCase):
     def test_passingValues(self):
         assert calculateAge.lnprior(self.theta, self.redshift) > -np.inf, "Prior failing unexpectedly"
 
-    def test_correctResult(self):
-        # should be the same as self.theta_mean
+    def test_correctResult_mean(self):
+        """Takes a calculated a prior probability from `self.theta_mean`, from http://www.wolframalpha.com/input/?i=-1*(1.5*log(1+%2B+0.0**2)+%2B+(0.0-0.0)**2%2F(2*0.3**2)+%2B+log(sqrt(2*pi)*0.3)+%2B+(-0.5+%2B+0.5)**2%2F(2*0.5**2)+%2B+log(sqrt(2*pi)*0.5)), then compares to see if calcuateAge.lnprior calculated the same value.
+
+        Probability comes from `self.theta_mean`: 
         CENTER_Z = -0.5
         SIGMA_Z = 0.5
         logzsol = CENTER_Z
@@ -103,19 +105,34 @@ class Test_lnprior(BaseTestCase):
         sfSlope = 0.0
         theta = [logzsol, dust2, 1.0, 2.0, 10.0, sfSlope, -25]
         expected = -1*(1.5*np.log(1 + sfSlope**2) + (center-dust2)**2/(2*sigma**2) + np.log(np.sqrt(2*np.pi)*sigma) + (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) + np.log(np.sqrt(2*np.pi)*SIGMA_Z))
-        assert calculateAge.lnprior(theta, self.redshift) == expected, "Prior not returning expected result."
+        """
+        # It looks like the return value has 16 decimals
+        expected = 0.0592429184765358
+        assert np.isclose(calculateAge.lnprior(self.theta_mean, self.redshift),
+                          expected), "Prior not returning expected result."
 
-        # should be the same at self.theta
+    def test_correctResult_other(self):
+        """Takes a calculated a prior probability from `self.theta`, from http://www.wolframalpha.com/input/?i=-1*(1.5*log(1+%2B+5.0**2)+%2B+(0.0-0.2)**2%2F(2*0.3**2)+%2B+log(sqrt(2*pi)*0.3)+%2B+(-0.5+%2B+0.3)**2%2F(2*0.5**2)+%2B+log(sqrt(2*pi)*0.5)), then compares to see if calcuateAge.lnprior calculated the same value.
+
+        Probability comes from `self.theta_mean`: 
+        CENTER_Z = -0.5
+        SIGMA_Z = 0.5
         logzsol = -0.3
+        center = 0.0
+        sigma = 0.3
         dust2 = 0.2
         sfSlope = 5.0
         theta = [logzsol, dust2, 1.0, 2.0, 10.0, sfSlope, -25]
-        expected = -1*(1.5*np.log(1 + sfSlope**2) +
-                   (center-dust2)**2/(2*sigma**2) +
-                   np.log(np.sqrt(2*np.pi)*sigma) +
-                   (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) +
-                   np.log(np.sqrt(2*np.pi)*SIGMA_Z))
-        assert calculateAge.lnprior(theta, self.redshift) == expected, "Prior not returning expected result."
+        expected = -1*(1.5*np.log(1 + sfSlope**2) + 
+                    (center-dust2)**2/(2*sigma**2) + 
+                    np.log(np.sqrt(2*np.pi)*sigma) + 
+                    (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) + 
+                    np.log(np.sqrt(2*np.pi)*SIGMA_Z))
+        """
+        # It looks like the return value has 16 decimals
+        expected = -5.1301241107779094
+        assert np.isclose(calculateAge.lnprior(self.theta, self.redshift),
+                         expected), "Prior not returning expected result."
 
     def test_priorChanges(self):
         assert calculateAge.lnprior(self.theta_mean, self.redshift) > calculateAge.lnprior(self.theta, self.redshift) , "Mean values should have a higher prior probability than other accepted values."
