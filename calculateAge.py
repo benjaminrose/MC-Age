@@ -175,7 +175,14 @@ def lnprior(theta, redshift):
     # should we allow sfTrans < tStart?
 
     # Initially set flat priors, except for variables to follow if-statement
-    if (-1.0  < logzsol < 0.5           and
+    # if (-1.0  < logzsol < 0.5           and
+    #     0.0   <= dust2                  and
+    #     0.1   < tau     < 10.0          and
+    #     0.5   < tStart  < sfTrans - 2.0 and   #force at least 2 Gyr of tau
+    #     2.5   < sfTrans <= age          and
+    #     -20.0 < sfSlope < 20.0          and
+    #     -45.0 < c       < -5.0):
+    if (-0.51  < logzsol < 0.49           and
         0.0   <= dust2                  and
         0.1   < tau     < 10.0          and
         0.5   < tStart  < sfTrans - 2.0 and   #force at least 2 Gyr of tau
@@ -364,7 +371,8 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     # Metallicity should not bee too metal poor. Minimize search space by not
     # removing the some of the edge. Also z=0.1 objects unlikely to be more
     # metal rich then the Sun.
-    pos[:,0] = np.random.uniform(-1.0, 0.0, size=nwalkers)   # logzsol to ~1σ
+    # pos[:,0] = np.random.uniform(-1.0, 0.0, size=nwalkers)   # logzsol to ~1σ
+    pos[:,0] = np.random.uniform(-0.5, -0.5, size=nwalkers)   # logzsol to ~1σ
     pos[:,1] = np.random.uniform(0.1, 0.4, size=nwalkers)    # dust2 to ~1σ
     pos[:,2] = np.random.uniform(0.5, 8.0, size=nwalkers)    # tau
     pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    # tStart
