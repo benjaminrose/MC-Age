@@ -3,9 +3,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-ID = '101'
+ID = '15776'
 # START = 100
-START = 0
+START = 50
 
 # size should be (nwalkers, nsteps, ndim)
 samples = np.load('../resources/burnin/samples-{}.npy'.format(ID))
