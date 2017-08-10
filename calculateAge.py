@@ -143,7 +143,7 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
     #todo(Do I need 1/2 at front or 5/2? https://www.statlect.com/fundamentals-of-statistics/normal-distribution-maximum-likelihood)
     #do these constants not matter because the `theta` that maximizes this function will be the same anyways and the value at maximum is not all that important? -- correct for 2*pi. Tested in `learningMCMC.py`.
     ln_like = -0.5*(np.sum((magnitudes-model-theta[-1])**2*inv_sigma2 
-                   - np.log(2*np.pi*inv_sigma2))
+                   + np.log(2*np.pi*inv_sigma2))
                   )
     return ln_like
 
