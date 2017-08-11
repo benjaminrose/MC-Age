@@ -142,9 +142,12 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
     #todo(why does http://dan.iel.fm/emcee/current/user/line/#maximum-likelihood-estimation not have `np.log(2*np.pi*inv_sigma2)`)
     #todo(Do I need 1/2 at front or 5/2? https://www.statlect.com/fundamentals-of-statistics/normal-distribution-maximum-likelihood)
     #do these constants not matter because the `theta` that maximizes this function will be the same anyways and the value at maximum is not all that important? -- correct for 2*pi. Tested in `learningMCMC.py`.
-    ln_like = -0.5*(np.sum((magnitudes-model-theta[-1])**2*inv_sigma2 
-                   + np.log(2*np.pi*inv_sigma2))
-                  )
+    lnlike_model = np.square(magnitudes-(model+theta[-1]))*inv_sigma2
+    lnlike_error = -np.log(2*np.pi*inv_sigma2)
+    assert len(lnlike_model) == 5
+    assert len(lnlike_error) == 5
+    lnlike_sum = np.sum(lnlike_model + lnlike_error)
+    ln_like = -0.5*lnlike_sum
     return ln_like
 
 
@@ -175,14 +178,7 @@ def lnprior(theta, redshift):
     # should we allow sfTrans < tStart?
 
     # Initially set flat priors, except for variables to follow if-statement
-    # if (-1.0  < logzsol < 0.5           and
-    #     0.0   <= dust2                  and
-    #     0.1   < tau     < 10.0          and
-    #     0.5   < tStart  < sfTrans - 2.0 and   #force at least 2 Gyr of tau
-    #     2.5   < sfTrans <= age          and
-    #     -20.0 < sfSlope < 20.0          and
-    #     -45.0 < c       < -5.0):
-    if (-0.51  < logzsol < 0.49           and
+    if (-1.0  < logzsol < 0.5           and
         0.0   <= dust2                  and
         0.1   < tau     < 10.0          and
         0.5   < tStart  < sfTrans - 2.0 and   #force at least 2 Gyr of tau
