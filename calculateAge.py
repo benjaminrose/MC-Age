@@ -254,6 +254,73 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
         return -np.inf
     return lp + lnlike(theta, magnitudes, magerr, redshift, sp)
 
+def setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler):
+    """
+    mostly-maximize likelihood to find initial MCMC position
+
+    Parameters
+    ----------
+    ndim, nwalkers, maxLikilhoodSize, sampler
+    """
+    logger = logging.getLogger("fsps-age.calculateAge.setUpMCMC")
+    logger.info('called setupMCMC')
+
+    ############
+    # mostly-maximize likelihood to find initial MCMC position
+    ############
+    # Use MCMC because it can simply force boundary conditions
+    # Set up initial array
+    pos = np.zeros((nwalkers, ndim))
+    # PRIOR BOUNDS! -- with age = cosmo.age(redshift).to('Gyr').value
+    #     -2.5  < logzsol < 0.5           and
+    #     0.0   < dust2                   and
+    #     0.1   < tau     < 10.0          and
+    #     0.5   < tStart  < sfTrans - 2.0 and
+    #     2.5   < sfTrans <= age          and
+    #     -20.0 < sfSlope < 20.0          and
+    #     -45.0 < c       < -5.0):
+    # Keep
+    # Assuming you have enough walkers, These random numbers will "uniformly
+    # fill" the 7-d parameter space. More walkers (or a smaller initial search
+    # space) will make this assumption more valid.
+    # Metallicity should not bee too metal poor. Minimize search space by not
+    # removing the some of the edge. Also z=0.1 objects unlikely to be more
+    # metal rich then the Sun.
+    pos[:,0] = np.random.uniform(-1.0, 0.0, size=nwalkers)   # logzsol to ~1σ
+    pos[:,1] = np.random.uniform(0.1, 0.4, size=nwalkers)    # dust2 to ~1σ
+    pos[:,2] = np.random.uniform(0.5, 8.0, size=nwalkers)    # tau
+    pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    # tStart
+    age = cosmo.age(redshift).to('Gyr').value
+    pos[:,4] = np.random.uniform(3.0, age - 0.1, size=nwalkers)   # sfTrans
+    # Keep this one a bit tight because it should have a diminithing influace
+    # as it approaches it bounds.
+    pos[:,5] = np.random.uniform(-10.0, 10.0, size=nwalkers)   # sfSlope
+    # Keep values tight if expected value is well understood
+    # Also this variable is highly influential to the likelihood
+    pos[:,6] = np.random.uniform(-28, -15.0, size=nwalkers)    # c
+
+    print('Running MCMC for initial position')
+    logger.info('Running MCMC for initial position with {} walkers, for {} steps'.format(nwalkers, maxLikilhoodSize))
+    pos, prob, state = sampler.run_mcmc(pos, maxLikilhoodSize)
+    
+    # get position with "maximum" likelihood from limited run
+    best_pos = sampler.flatchain[sampler.flatlnprobability.argmax()]
+    print('Best position from initial search: ', best_pos)
+    logger.info('Best position from initial search: {}'.format(best_pos))
+    logger.debug("Mean ln-probability for each walker: {}".format(
+                sampler.lnprobability.mean(-1)))
+    logger.debug("Max ln-probability for each walker: {}".format(
+                sampler.lnprobability.max(-1)))
+    sampler.reset()
+    logger.debug("Reset sampler's chain and lnprobability arrays")
+
+    return best_pos
+
+# def runMCMC(ndim, nwalkers = 7, 300
+#         burnInSize = 200
+#         nsteps = 1000
+#         sampler):
+#     return
 
 def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False, 
                  burnin=False):
@@ -346,56 +413,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
 
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
 
-    ############
-    # mostly-maximize likelihood to find initial MCMC position
-    ############
-    # Use MCMC because it can simply force boundary conditions
-    # Set up initial array
-    pos = np.zeros((nwalkers, ndim))
-    # PRIOR BOUNDS! -- with age = cosmo.age(redshift).to('Gyr').value
-    #     -2.5  < logzsol < 0.5           and
-    #     0.0   < dust2                   and
-    #     0.1   < tau     < 10.0          and
-    #     0.5   < tStart  < sfTrans - 2.0 and
-    #     2.5   < sfTrans <= age          and
-    #     -20.0 < sfSlope < 20.0          and
-    #     -45.0 < c       < -5.0):
-    # Keep
-    # Assuming you have enough walkers, These random numbers will "uniformly
-    # fill" the 7-d parameter space. More walkers (or a smaller initial search
-    # space) will make this assumption more valid.
-    # Metallicity should not bee too metal poor. Minimize search space by not
-    # removing the some of the edge. Also z=0.1 objects unlikely to be more
-    # metal rich then the Sun.
-    # pos[:,0] = np.random.uniform(-1.0, 0.0, size=nwalkers)   # logzsol to ~1σ
-    pos[:,0] = np.random.uniform(-0.5, -0.5, size=nwalkers)   # logzsol to ~1σ
-    pos[:,1] = np.random.uniform(0.1, 0.4, size=nwalkers)    # dust2 to ~1σ
-    pos[:,2] = np.random.uniform(0.5, 8.0, size=nwalkers)    # tau
-    pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    # tStart
-    age = cosmo.age(redshift).to('Gyr').value
-    pos[:,4] = np.random.uniform(3.0, age - 0.1, size=nwalkers)   # sfTrans
-    # Keep this one a bit tight because it should have a diminithing influace
-    # as it approaches it bounds.
-    pos[:,5] = np.random.uniform(-10.0, 10.0, size=nwalkers)   # sfSlope
-    # Keep values tight if expected value is well understood
-    # Also this variable is highly influential to the likelihood
-    pos[:,6] = np.random.uniform(-28, -15.0, size=nwalkers)    # c
-
-    print('Running MCMC for initial position')
-    logger.info('Running MCMC for initial position with {} walkers, for {} steps'.format(nwalkers, maxLikilhoodSize))
-    pos, prob, state = sampler.run_mcmc(pos, maxLikilhoodSize)
-    
-    # get position with "maximum" likelihood from limited run
-    best_pos = sampler.flatchain[sampler.flatlnprobability.argmax()]
-    print('Best position from initial search: ', best_pos)
-    logger.info('Best position from initial search: {}'.format(best_pos))
-    logger.debug("Mean ln-probability for each walker: {}".format(
-                sampler.lnprobability.mean(-1)))
-    logger.debug("Max ln-probability for each walker: {}".format(
-                sampler.lnprobability.max(-1)))
-    sampler.reset()
-    logger.debug("Reset sampler's chain and lnprobability arrays")
-    
+    # best_pos = setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler)
 
     ############
     # Set up new start position as a Gaussian ball around "max" likelihood.
