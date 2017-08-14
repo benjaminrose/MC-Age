@@ -34,8 +34,6 @@ from scipy import integrate
 import fsps
 import emcee
 
-#used to write HDF5 tables, requires `h5py`
-from astropy.table import Table
 # from astropy.cosmology import WMAP9 as cosmo   # or make my own
 from astropy.cosmology import FlatLambdaCDM
 
@@ -536,10 +534,10 @@ def integrate_age(tau, tStart, sfTrans, sfSlope, redshift):
                 (emitted at z={}, ageOfUniverse={}) 
                 for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, k, l, m, redshift, ageOfUniverse.to('Gyr').value, SNID))
             warnings.warn('Getting zero integrated SFH, check log.')
-            time, dx = np.linspace(k, ageOfUniverse.to('Gyr').value, num=8193,
+            time_, dx = np.linspace(k, ageOfUniverse.to('Gyr').value, num=8193,
                                     retstep=True)
             num_y, den_y = np.array([]), np.array([])
-            for n in time:
+            for n in time_:
                 num_y = np.append(num_y, tStarFormation(n, j, k, l, m))
                 den_y = np.append(den_y, starFormation(n, j, k, l, m))
             numerator[-1] = integrate.romb(num_y, dx)
