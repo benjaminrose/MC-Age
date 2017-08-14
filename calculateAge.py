@@ -507,6 +507,68 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     return samples
 
 
+def integrate_age(tau, tStart, sfTrans, sfSlope, redshift):
+    """Integrates over star formation history to get the age mass weighted age
+    of a stellar history. This Integrates over a star formation history defined
+    in Rose & Garnavich 2017, the same as FSPS with `sfh` set to 5.
+
+    Parameters
+    ----------
+    tau : numpy.ndarray
+        The e-folding scale ($e^(t/tau)$) of the initial star formation burst.
+    tStart : numpy.ndarray
+        The time, since the big bang, when star formation start.
+    sfTrans : numpy.ndarray
+        The time, since the bing bang, when star formation transfers from an
+        exponential decay to a linear rate.
+    sfSlope : numpy.ndarray
+        The is the slope of the late time star formation linear rate.
+    redshift : float
+        This observed redshift. This is used to calculate when the light was emitted. To convert from redshift to age of the universe a cosmology is assumed. Currently that is Kessler 2009a (also Gupta 2011, §2.3), but it could change to Campbell 2013.
+    """
+    # Test inputs
+    if not isinstance(tau, (np.ndarray)):
+        raise TypeError('tau must be of type list or np.ndarray')
+    if not isinstance(tStart, (np.ndarray)):
+        raise TypeError('tStart must be of type list or np.ndarray')
+    if not isinstance(sfTrans, (np.ndarray)):
+        raise TypeError('sfTrans must be of type list or np.ndarray')
+    if not isinstance(sfSlope, (np.ndarray)):
+        raise TypeError('sfSlope must be of type list or np.ndarray')
+    if not len(tau) == len(tStart) == len(sfTrans) == len(sfSlope):
+        raise ValueError("The star formation parameters need to be equal lengths")
+    if redshift <= 0:
+        raise ValueError("Redshifts should be greater than zero.")
+
+    ageOfUniverse = cosmo.age(redshift)
+    # lengthOfSF = ageOfUniverse.to('Gyr').value - tStart
+    numerator = np.array([])
+    denominator = np.array([])
+    for j, k, l, m in zip(tau, tStart, sfTrans, sfSlope):
+        #only need the value of `integrate.quad` not the absolute error
+        numerator = np.append(numerator, integrate.quad(tStarFormation, k, ageOfUniverse.to('Gyr').value, args=(j, k, l, m))[0])
+        denominator = np.append(denominator, integrate.quad(starFormation, k, ageOfUniverse.to('Gyr').value, args=(j, k, l, m))[0])
+        if denominator[-1] == 0:
+            logger.info('because of scipy issue need to use sample integration')
+            logger.warning('''SFH: {}, {}, {}, {} 
+                (emitted at z={}, ageOfUniverse={}) 
+                for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, k, l, m, redshift, ageOfUniverse.to('Gyr').value, SNID))
+            warnings.warn('Getting zero integrated SFH, check log.')
+            time, dx = np.linspace(k, ageOfUniverse.to('Gyr').value, num=8193,
+                                    retstep=True)
+            num_y, den_y = np.array([]), np.array([])
+            for n in time:
+                num_y = np.append(num_y, tStarFormation(n, j, k, l, m))
+                den_y = np.append(den_y, starFormation(n, j, k, l, m))
+            numerator[-1] = integrate.romb(num_y, dx)
+            denominator[-1] = integrate.romb(den_y, dx)
+
+    # This is from Gupta 2011 Equation 3 but with a change in t_0. He used t_0
+    # = start of star formation, I use t_0 = big bang. Explained in FIndings 
+    # on 2017-05-10 & updated on 2017-05-15
+    return ageOfUniverse.to('Gyr').value - tStart + numerator/denominator
+    # return ageOfUniverse.to('Gyr').value - tStart - numerator/denominator
+
 def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug=False):
     """calculateAge either from a given Star Formation History (SFH) or from a 
     *ugriz* SED. If a SED is given (the default) then it calculates the SFH by 
@@ -599,34 +661,7 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
     number of ages as samples and gives a us a distribution for the age.
     '''
 
-    ## Calculate Age!
-    ageOfUniverse = cosmo.age(redshift)
-    # lengthOfSF = ageOfUniverse.to('Gyr').value - tStart
-    numerator = np.array([])
-    denominator = np.array([])
-    for j, k, l, m in zip(tau, tStart, sfTrans, sfSlope):
-        #only need the value of `integrate.quad` not the absolute error
-        numerator = np.append(numerator, integrate.quad(tStarFormation, k, ageOfUniverse.to('Gyr').value, args=(j, k, l, m))[0])
-        denominator = np.append(denominator, integrate.quad(starFormation, k, ageOfUniverse.to('Gyr').value, args=(j, k, l, m))[0])
-        if denominator[-1] == 0:
-            logger.info('because of scipy issue need to use sample integration')
-            logger.warning('''SFH: {}, {}, {}, {} 
-                (emitted at z={}, ageOfUniverse={}) 
-                for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, k, l, m, redshift, ageOfUniverse.to('Gyr').value, SNID))
-            warnings.warn('Getting zero integrated SFH, check log.')
-            time, dx = np.linspace(k, ageOfUniverse.to('Gyr').value, num=8193,
-                                    retstep=True)
-            num_y, den_y = np.array([]), np.array([])
-            for n in time:
-                num_y = np.append(num_y, tStarFormation(n, j, k, l, m))
-                den_y = np.append(den_y, starFormation(n, j, k, l, m))
-            numerator[-1] = integrate.romb(num_y, dx)
-            denominator[-1] = integrate.romb(den_y, dx)
-
-    # This is from Gupta 2011 Equation 3 but with a change in t_0. He used t_0
-    # = start of star formation, I use t_0 = big bang. Explained in FIndings 
-    # on 2017-05-10 & updated on 2017-05-15
-    age = ageOfUniverse.to('Gyr').value - tStart - numerator/denominator
+    age = integrate_age()
 
     #Warn if any age calculations produce NaN
     if np.isnan(age).any():
