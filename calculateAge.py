@@ -33,12 +33,13 @@ import numpy as np
 from scipy import integrate
 import fsps
 import emcee
-
-# from astropy.cosmology import WMAP9 as cosmo   # or make my own
+# from astropy.cosmology import WMAP9 as cosmo   # a generic cosmology
 from astropy.cosmology import FlatLambdaCDM
 
-cosmo = FlatLambdaCDM(H0=70, Om0=0.27) ## Kessler 2009a but flat and 2-sig figs (Gupta 2011, §2.3)
+# Kessler 2009a but flat and 2-sig figs (Gupta 2011, §2.3)
+cosmo = FlatLambdaCDM(H0=70, Om0=0.27) 
 # CampbellCosmo = FlatLambdaCDM(H0=73.8, Om0=0.24) 
+
 module_logger = logging.getLogger("fsps-age.calculateAge")
 
 def runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope):
