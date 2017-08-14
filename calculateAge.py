@@ -26,7 +26,6 @@ Function outline, here is what each function calls or required data. Model param
     - `starFormation()` -- the functional form of our SFH
 """
 import logging
-import platform
 import warnings
 import time
 
@@ -479,28 +478,11 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
                                                     sfTrans, sfSlope, c))
     print('MCMC: ', logzso, dust2, tau, tStart, sfTrans, sfSlope, c)
 
-    #only save if SNID is given
-    if SNID:
-        logger.debug('SNID was given and now saving results')
-        #only make a plot if on a Mac
-        if platform.system() == 'Darwin':
-            logger.debug('platform is Darwin, now making corner plot')
-            import corner
-            fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", 
-                                        "$tau$", "$t_{start}$", "$t_{trans}$",
-                                        '$sf slope$', 'c'])
-            fig.savefig("figures/SF_triangle.pdf")
-            logger.info('saved figures/SF_triangle.pdf')
-        else:
-            logger.debug('platform is {}, no corner plot made'.format(platform.system()))
-
-        ## save clean results to disk
-        header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
-        np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
-                    delimiter='\t', header=header)
-        logger.info('saved resources/SN{}_chain.tsv')
-    else:
-        logger.debug('SNID was {}, no data was saved to disk.'.format(SNID))
+    ## save clean results to disk
+    header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
+    np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
+                delimiter='\t', header=header)
+    logger.info('saved resources/SN{}_chain.tsv')
     
     logger.debug('done running calculateSFH')
     ## return flat clean chain
@@ -687,14 +669,6 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
             np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
                     delimiter='\t', header=header)
             logger.info('saved resources/SN{}_chain.tsv'.format(SNID))
-
-            #only on a Mac, make corner plot of MCMC parameters & Age
-            if platform.system() == 'Darwin':
-                import corner
-                fig = corner.corner(samples, labels=["$logZsol$", "$dust_2$", 
-                                    "$tau$", "$t_{start}$", "$t_{trans}$", 
-                                    '$sf slope$', 'c', 'age'])
-                fig.savefig("figures/SF_Age_triangle.pdf")
 
         print(np.nanmedian(age))
         print(np.median(age))
