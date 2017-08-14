@@ -416,7 +416,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     # best_pos = setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler)
     # Can I get the parameters I need if I start near them?
     # C1 is     -0.5, 0.1,  0.5, 1.5, 9.0, -1.0, -25
-    best_pos = [-0.4, 0.08, 1.0, 3.0, 7.0, -2.0, -25.5]
+    best_pos = [-0.5001, 0.1004, 0.5001, 1.49999, 9.0001, -0.99999, -25.0]
 
     ############
     # Set up new start position as a Gaussian ball around "max" likelihood.
@@ -427,7 +427,8 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     # needs to one for every dimension -- This starts all the walkers in a
     # position that resembles the expected distribution. Reducing the need for
     # burnin to be cut out.
-    spread = [0.1, 0.05, 0.1, 0.05, 0.05, 1.0, 0.1]
+    # spread = [0.1, 0.05, 0.1, 0.05, 0.05, 1.0, 0.1]
+    spread = [0.001, 0.0005, 0.001, 0.0005, 0.0005, 0.01, 0.001]   # is the result very small?
     pos = emcee.utils.sample_ball(best_pos, spread, size=nwalkers)
     logger.debug('Sample ball returned: {}'.format(pos))
 
