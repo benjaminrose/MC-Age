@@ -6,7 +6,7 @@ brose3@nd.edu
 benjamin.rose@me.com
 University of Notre Dame
 2017-01-27
-Python 3.6
+Python 3.5
 """
 """
 Function outline, here is what each function calls or required data. Model parameters are **bold**. File is in inverse order of this.
@@ -26,7 +26,6 @@ Function outline, here is what each function calls or required data. Model param
     - `starFormation()` -- the functional form of our SFH
 """
 import logging
-import warnings
 import time
 
 import numpy as np
@@ -37,8 +36,8 @@ import emcee
 from astropy.cosmology import FlatLambdaCDM
 
 # Kessler 2009a but flat and 2-sig figs (Gupta 2011, §2.3)
-cosmo = FlatLambdaCDM(H0=70, Om0=0.27) 
-# CampbellCosmo = FlatLambdaCDM(H0=73.8, Om0=0.24) 
+cosmo = FlatLambdaCDM(H0=70, Om0=0.27)
+# CampbellCosmo = FlatLambdaCDM(H0=73.8, Om0=0.24)
 
 module_logger = logging.getLogger("fsps-age.calculateAge")
 
@@ -534,7 +533,6 @@ def integrate_age(tau, tStart, sfTrans, sfSlope, redshift):
             logger.warning('''SFH: {}, {}, {}, {} 
                 (emitted at z={}, ageOfUniverse={}) 
                 for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, k, l, m, redshift, ageOfUniverse.to('Gyr').value, SNID))
-            warnings.warn('Getting zero integrated SFH, check log.')
             time_, dx = np.linspace(k, ageOfUniverse.to('Gyr').value, num=8193,
                                     retstep=True)
             num_y, den_y = np.array([]), np.array([])
