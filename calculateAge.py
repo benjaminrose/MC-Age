@@ -42,55 +42,73 @@ cosmo = FlatLambdaCDM(H0=70, Om0=0.27)
 module_logger = logging.getLogger("fsps-age.calculateAge")
 
 def runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope):
-    """Calculates expected SED for given stellar population (`sp`) and allows for variations in `redshift`, `logzsol`, `dust2`, `tau`, `tStart`, `sfTrans`, and `sfSlope`. It makes sense to use this function to minimize over metallicity, dust, and SFH. 
+    """Calculates expected SED for given stellar population (`sp`) and allows
+    for variations in `redshift`, `logzsol`, `dust2`, `tau`, `tStart`,
+    `sfTrans`, and `sfSlope`. Returns the apparent magnitude in *ugriz*.
+
+    Note that the model produces 1 solar mass of stars, so a scaling factor
+    may need to be applied.
     
     Parameters
     ----------
     sp : fsps.fsps.StellarPopulation
         An FSPS StellarPopulation that we want to calculated the resulting SED.
+        Assumes `zcontinuous` and `sfh` are set to $> 0$ and $5$ respectively.
     redshift : float
-        The redshift of where this object is observed. 
+        The redshift of the object is observed.
     logzsol : float
         Parameter describing the metallicity, given in units of log(Z/Z⊙).
+        python-FSPS's `logzsol`. Not sure what FSPS parameter it is.
     dust2 : float
-        Dust parameter describing the attenuation of old stellar light, i.e. where t > `dust_tesc`. `dust-test` is left at its default of 7.0 Gyr.
+        Dust parameter describing the attenuation of old stellar light, i.e.
+        where t > `dust_tesc`. `dust-test` is left at its default of 7.0 Gyr.
+        FSPS's `dust2`.
     tau : float
         The e-folding time for the SFH, in Gyr. The range is 0.1 < `tau` < 100.
+        FSPS's `tau`.
     tStart : float
-        Start time of the SFH, in Gyr.
+        Start time of the SFH, in Gyr. FSPS's `sf_start`.
     sfTrans : float
-        Truncation time of the SFH, in Gyr. If set to 0.0, there is no truncation.
+        Transition time of the SFH from exponential to linear, in Gyr.
+        FSPS's `sf_trunc`.
     sfSlope : float
-        The slope of the SFR after time `sfTrans`.
+        The slope of the linear SFR after time `sfTrans`.
     
     Returns
     -------
-    list (or np.array ?)
-        The output of `fsps.StellarPopulation.get_mags()` for the given redshift: the *ugriz* magnitudes of 1 solar mass. http://dan.iel.fm/python-fsps/current/stellarpop_api/#fsps.StellarPopulation.get_mags Currently *ugriz* are hard-coded in and not configurable. This could be changed. 
-
+    np.ndarray
+        A 1D array of the output of `fsps.StellarPopulation.get_mags()` for
+        the given redshift: the *ugriz* magnitudes of 1 solar mass.
+        dan.iel.fm/python-fsps/current/stellarpop_api/#fsps.StellarPopulation.get_mags
     """
     sdss_bands = ['sdss_u', 'sdss_g', 'sdss_r', 'sdss_i', 'sdss_z']
 
-    #set metallicity
+    # set metallicity
     sp.params['logzsol'] = logzsol
 
-    #set Dust
-    #young stars see dust1 & dust2. This produces young stars with 3x optical depth. 
-    #using default `dust_tesc` of 7.0 Gyr
+    # set dust
+    # using default `dust_tesc` of 7.0 Gyr
+    # young stars see dust1 & dust2. 
     # Conroy 2009 says Charlot 2000 recommends (dust1, dust2) = (1.0, 0.3)
+    # This produces young stars with 3x optical depth. 
     dust1 = 2.0*dust2
     sp.params['dust1'] = dust1
     sp.params['dust2'] = dust2
 
-    #set SFH
+    # set SF parameters
     sp.params['tau'] = tau
     sp.params['sf_start'] = tStart
     sp.params['sf_trunc'] = sfTrans
     sp.params['sf_slope'] = sfSlope
 
-    #calculate age of universe when observed light was emitted
+    # calculate age of universe when observed light was emitted
     tage = cosmo.age(redshift).to('Gyr').value
 
+    # * `zmet` has no effect, 2017-08-15 lab notes
+    # * since we don't use `add_igm_absortion` there is no difference between
+    # `sp.get_mags(redshfit) and `sp.params['redshift']`
+    # * `tage` is the age of the stellar population. This uses the same t_0
+    # reference as the `sf_start`, `st_trunc`, etc., aka since the bing bang
     return sp.get_mags(tage=tage, redshift=redshift, bands=sdss_bands)
 
 
