@@ -114,53 +114,89 @@ def runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope):
 
 def lnlike(theta, magnitudes, magerr, redshift, sp):
     """
-    log-likelyhood of the model to be minimized.: 
+    log-likelyhood of the model to be minimized.
+    Example of fitting a line with undersized errors: 
     ln p(y|x,σ,m,b,f) = −1/2 sum_n{(y_n−m*x_n−b)^2/s^2_n+ln(2π*s^2_n)}
     s^2_n = σ^2_n+f^2(m*x_n+b)^2
 
     Parameters
     ----------
-    theta : list
-        A list of the values of the current iteration of model parameters & a fitting constant to raise the mass from 1 solar mass (FSPS) to reality. Should be in order expected by `calculateAge.runFSPS()` with a constant on the end: `[logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]`.
-    magnitudes : list
-        A list of the magnitudes of the stellar populations. Currently needs to be *ugriz* only.
-    magerr : np.array
-        A list of the associated uncertainties for `magnitudes`. Needs to be the same length.
+    theta : array-like
+        A list (or an array) of the values of the current iteration of model
+        parameters & a fitting constant to raise the mass from 1 solar mass
+        (FSPS) to reality. Should be in order expected by
+        `calculateAge.runFSPS()` with a constant on the end:
+        `[logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]`.
+    magnitudes : np.ndarray
+        A list of the magnitudes of the stellar populations. Currently needs
+        to be *ugriz* only.
+    magerr : np.ndarray
+        A list of the associated uncertainties for `magnitudes`. Needs to be
+        the same length.
     redshift : float
         The known redshift of the object
-    sp : fsps.fsps.StellarPopulation
+    sp : fsps.StellarPopulation
         The stellar population from which the age is derived
+
+    Returns
+    -------
+    float
+        The likelihood of the given model parameters (`theta`, `sp`) relative
+        to the given data (`magnitudes`, `magerr`, `redshift`). 
+
+        If `-np.inf` is returned that means either the model produced at least
+        one filter more then 0.5 mags away from the observed value or the
+        likelihood was less then -10,000. This is because (as of 2017-08-15)
+        MCMC was selecting terrible fits.
+
+    Raises
+    ------
+    ValueError
+        if `theta` does not contain the expected 7 model parameters
+    ValueError
+        if `magnitudes` and `magerr` are not length 5, one value per SDSS
+        filter
 
     See Also
     --------
-    runFSPS : ? explains theta parameters. 
+    runFSPS : explains `theta` parameters
+    lnprior : the prior probability
+    lnprob : the posterior probability 
     """
+    # test inputs
     if not len(theta) == 7:
         raise ValueError('Likelihood expects 7 model variables')
 
     if not len(magnitudes) == len(magerr) == 5:
-        raise ValueError('The inputs `magnitudes` and `magerr` need to be arrays of length 5. The lengths are {} and {} respectively.'.format(len(magnitudes), len(magerr)))
+        raise ValueError('The inputs `magnitudes` and `magerr` need to be' +
+                         ' arrays of length 5. The lengths are {} and {}'
+                         .format(len(magnitudes), len(magerr)) +
+                         ' respectively.')
 
-    #calculate what the FSPS model is for the appropriate values in `theta`.
-    model = runFSPS(sp, redshift, *theta[:-1])
+    # calculate what the FSPS model is for the appropriate values in `theta`.
+    model = runFSPS(sp, redshift, *theta[:-1]) + theta[-1]
 
-    #test if `magnitudes` and `magerr` and `model` are all the same length
+    # test if `magnitudes` and `magerr` and `model` are all the same length
     # this verifies that `runFSPS()` has not changed what filters it is using.
     if not len(magnitudes) == len(magerr) == len(model):
-        raise ValueError('The inputs `magnitudes` and `magerr` need to be the same length as the result of `calculateAge.runFSPS()`. The lengths are {}, {}, and {} respectively.'.format(len(magnitudes), len(magerr), len(model)))
+        raise ValueError('The inputs `magnitudes` and `magerr` need to be' +
+                         ' the same length as the result of' +
+                         ' `calculateAge.runFSPS()`. The lengths are {}, {},'
+                         .format(len(magnitudes), len(magerr)) + 
+                         ' and {} respectively.'.format(len(model)))
 
-    #the inverse of the square of the uncertainty
-    #aka the inverse of `magerr` squared. Just like in chi-square (before the summation)
-    #section 4.2.6 of Statistics Data Mining ... (also look at 4.2.3)
+    # the inverse of the square of the uncertainty
+    # aka the inverse of `magerr` squared. Just like in chi-square (before the summation)
+    # section 4.2.6 of Statistics Data Mining ... (also look at 4.2.3)
     inv_sigma2 = 1.0/np.square(magerr)
 
     #todo(why does http://dan.iel.fm/emcee/current/user/line/#maximum-likelihood-estimation not have `np.log(2*np.pi*inv_sigma2)`)
     #todo(Do I need 1/2 at front or 5/2? https://www.statlect.com/fundamentals-of-statistics/normal-distribution-maximum-likelihood)
     #do these constants not matter because the `theta` that maximizes this function will be the same anyways and the value at maximum is not all that important? -- correct for 2*pi. Tested in `learningMCMC.py`.
-    lnlike_model = np.square(magnitudes-(model+theta[-1]))*inv_sigma2
+    lnlike_model = np.square(magnitudes-model)*inv_sigma2
     lnlike_error = -np.log(2*np.pi*inv_sigma2)
-    assert len(lnlike_model) == 5
-    assert len(lnlike_error) == 5
+    assert len(lnlike_model) == 5, 'should still be 5 filters'
+    assert len(lnlike_error) == 5, 'should still be 5 filters'
     lnlike_sum = np.sum(lnlike_model + lnlike_error)
     ln_like = -0.5*lnlike_sum
     return ln_like
