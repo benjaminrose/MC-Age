@@ -1,3 +1,7 @@
+"""
+Usage:
+    pytest -v -rx --cov-config=.coveragerc --cov --runxfail
+"""
 import pytest
 import numpy as np
 import fsps
@@ -17,16 +21,21 @@ class BaseTestCase():
 
     # from circle 1
     SED = [20.36, 18.76, 17.99, 17.67, 17.39]
-    SED_err = [0.1, 0.1, 0.1, 0.1, 0.1]
+    # is this the same as in code? -- What should the error be
+    # Gupta is 0.05 to 0.5, lets say 0.1
+    # Messier is 0.001
+    # circle was currently 0.01 
+    SED_err = [0.01, 0.01, 0.01, 0.01, 0.01]
     redshift = 0.05
     # details in 2017-07-28 lab notebook
     sf_parameters1 = [-0.5, 0.1, 0.5, 1.5, 9.0, -1.0, -25]  # old
+    sf_fit_params1 = [-2.50, 0.01, 7.17, 7.94, 10.40, -5.25, -23.48]
     c = -25.0
     # from circle 3
-    sf_parameters3 = [-0.5, 0.1, 7.0, 3.0, 10, 15.0, -25] # young
+    sf_parameters3 = [-0.5, 0.1, 7.0, 3.0, 10.0, 15.0, -25] # young
 
 
-class Test_runFSPS(BaseTestCase):
+class TestRunFSPS(BaseTestCase):
     @pytest.mark.xfail(reason="Too tight of a tolerance for changes in newer FSPS.")
     def test_modelStillWorks_oldFSPS(self):
         """These have been calculated before (on crc) when creating new circle 
@@ -78,8 +87,28 @@ class Test_lnlike(BaseTestCase):
                                 self.sp)
 
     def test_likeChanges(self):
-        """likelihood should be higher for the correct star formation parameters"""
-        assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(self.sf_parameters3, self.SED, self.SED_err, self.redshift, self.sp)
+        """likelihood should be higher for the correct star formation parameters and lower when changing even 1 parameter"""
+        # self.sf_parameters1 is circle 1 sf parameters
+        sf_params1 = self.sf_parameters1[:]
+        sf_params1[2] = 7.0     # change tau
+        sf_params2 = self.sf_parameters1[:]
+        sf_params2[3] = 3.0    # change t_start
+        sf_params3 = self.sf_parameters1[:]
+        sf_params3[4] = 10.0    # change t_trans
+        sf_params4 = self.sf_parameters1[:]
+        sf_params4[5] = 15.0    # change sf_slope
+
+        assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) >calculateAge.lnlike(sf_params1, self.SED, self.SED_err, self.redshift, self.sp), "Changing tau should lower likelihood"
+        assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params2, self.SED, self.SED_err, self.redshift, self.sp), "Changing t_start should lower likelihood"
+        # assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params3, self.SED, self.SED_err, self.redshift, self.sp), "Changing t_trans should lower likelihood"
+        assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params4, self.SED, self.SED_err, self.redshift, self.sp), "Changing sf_slope should lower likelihood"
+        assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(self.sf_parameters3, self.SED, self.SED_err, self.redshift, self.sp),  "Correct SF parameters should be more likely than another set"
+    def test_idk(self):
+        """ make sure correct parameters have a higher likelihood then median (or modal) parameters from fit. 
+
+        see also similar test of `lnprob`.
+        """
+        assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(self.sf_fit_params1, self.SED, self.SED_err, self.redshift, self.sp),  "Input SF parameters (from circle test) should be more likely than median results of bad fits."
 
 
 class Test_lnprior(BaseTestCase):
@@ -165,6 +194,32 @@ class Test_lnprob(BaseTestCase):
         """
         assert calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob([-2.5, 0.01, 7.17, 7.94, 10.40, -5.24, -23.48], self.SED, self.SED_err, self.redshift, self.sp)
 
+    def test_idk(self):
+        """ make sure correct parameters have a higher likelihood then median (or modal) parameters from fit. 
+
+        see also similar test of `lnlike`.
+        """
+        assert calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob(self.sf_fit_params1, self.SED, self.SED_err, self.redshift, self.sp),  "Input SF parameters (from circle test) should be more likely than median results of bad fits."
+
+    def test_same_overtime(self):
+        """
+        Burn-in plots see the likelihood getting better over time. Final
+        results of MCMC return a very bad fit as the "best-fit". But other
+        tests prove that the very bad "best-fit" is truly (via likelihood and
+        proprietor calculations) very bad and worse then the expected fit.
+        """
+        run1 = calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err,
+                                  self.redshift, self.sp)
+        run2 = calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err,
+                                  self.redshift, self.sp)
+        # skip over many
+        for i in range(100):
+            _ = calculateAge.lnprob(self.sf_parameters1, self.SED,
+                                    self.SED_err, self.redshift, self.sp)
+        run3 = calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err,
+                                  self.redshift, self.sp)
+        assert run1 == run2 == run3, "Results shouldn't change over runs"
+
 
 class Test_SFH(BaseTestCase):
     def test_ramp_lowbounds(self):
@@ -186,6 +241,36 @@ class Test_SFH(BaseTestCase):
         assert calculateAge.heavyside(0) == 1
         assert calculateAge.heavyside(1) == 1
         assert calculateAge.heavyside(100) == 1
+
+class TestIntegrateAge(BaseTestCase):
+
+    def test_integrate_age_argument_amount(self):
+        with pytest.raises(TypeError, match=r'missing \d required positional arguments'):
+            calculateAge.integrate_age([1])
+        with pytest.raises(TypeError, match=r'positional arguments but \d were given$'):
+            calculateAge.integrate_age([1], [2], 3, 4, 5, 6)
+
+    def test_integrate_age_argument_type(self):
+        with pytest.raises(TypeError, match=r'must be of type'):
+            calculateAge.integrate_age(1, 1, 1, 1, 0.05)
+
+    # def test if all have the same length:
+
+    def test_integrate_age_argument_redshift(self, match=r'greater than zero'):
+        with pytest.raises(ValueError):
+            calculateAge.integrate_age(np.array([1, 2]), np.array([0.1, 0.2]), np.array([0.1, 0.2]), np.array([1, 2]), -0.4)
+
+    def test_change_tau(self):
+        """With a larger tau, we should have a younger population"""
+        # this could possibly use part of `self.sf_parameters1`
+        tau_high = np.array([7.0])    # should be closer to a flat sfh
+        tau_low = np.array([1.0])    # should be a shorter/sharper burst
+        tStart = np.array([3.0])
+        sfTrans = np.array([10.0])
+        sfSlope = np.array([15.0])
+        redshift = 0.05
+
+        assert calculateAge.integrate_age(tau_high, tStart, sfTrans, sfSlope, redshift) < calculateAge.integrate_age(tau_low, tStart, sfTrans, sfSlope, redshift), "A larger tau, we should have a younger population"
 
     # def test_a(self):
     #     """ Circle 1 should be older then Circle 3"""
