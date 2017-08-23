@@ -176,6 +176,12 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
     # calculate what the FSPS model is for the appropriate values in `theta`.
     model = runFSPS(sp, redshift, *theta[:-1]) + theta[-1]
 
+    # test if this fit will be "good enough"
+    if not np.allclose(magnitudes, model, atol=0.5):
+        # if all the filters of the model SED is not within 1/2 a mag then
+        # the likelihood is nothing.
+        return -np.inf
+
     # test if `magnitudes` and `magerr` and `model` are all the same length
     # this verifies that `runFSPS()` has not changed what filters it is using.
     if not len(magnitudes) == len(magerr) == len(model):
@@ -199,6 +205,13 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
     assert len(lnlike_error) == 5, 'should still be 5 filters'
     lnlike_sum = np.sum(lnlike_model + lnlike_error)
     ln_like = -0.5*lnlike_sum
+
+    # if result is less then -10000, just return -infinity
+    # the terrible "best-fit" of circle 1 produces would get pass this
+    # if-statement as of 2017-08-22
+    if ln_like < -10000:
+        return -np.inf
+
     return ln_like
 
 
