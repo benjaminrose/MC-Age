@@ -26,7 +26,6 @@ Function outline, here is what each function calls or required data. Model param
     - `starFormation()` -- the functional form of our SFH
 """
 import logging
-import time
 
 import numpy as np
 from scipy import integrate
@@ -511,11 +510,10 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     ############
     # save temp results in case something else fails soon.
     ############
-    uuid = '{:.2f}'.format(time.time())
     header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
-    np.savetxt('resources/temp/chain_'+uuid+'.tsv'.format(SNID), 
-                sampler.flatchain, delimiter='\t', header=header)
-    logger.info('saved resources/temp/chain_'+uuid+'.tsv')
+    np.savetxt('resources/SN{}_chain.tsv'.format(SNID), sampler.flatchain, 
+                delimiter='\t', header=header)
+    logger.info('saved full results resources/SN{}_chain.tsv'.format(SNID))
 
     #save acceptance fraction & ln-probability
     logger.info("Mean ln-probability for each walker: {}".format(
@@ -557,13 +555,14 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
                                                     sfTrans, sfSlope, c))
     print('MCMC: ', logzso, dust2, tau, tStart, sfTrans, sfSlope, c)
 
-    ## save clean results to disk
+    ## save trimmed results to disk
     header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
     np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
                 delimiter='\t', header=header)
     logger.info('saved resources/SN{}_chain.tsv')
     
     logger.debug('done running calculateSFH')
+
     ## return flat clean chain
     return samples
 
