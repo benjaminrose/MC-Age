@@ -369,8 +369,11 @@ def setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler, redshift):
     
     # get position with "maximum" likelihood from limited run
     best_pos = sampler.flatchain[sampler.flatlnprobability.argmax()]
+    how_likely = sampler.flatlnprobability.max()
     print('Best position from initial search: ', best_pos)
+    print('with a ln-likelihood of: ', how_likely)
     logger.info('Best position from initial search: {}'.format(best_pos))
+    logger.info('with a ln-likelihood of: ', how_likely)
     logger.debug("Mean ln-probability for each walker: {}".format(
                 sampler.lnprobability.mean(-1)))
     logger.debug("Max ln-probability for each walker: {}".format(
