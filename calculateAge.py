@@ -419,8 +419,8 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
 
     or
 
-    sampler : emcee.EnsembleSampler
-        The whole sampler is returned if If `burnin` is `True`.
+    None
+        Returns nothing if 
 
     """
     #set up logger
@@ -526,12 +526,23 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     #Select only after "burn in" is complete
     #flatchain works if you run burn in specularly then full run
     # samples = sampler.flatchain      #size == (nsteps*nwalkers, ndim)
+    allSamples = sampler.chain             # size == (nwalker, nsteps, ndim)
+    allLnProb = sampler.lnprobability     # size == (nwalkers, nsteps)
+
+    # Note header should be:
+    # logzsol, dust2, tau, tStart, sfTrans, sfSlope, c
+    # dex, 1/Gyr, Gyr, Gyr, , mag
+    np.save('resources/burnin/SN{}_samples'.format(SNID), allSamples)
+    np.save('resources/burnin/SN{}_lnprob'.format(SNID), allLnProb)
+    logger.debug('saved samples and ln probability')
+
     if burnin:
-        return sampler
-    else: 
-        #This method is a bit strange, but cuts the "burn in" section with ease
-        # And makes it 
-        samples = sampler.chain[:, burnInSize:, :].reshape((-1, ndim))
+        # burnin test now done
+        return None
+         
+    #This method is a bit strange, but cuts the "burn in" section with ease
+    # And makes it a flat chain
+    samples = sampler.chain[:, burnInSize:, :].reshape((-1, ndim))
     
     #Save basic results to standard out & log
     logzso, dust2, tau, tStart, sfTrans, sfSlope, c = map(

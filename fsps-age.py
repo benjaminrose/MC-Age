@@ -16,6 +16,7 @@ Option:
     JOBLENGTH       the total number of objects looked at
     circle
     gupta messier   select the dataset to test
+    burnin          run a shorter run on specific objects only
     OBJID           The SN (or Messier) ID of the object to observe
     -d --debug      Run shorter and with more logs
     -h --help       Show this screen
@@ -171,8 +172,11 @@ def redoGupta(cli):
 
 def burnin(cli):
     """
+    Runs a smaller `emcee.sampler` to see how the sampling is progressing.
+    Hopefully these values will not effect how it samples, but it will likely
+    effect how well it sampled.
     """
-    import burnin
+    import calculateAge as age
 
     all_data = {'15776': {'SNID': 15776,
                           'SED':  np.array([23.14426, 21.00639, 19.41827,
@@ -201,7 +205,8 @@ def burnin(cli):
         raise ValueError('The OBJID argument can only be 15776 or 101 at this'
                          ' time.')
 
-    burnin.burnin(data['SED'], data['SEDerr'], data['redshift'], data['SNID'])
+    age.calculateSFH(data['SED'], data['SEDerr'], data['redshift'], data['SNID'],
+                 burnin=True)
 
 
 if __name__ == '__main__':
