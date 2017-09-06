@@ -479,10 +479,10 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
 
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
 
-    best_pos = setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler, redshift)
+    # best_pos = setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler, redshift)
     # Can I get the parameters I need if I start near them?
     # C1 is     -0.5, 0.1,  0.5, 1.5, 9.0, -1.0, -25
-    # best_pos = [-0.5001, 0.1004, 0.5001, 1.49999, 9.0001, -0.99999, -25.0]
+    best_pos = [-0.5001, 0.1004, 0.5001, 1.49999, 9.0001, -0.99999, -25.0]
 
     ############
     # Set up new start position as a Gaussian ball around "max" likelihood.
