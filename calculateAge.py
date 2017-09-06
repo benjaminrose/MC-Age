@@ -559,7 +559,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
     np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
                 delimiter='\t', header=header)
-    logger.info('saved resources/SN{}_chain.tsv')
+    logger.info('saved resources/SN{}_chain.tsv'.format(SNID))
     
     logger.debug('done running calculateSFH')
 
@@ -693,7 +693,7 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
     if isSED:
         logger.info('Calculating SFH')
         # no need for SNID. We can save in this function.
-        samples = calculateSFH(x, SEDerr, redshift, debug=debug)
+        samples = calculateSFH(x, SEDerr, redshift, SNID, debug=debug)
         # logger.info('importing SFH to speed!!!!!')
         # samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
         #extract variables
