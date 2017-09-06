@@ -3,14 +3,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-ID = '15776'
+ID = 'None'
 # START = 100
-START = 50
+START = 0
 
 # size should be (nwalkers, nsteps, ndim)
-samples = np.load('../resources/burnin/samples-{}.npy'.format(ID))
+samples = np.load('../resources/burnin/SN{}_samples.npy'.format(ID))
 # size is (nwalkers, nsteps)
-lnprop_resutls = np.load('../resources/burnin/lnprob-{}.npy'.format(ID))
+lnprop_resutls = np.load('../resources/burnin/SN{}_lnprob.npy'.format(ID))
 
 print(samples[:,:,0].shape)
 
