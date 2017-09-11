@@ -155,9 +155,9 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
     #and http://stackoverflow.com/questions/7837722/what-is-the-most-efficient-way-to-loop-through-dataframes-with-pandas/34311080#34311080
     for sn, photometry, uncertainty, redshift in zip(
                 data['SNID'], 
-                zip(data['u'], data['g'], data['r'], data['i'], data['g']),
+                zip(data['u'], data['g'], data['r'], data['i'], data['z']),
                 zip(data['err_u'], data['err_g'], data['err_r'], data['err_i'],
-                    data['err_g']),
+                    data['err_z']),
                 data['redshift']
             ):
 
