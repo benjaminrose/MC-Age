@@ -7,9 +7,7 @@
 .cache/
 .ipynb_checkpoints/
 *.log
-*.npy     # numpy saved variables. 
 .coverage
-
 
 # Specific
 
@@ -24,15 +22,3 @@ data/SMP-photometry/
 
 ## CRC files
 crc-run/*.o*
-## too large of files (over 100 MB)
-resources/long-CRC-run/*
-resources/SN10028_chain-2017-04-19.tsv
-
-## Don't save figures
-*.pdf
-*.png
-
-## this is for mcmc chains before the age is calculated, they are redundant
-resources/temp/*
-## This folder is 10GB
-resources/global/*
