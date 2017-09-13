@@ -3,9 +3,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-ID = 'None'
-# START = 100
-START = 0
+ID = '1'
+START = 600
+# START = 0
 
 # size should be (nwalkers, nsteps, ndim)
 samples = np.load('../resources/burnin/SN{}_samples.npy'.format(ID))
@@ -32,5 +32,5 @@ axarr[6].plot(samples[:, START:, 6].T)
 axarr[6].set_ylabel('c')
 axarr[7].plot(lnprop_resutls.T[START:])
 axarr[7].set_ylabel('ln')
-# plt.savefig('2017-07-19-burnin.pdf')
-plt.show()
+plt.savefig('2017-09-11-burnin600.pdf')
+# plt.show()
