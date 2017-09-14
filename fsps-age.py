@@ -42,7 +42,7 @@ import numpy as np
 import fsps
 
 __author__ = "Benjamin Rose"
-__version__ = "alpha"
+__version__ = "0.1"
 __license__ = ""
 
 
