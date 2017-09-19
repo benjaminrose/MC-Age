@@ -135,6 +135,13 @@ class Test_lnprior(BaseTestCase):
     def test_highValues(self):
         assert calculateAge.lnprior(self.theta_high, self.redshift) == -np.inf, "Value should be outside prior range but ln-probability is not minus infinity"
 
+    def test_transitionBeforeStart(self):
+        # start with passing values
+        theta = self.theta[:]
+        # Change start to be too close to transition
+        theta[3] = theta[4] - 1.9
+        assert calculateAge.lnprior(theta, self.redshift) == -np.inf, "Value should be outside prior range but ln-probability is not minus infinity"
+
     def test_passingValues(self):
         assert calculateAge.lnprior(self.theta, self.redshift) > -np.inf, "Prior failing unexpectedly"
 
@@ -177,8 +184,9 @@ class Test_lnprior(BaseTestCase):
         """
         # It looks like the return value has 16 decimals
         expected = -5.1301241107779094
-        assert np.isclose(calculateAge.lnprior(self.theta, self.redshift),
-                         expected), "Prior not returning expected result."
+        calculated = calculateAge.lnprior(self.theta, self.redshift)
+        assert np.isclose(calculated, expected), "Prior not returning " \
+               "expected result. {} {}".format(calculated, expected)
 
     def test_priorChanges(self):
         assert calculateAge.lnprior(self.theta_mean, self.redshift) > calculateAge.lnprior(self.theta, self.redshift) , "Mean values should have a higher prior probability than other accepted values."
