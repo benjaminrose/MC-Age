@@ -31,6 +31,7 @@ import numpy as np
 from scipy import integrate
 import fsps
 import emcee
+import astropy.units as u
 # from astropy.cosmology import WMAP9 as cosmo   # a generic cosmology
 from astropy.cosmology import FlatLambdaCDM
 
@@ -559,59 +560,123 @@ def integrate_age(tau, tStart, sfTrans, sfSlope, redshift):
 
     Parameters
     ----------
-    tau : numpy.ndarray
+    tau : array_like, real numbers
         The e-folding scale ($e^(t/tau)$) of the initial star formation burst.
-    tStart : numpy.ndarray
+    tStart : array_like, real numbers
         The time, since the big bang, when star formation start.
-    sfTrans : numpy.ndarray
+    sfTrans : array_like, real numbers
         The time, since the bing bang, when star formation transfers from an
         exponential decay to a linear rate.
-    sfSlope : numpy.ndarray
+    sfSlope : array_like, real numbers
         The is the slope of the late time star formation linear rate.
     redshift : float
-        This observed redshift. This is used to calculate when the light was emitted. To convert from redshift to age of the universe a cosmology is assumed. Currently that is Kessler 2009a (also Gupta 2011, §2.3), but it could change to Campbell 2013.
+        This observed redshift. This is used to calculate when the light was
+        emitted. To convert from redshift to age of the universe a cosmology
+        is assumed. Currently that is Kessler 2009a (also Gupta 2011, §2.3),
+        but it could change to Campbell 2013.
+
+    Returns
+    -------
+    np.ndarray
+        The age for those particular star formation parameters. Will be the
+        same length as the array_like SFH parameters.
+
+    Notes
+    -----
+    - This will fail if passed an np.ndarray of a float/int, such as
+    np.array(1). It will pass the input tests, but the zip (for the for-loop)
+    will fail.
     """
+    #######
     # Test inputs
-    if not isinstance(tau, (np.ndarray)):
-        raise TypeError('tau must be of type list or np.ndarray')
-    if not isinstance(tStart, (np.ndarray)):
-        raise TypeError('tStart must be of type list or np.ndarray')
-    if not isinstance(sfTrans, (np.ndarray)):
-        raise TypeError('sfTrans must be of type list or np.ndarray')
-    if not isinstance(sfSlope, (np.ndarray)):
-        raise TypeError('sfSlope must be of type list or np.ndarray')
-    if not len(tau) == len(tStart) == len(sfTrans) == len(sfSlope):
+    #######
+
+    # Test type & convert to np.ndarray
+    if isinstance(tau, (int, float)):
+        tau = np.asarray([tau])
+    elif isinstance(tau, (np.ndarray, list, tuple)):
+        tau = np.asarray(tau)
+    elif not isinstance(tau, (np.ndarray)):
+        raise TypeError('tau must be array_like')
+
+    if isinstance(tStart, (int, float)):
+        tStart = np.asarray([tStart])
+    elif isinstance(tStart, (np.ndarray, list, tuple)):
+        tStart = np.asarray(tStart)
+    elif not isinstance(tStart, (np.ndarray)):
+        raise TypeError('tStart must be array_like')
+    
+    if isinstance(sfTrans, (int, float)):
+        sfTrans = np.asarray([sfTrans])
+    elif isinstance(sfTrans, (np.ndarray, list, tuple)):
+        sfTrans = np.asarray(sfTrans)
+    elif not isinstance(sfTrans, (np.ndarray)):
+        raise TypeError('sfTrans must be array_like')
+    
+    if isinstance(sfSlope, (int, float)):
+        sfSlope = np.asarray([sfSlope])
+    elif isinstance(sfSlope, (np.ndarray, list, tuple)):
+        sfSlope = np.asarray(sfSlope)
+    elif not isinstance(sfSlope, (np.ndarray)):
+        raise TypeError('sfSlope must be array_like')
+
+    # make sure objects are 0 or 1 dimensional
+    if len(tau.shape) > 1:
+        raise TypeError('tau cannot be more then 1 dimensional.')
+    if len(tStart.shape) > 1:
+        raise TypeError('tStart cannot be more then 1 dimensional.')
+    if len(sfTrans.shape) > 1:
+        raise TypeError('sfTrans cannot be more then 1 dimensional.')
+    if len(sfSlope.shape) > 1:
+        raise TypeError('sfSlope cannot be more then 1 dimensional.')
+
+    # use size over len() to work with arrays of floats
+    # but now ints and floats become arrays of a list
+    if not tau.size == tStart.size == sfTrans.size == sfSlope.size:
         raise ValueError("The star formation parameters need to be equal lengths")
+
+    # test redshift
+    if not isinstance(redshift, (float)):
+        raise TypeError('redshift must be a float')
     if redshift <= 0:
         raise ValueError("Redshifts should be greater than zero.")
 
+    # Get correct variables
     ageOfUniverse = cosmo.age(redshift)
-    # lengthOfSF = ageOfUniverse.to('Gyr').value - tStart
+    lengthOfSF = ageOfUniverse - tStart*u.Gyr     # Gupta's A value
+    sfTrans_gupta = sfTrans - tStart       # transition time, since start of SF
+
+
+    # Calculate numerator and denominator for each SFH
     numerator = np.array([])
     denominator = np.array([])
-    for j, k, l, m in zip(tau, tStart, sfTrans, sfSlope):
+    for j, l, m in zip(tau, sfTrans_gupta, sfSlope):
         #only need the value of `integrate.quad` not the absolute error
-        numerator = np.append(numerator, integrate.quad(tStarFormation, k, ageOfUniverse.to('Gyr').value, args=(j, k, l, m))[0])
-        denominator = np.append(denominator, integrate.quad(starFormation, k, ageOfUniverse.to('Gyr').value, args=(j, k, l, m))[0])
+        numerator = np.append(numerator, integrate.quad(t_star_formation_gupta, 0, lengthOfSF.to('Gyr').value, args=(j, l, m))[0])
+        denominator = np.append(denominator, integrate.quad(star_formation_gupta, 0, lengthOfSF.to('Gyr').value, args=(j, l, m))[0])
+
+        # if SF is too much of a burst, compute by hand.
         if denominator[-1] == 0:
             logger.info('because of scipy issue need to use sample integration')
             logger.warning('''SFH: {}, {}, {}, {} 
-                (emitted at z={}, ageOfUniverse={}) 
-                for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, k, l, m, redshift, ageOfUniverse.to('Gyr').value, SNID))
-            time_, dx = np.linspace(k, ageOfUniverse.to('Gyr').value, num=8193,
+                (emitted at z={}, lengthOfSF={}) 
+                for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, l, m, redshift, lengthOfSF.to('Gyr').value, SNID))
+            time_, dx = np.linspace(0, lengthOfSF.to('Gyr').value, num=8193,
                                     retstep=True)
             num_y, den_y = np.array([]), np.array([])
             for n in time_:
-                num_y = np.append(num_y, tStarFormation(n, j, k, l, m))
-                den_y = np.append(den_y, starFormation(n, j, k, l, m))
+                num_y = np.append(num_y, t_star_formation_gupta(n, j, l, m))
+                den_y = np.append(den_y, star_formation_gupta(n, j, l, m))
             numerator[-1] = integrate.romb(num_y, dx)
             denominator[-1] = integrate.romb(den_y, dx)
 
     # This is from Gupta 2011 Equation 3 but with a change in t_0. He used t_0
     # = start of star formation, I use t_0 = big bang. Explained in FIndings 
     # on 2017-05-10 & updated on 2017-05-15
-    return ageOfUniverse.to('Gyr').value - tStart + numerator/denominator
-    # return ageOfUniverse.to('Gyr').value - tStart - numerator/denominator
+    # return ageOfUniverse.to('Gyr').value - tStart + numerator/denominator
+
+    # return a function that integrates over Gupta's variables.
+    return lengthOfSF.to('Gyr').value - numerator/denominator
 
 def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug=False):
     """calculateAge either from a given Star Formation History (SFH) or from a 
@@ -745,17 +810,15 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
 #http://stackoverflow.com/questions/32877587/rampfunction-code
 ramp = lambda x: x if x >= 0 else 0 #Simha14's Delta function (eqn 6)
 
-heavyside = lambda x: 1 if x >=0 else 0
-
-def starFormation(t, tau, tStart, sfTrans, sfSlope):
+def star_formation_gupta(t, tau, sfTrans, sfSlope):
     '''
     Defined piecewise around `sfTrans` time. 
     no variables can be arrays! ALso must return a float!
     '''
     if t <= sfTrans:
-        sf = heavyside(t-tStart)*(t-tStart)*np.e**(-(t-tStart)/tau)
+        sf = t*np.e**(-t/tau)
     else:
-        sf = ( starFormation(sfTrans, tau, tStart, sfTrans, sfSlope) +
+        sf = ( star_formation_gupta(sfTrans, tau, sfTrans, sfSlope) +
              sfSlope*ramp(t-sfTrans) ) #\Delta \def sfSlope*ramp() in Simha
 
     #only return a positive star formation
@@ -764,9 +827,6 @@ def starFormation(t, tau, tStart, sfTrans, sfSlope):
     else:
         return sf
 
-# This needs to multiply star formation by t-tStart for integral in numerator of
-# age calculation. Details on why it is different then Gupta 2011 equation 3 is
-# in Findings "Can I redo Gupta's results with our improved SFH?" on 2017-05-10.
-#Note: args[1] needs to be `tStart` to work when passed to `starFormation()`
-tStarFormation = lambda t, *args: (t-args[1])*starFormation(t, *args)
+def t_star_formation_gupta(t, tau, sfTrans, sfSlope):
+    return t*star_formation_gupta(t, tau, sfTrans, sfSlope)
 ##################

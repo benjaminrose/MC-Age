@@ -250,6 +250,105 @@ class Test_lnprob(BaseTestCase):
         assert run1 == run2 == run3, "Results shouldn't change over runs"
 
 
+class TestIntegrateAge(BaseTestCase):
+
+    def test_integrate_age_argument_amount(self):
+        with pytest.raises(TypeError, match=r'missing \d required positional arguments'):
+            calculateAge.integrate_age([1])
+        with pytest.raises(TypeError, match=r'positional arguments but \d were given$'):
+            calculateAge.integrate_age([1], [2], 3, 4, 5, 6)
+
+    def test_integrate_age_argument_type(self):
+        with pytest.raises(TypeError, match=r'must be array_like'):
+            calculateAge.integrate_age({'a': 1}, {'b': 1}, {'c': 1}, {'d': 1},
+                                       {'e': 0.05})
+
+    def test_ints_floats_inputs(self):
+        """
+        should calcualte an age and return a array of floats. Just check the first elelment.
+        """
+        assert isinstance(calculateAge.integrate_age(0.1, 1.0, 13.0, 0.0, 0.05)[0], float)
+
+    def test_lists_tuples_inputs(self):
+        assert isinstance(calculateAge.integrate_age([0.1], [1.0], [13.0], [0.0], 0.05)[0], float)
+
+    def test_np_ndarrays_inputs(self):
+        assert isinstance(calculateAge.integrate_age(np.array([0.1]), np.array([1.0]), np.array([13.0]), [0.0], 0.05)[0], float)
+
+    def test_failure_with_2d_array(self):
+        """
+        Test tau, tStart, sfTrans, & sfSlope to fail on two dimensional inputs.
+        Redshift is not array-like so this test is not needed.
+        """
+        with pytest.raises(TypeError, match=r'cannot be more then 1 dimensional.$'):
+            calculateAge.integrate_age(np.random.randn(3,3), 2, 3, 4, 0.5)
+        with pytest.raises(TypeError, match=r'cannot be more then 1 dimensional.$'):
+            calculateAge.integrate_age(1, np.random.randn(3,3), 3, 4, 0.5)
+        with pytest.raises(TypeError, match=r'cannot be more then 1 dimensional.$'):
+            calculateAge.integrate_age(1, 2, np.random.randn(3,3), 4, 0.5)
+        with pytest.raises(TypeError, match=r'cannot be more then 1 dimensional.$'):
+            calculateAge.integrate_age(1, 2, 3, np.random.randn(3,3), 0.5)
+
+    def test_failure_with_unequal_arrays(self):
+        with pytest.raises(ValueError, match=r'need to be equal lengths$'):
+            calculateAge.integrate_age(1, [2,2], 3, 4, 0.05)
+
+    def test_integrate_age_argument_redshift(self):
+        with pytest.raises(ValueError, match=r'greater than zero'):
+            calculateAge.integrate_age(np.array([1, 2]), np.array([0.1, 0.2]), np.array([0.1, 0.2]), np.array([1, 2]), -0.4)
+
+    # also acts as a test to change in tStart
+    def test_correct_young_age(self):
+        assert np.isclose(12, calculateAge.integrate_age(0.1, 1.0, 13.0,
+                                                         0.0, 0.05), 
+                          atol = 0.05)
+
+    def correct_old_age(self):
+        assert np.isclose(3, calculateAge.integrate_age(0.1, 10.0, 13.0,
+                                                        0.0, 0.05),
+                          atol = 0.05)
+
+    def test_change_tau(self):
+        """With a larger tau, we should have a younger population
+        having a large sfSlope will mess up this test.
+        """
+        # this could possibly use part of `self.sf_parameters1`
+        tau_high = np.array([9.0])    # should be closer to a flat sfh
+        tau_low = np.array([1.0])    # should be a shorter/sharper burst
+        tStart = np.array([3.0])
+        sfTrans = np.array([12.0])
+        sfSlope = np.array([-1.0])
+        redshift = 0.05
+
+        assert calculateAge.integrate_age(tau_high, tStart, sfTrans, sfSlope, redshift) < calculateAge.integrate_age(tau_low, tStart, sfTrans, sfSlope, redshift), "A larger tau, we should have a younger population"
+
+    def test_change_sfTrans(self):
+        """
+        This needs some sfSlope to have any effect
+        """
+        tau = np.array([1.0])
+        tStart = np.array([3.0])
+        sfTrans_early = np.array([5.0])
+        sfTrans_late = np.array([12.0])
+        sfSlope = np.array([15.0])
+        redshift = 0.05
+
+        assert calculateAge.integrate_age(tau, tStart, sfTrans_late, sfSlope, redshift) < calculateAge.integrate_age(tau, tStart, sfTrans_early, sfSlope, redshift), "A later sfTrans should have a younger population."
+
+    def test_chagne_sfSlope(self):
+        """
+        Should have an early sfTrans so that sfSlope has a magnified effect
+        """
+        tau = np.array([1.0])
+        tStart = np.array([3.0])
+        sfTrans = np.array([5.0])
+        sfSlope_large = np.array([15.0])
+        sfSlope_small = np.array([-5.0])
+        redshift = 0.05
+
+        assert calculateAge.integrate_age(tau, tStart, sfTrans, sfSlope_large, redshift) < calculateAge.integrate_age(tau, tStart, sfTrans, sfSlope_small, redshift), "A larger sfSlope should have a younger population."
+
+
 class Test_SFH(BaseTestCase):
     def test_ramp_lowbounds(self):
         assert calculateAge.ramp(-0.01) == 0
@@ -261,45 +360,8 @@ class Test_SFH(BaseTestCase):
         assert calculateAge.ramp(1) == 1
         assert calculateAge.ramp(100) == 100
 
-    def test_heavyside_lowbounds(self):
-        assert calculateAge.heavyside(-0.01) == 0
-        assert calculateAge.heavyside(-5) == 0
-        assert calculateAge.heavyside(-500) == 0
-
-    def test_heavyside_inbounds(self):
-        assert calculateAge.heavyside(0) == 1
-        assert calculateAge.heavyside(1) == 1
-        assert calculateAge.heavyside(100) == 1
-
-class TestIntegrateAge(BaseTestCase):
-
-    def test_integrate_age_argument_amount(self):
-        with pytest.raises(TypeError, match=r'missing \d required positional arguments'):
-            calculateAge.integrate_age([1])
-        with pytest.raises(TypeError, match=r'positional arguments but \d were given$'):
-            calculateAge.integrate_age([1], [2], 3, 4, 5, 6)
-
-    def test_integrate_age_argument_type(self):
-        with pytest.raises(TypeError, match=r'must be of type'):
-            calculateAge.integrate_age(1, 1, 1, 1, 0.05)
-
-    # def test if all have the same length:
-
-    def test_integrate_age_argument_redshift(self, match=r'greater than zero'):
-        with pytest.raises(ValueError):
-            calculateAge.integrate_age(np.array([1, 2]), np.array([0.1, 0.2]), np.array([0.1, 0.2]), np.array([1, 2]), -0.4)
-
-    def test_change_tau(self):
-        """With a larger tau, we should have a younger population"""
-        # this could possibly use part of `self.sf_parameters1`
-        tau_high = np.array([7.0])    # should be closer to a flat sfh
-        tau_low = np.array([1.0])    # should be a shorter/sharper burst
-        tStart = np.array([3.0])
-        sfTrans = np.array([10.0])
-        sfSlope = np.array([15.0])
-        redshift = 0.05
-
-        assert calculateAge.integrate_age(tau_high, tStart, sfTrans, sfSlope, redshift) < calculateAge.integrate_age(tau_low, tStart, sfTrans, sfSlope, redshift), "A larger tau, we should have a younger population"
+    def test_t_sfr(self):
+        assert calculateAge.t_star_formation_gupta(5, 4, 8, 0) == 5*calculateAge.star_formation_gupta(5, 4, 8, 0)
 
     # def test_a(self):
     #     """ Circle 1 should be older then Circle 3"""
