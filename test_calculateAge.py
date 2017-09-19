@@ -1,5 +1,11 @@
 """
-Usage:
+Usage (local):
+    pytest -v -rx --cov-config=.coveragerc --cov --runxfail
+
+Usage-CRC (production):
+    pytest -v -rx --runxfail
+
+Usage-quick (no StellarPopulations)
     pytest -v -rx --cov-config=.coveragerc --cov --runxfail
 """
 import pytest
@@ -7,6 +13,8 @@ import numpy as np
 import fsps
 
 import calculateAge
+
+longrun = pytest.mark.skipif(False, reason="Runs too long for quick tests.")
 
 class BaseTestCase():
     #only set up one stellar population
@@ -37,6 +45,7 @@ class BaseTestCase():
 
 class TestRunFSPS(BaseTestCase):
     @pytest.mark.xfail(reason="Too tight of a tolerance for changes in newer FSPS.")
+    @longrun
     def test_modelStillWorks_oldFSPS(self):
         """These have been calculated before (on crc) when creating new circle 
         test. Check out lab notes on 2017-07-28"""
@@ -46,6 +55,7 @@ class TestRunFSPS(BaseTestCase):
                            np.array(self.SED) - self.sf_parameters1[-1],
                            atol=9e-03)
 
+    @longrun
     def test_modelStillWorks_newFSPS(self):
         """These have been calculated before (on crc) when creating new circle 
         test. Check out lab notes on 2017-07-28"""
@@ -57,6 +67,7 @@ class TestRunFSPS(BaseTestCase):
 
 
 class Test_lnlike(BaseTestCase):
+    @longrun
     def test_rejectShortSED(self):
         """tests both the SED and the SED_err at the same time"""
         with pytest.raises(ValueError, match=r'need to be arrays of length 5'):
@@ -64,7 +75,8 @@ class Test_lnlike(BaseTestCase):
                                 self.sp)
             calculateAge.lnlike(self.theta, self.SED, [1], self.redshift,
                                 self.sp)
-
+    
+    @longrun
     def test_rejectLongSED(self):
         """tests both the SED and the SED_err at the same time"""
         with pytest.raises(ValueError, match=r'need to be arrays of length 5'):
@@ -73,11 +85,13 @@ class Test_lnlike(BaseTestCase):
             calculateAge.lnlike(self.theta, self.SED, [1,2,3,4,5,6],
                                 self.redshift, self.sp)
 
+    @longrun
     def test_rejectShortTheta(self):
         with pytest.raises(ValueError, match=r'^Likelihood expects 7'):
             calculateAge.lnlike(self.theta[:-1], self.SED, self.SED_err,
                                 self.redshift, self.sp)
 
+    @longrun
     def test_rejectLongTheta(self):
         with pytest.raises(ValueError, match=r'^Likelihood expects 7'):
             # some how I can't use self.theta.append(5)
@@ -86,6 +100,7 @@ class Test_lnlike(BaseTestCase):
             calculateAge.lnlike(hold, self.SED, self.SED_err, self.redshift,
                                 self.sp)
 
+    @longrun
     def test_likeChanges(self):
         """likelihood should be higher for the correct star formation parameters and lower when changing even 1 parameter"""
         # self.sf_parameters1 is circle 1 sf parameters
@@ -103,6 +118,8 @@ class Test_lnlike(BaseTestCase):
         # assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params3, self.SED, self.SED_err, self.redshift, self.sp), "Changing t_trans should lower likelihood"
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params4, self.SED, self.SED_err, self.redshift, self.sp), "Changing sf_slope should lower likelihood"
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(self.sf_parameters3, self.SED, self.SED_err, self.redshift, self.sp),  "Correct SF parameters should be more likely than another set"
+    
+    @longrun
     def test_idk(self):
         """ make sure correct parameters have a higher likelihood then median (or modal) parameters from fit. 
 
@@ -178,15 +195,17 @@ class Test_lnprior(BaseTestCase):
 
 
 class Test_lnprob(BaseTestCase):
-    # pass
+    @longrun
     def test_posteriorFail(self):
         theta = [0, -1, 0, 0, 0, -20.1, -35.1]
         assert calculateAge.lnprob(theta, self.SED, self.SED_err, self.redshift, self.sp) == -np.inf, "Value should be outside prior range but ln-probability is not minus infinity"
 
+    @longrun
     def test_posteriorPass(self):
         theta = [-0.3, 0.2, 1.0, 2.0, 10.0, 5.0, -25]
         assert calculateAge.lnprob(theta, self.SED, self.SED_err, self.redshift, self.sp) == calculateAge.lnprior(theta, self.redshift) + calculateAge.lnlike(theta, self.SED, self.SED_err, self.redshift, self.sp)
 
+    @longrun
     def test_posteriorChange(self):
         """The correct values, the ones used to construct `self.SED`, of
         circle test 1 should have a higher posterior probability the MCMC
@@ -194,6 +213,7 @@ class Test_lnprob(BaseTestCase):
         """
         assert calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob([-2.5, 0.01, 7.17, 7.94, 10.40, -5.24, -23.48], self.SED, self.SED_err, self.redshift, self.sp)
 
+    @longrun
     def test_idk(self):
         """ make sure correct parameters have a higher likelihood then median (or modal) parameters from fit. 
 
@@ -201,6 +221,7 @@ class Test_lnprob(BaseTestCase):
         """
         assert calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob(self.sf_fit_params1, self.SED, self.SED_err, self.redshift, self.sp),  "Input SF parameters (from circle test) should be more likely than median results of bad fits."
 
+    @longrun
     def test_same_overtime(self):
         """
         Burn-in plots see the likelihood getting better over time. Final
