@@ -21,4 +21,4 @@ data/SDSS\ -\ spectra/
 data/SMP-photometry/
 
 ## CRC files
-crc-run/*.o*
+crc-scripts/*.o*
