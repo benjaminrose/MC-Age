@@ -265,15 +265,21 @@ class TestIntegrateAge(BaseTestCase):
 
     def test_ints_floats_inputs(self):
         """
-        should calcualte an age and return a array of floats. Just check the first elelment.
+        should calculate an age and return a array of floats. Just check the first element.
         """
         assert isinstance(calculateAge.integrate_age(0.1, 1.0, 13.0, 0.0, 0.05)[0], float)
 
     def test_lists_tuples_inputs(self):
-        assert isinstance(calculateAge.integrate_age([0.1], [1.0], [13.0], [0.0], 0.05)[0], float)
+        '''no need to test list of length 1. Python often treats that like a
+        float.
+        '''
+        assert isinstance(calculateAge.integrate_age([0.1, 0.1], [1.0, 1.0], [13.0, 13.0], [0.0, 0.0], 0.05)[0], float)
 
     def test_np_ndarrays_inputs(self):
-        assert isinstance(calculateAge.integrate_age(np.array([0.1]), np.array([1.0]), np.array([13.0]), [0.0], 0.05)[0], float)
+        '''no need to test array of length 1. Python often treats that like a
+        float.
+        '''
+        assert isinstance(calculateAge.integrate_age(np.array([0.1, 0.1]), np.array([1.0, 1.0]), np.array([13.0, 13.0]), [0.0, 0.0], 0.05)[0], float)
 
     def test_failure_with_2d_array(self):
         """
@@ -347,6 +353,13 @@ class TestIntegrateAge(BaseTestCase):
         redshift = 0.05
 
         assert calculateAge.integrate_age(tau, tStart, sfTrans, sfSlope_large, redshift) < calculateAge.integrate_age(tau, tStart, sfTrans, sfSlope_small, redshift), "A larger sfSlope should have a younger population."
+
+    def test_romb_method(self):
+        """test the method that requires integration via scipy.integrate.romb()
+        Sadly this current SFH should not be allowed since sfTrans is not 2Gyrs
+        past tStart.
+        """
+        assert isinstance(calculateAge.integrate_age(np.array([2.72, 2.72]), np.array([6.701, 6.701]), np.array([6.7067, 6.7067]), np.array([-19.33, -19.3]), 0.0043)[0], float)
 
 
 class Test_SFH(BaseTestCase):

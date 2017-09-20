@@ -643,25 +643,27 @@ def integrate_age(tau, tStart, sfTrans, sfSlope, redshift):
 
     # Get correct variables
     ageOfUniverse = cosmo.age(redshift)
-    lengthOfSF = ageOfUniverse - tStart*u.Gyr     # Gupta's A value
+    # this is now an np.ndarray
+    lengthOfSF = ageOfUniverse - tStart*u.Gyr     # Gupta's A value,
     sfTrans_gupta = sfTrans - tStart       # transition time, since start of SF
 
 
     # Calculate numerator and denominator for each SFH
     numerator = np.array([])
     denominator = np.array([])
-    for j, l, m in zip(tau, sfTrans_gupta, sfSlope):
+    for j, l, m, a in zip(tau, sfTrans_gupta, sfSlope, 
+                         lengthOfSF.to('Gyr').value):
         #only need the value of `integrate.quad` not the absolute error
-        numerator = np.append(numerator, integrate.quad(t_star_formation_gupta, 0, lengthOfSF.to('Gyr').value, args=(j, l, m))[0])
-        denominator = np.append(denominator, integrate.quad(star_formation_gupta, 0, lengthOfSF.to('Gyr').value, args=(j, l, m))[0])
+        numerator = np.append(numerator, integrate.quad(t_star_formation_gupta, 0, a, args=(j, l, m))[0])
+        denominator = np.append(denominator, integrate.quad(star_formation_gupta, 0, a, args=(j, l, m))[0])
 
         # if SF is too much of a burst, compute by hand.
         if denominator[-1] == 0:
             logger.info('because of scipy issue need to use sample integration')
-            logger.warning('''SFH: {}, {}, {}, {} 
+            logger.warning('''SFH: {}, {}, {} 
                 (emitted at z={}, lengthOfSF={}) 
-                for SN{} produced a zero integrated SFH in the age calculation.'''.format(j, l, m, redshift, lengthOfSF.to('Gyr').value, SNID))
-            time_, dx = np.linspace(0, lengthOfSF.to('Gyr').value, num=8193,
+                produced a zero integrated SFH in the age calculation.'''.format(j, l, m, redshift, a))
+            time_, dx = np.linspace(0, a, num=8193,
                                     retstep=True)
             num_y, den_y = np.array([]), np.array([])
             for n in time_:
