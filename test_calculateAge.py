@@ -108,14 +108,21 @@ class Test_lnlike(BaseTestCase):
         sf_params1[2] = 7.0     # change tau
         sf_params2 = self.sf_parameters1[:]
         sf_params2[3] = 3.0    # change t_start
-        sf_params3 = self.sf_parameters1[:]
-        sf_params3[4] = 10.0    # change t_trans
+
+        # need to some positive sfSlope to see change in t_trans
+        sf_params_trans = self.sf_parameters1[:]
+        sf_params_trans[5] = 2.0
+        sf_params_trans_changed = sf_params_trans[:]
+        sf_params_trans_changed[4] = 10.0    # change t_trans
+
         sf_params4 = self.sf_parameters1[:]
         sf_params4[5] = 15.0    # change sf_slope
 
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) >calculateAge.lnlike(sf_params1, self.SED, self.SED_err, self.redshift, self.sp), "Changing tau should lower likelihood"
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params2, self.SED, self.SED_err, self.redshift, self.sp), "Changing t_start should lower likelihood"
-        # assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params3, self.SED, self.SED_err, self.redshift, self.sp), "Changing t_trans should lower likelihood"
+        # need another value of sf_slope to test sf_trans, so using
+        # sf_params_trans rather then self.sf_parameters1
+        assert calculateAge.lnlike(sf_params_trans, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params_trans_changed, self.SED, self.SED_err, self.redshift, self.sp), "Changing t_trans should lower likelihood"
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params4, self.SED, self.SED_err, self.redshift, self.sp), "Changing sf_slope should lower likelihood"
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(self.sf_parameters3, self.SED, self.SED_err, self.redshift, self.sp),  "Correct SF parameters should be more likely than another set"
     
