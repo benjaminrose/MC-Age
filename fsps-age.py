@@ -215,7 +215,8 @@ if __name__ == '__main__':
 
     # Setup logger
     ## initiate
-    logger = logging.getLogger("localEnvironments")
+    ## for all submodules to log with these settings they need to have the same start of a name.
+    logger = logging.getLogger("fsps-age")
     ## set level
     if cli['--debug']:
         logger.setLevel(logging.DEBUG)
@@ -231,7 +232,6 @@ if __name__ == '__main__':
     elif cli['burnin']:
         fh = logging.FileHandler('logs/burnin/fsps-age.log')
         formatLogging()
-        logger.info('testing')
         burnin(cli)
     else:
         fh = logging.FileHandles('logs/fsps-age.log')

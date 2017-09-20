@@ -39,6 +39,8 @@ from astropy.cosmology import FlatLambdaCDM
 cosmo = FlatLambdaCDM(H0=70, Om0=0.27)
 # CampbellCosmo = FlatLambdaCDM(H0=73.8, Om0=0.24)
 
+# The part before the "." needs to be the same name as the initial logger in
+# fsps-age.py if we want to use its settings.
 module_logger = logging.getLogger("fsps-age.calculateAge")
 
 def runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope):
@@ -414,6 +416,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
         Returns nothing if 
 
     """
+    import pdb; pdb.set_trace()
     #set up logger
     logger = logging.getLogger("fsps-age.calculateAge.calculateSFH")
     logger.info('called calculateSFH')
@@ -587,6 +590,9 @@ def integrate_age(tau, tStart, sfTrans, sfSlope, redshift):
     np.array(1). It will pass the input tests, but the zip (for the for-loop)
     will fail.
     """
+    logger = logging.getLogger("fsps-age.calculateAge.integrate_age")
+    logger.info('called integrate_age')
+
     #######
     # Test inputs
     #######
