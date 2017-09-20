@@ -6,7 +6,6 @@
 *.sublime-workspace
 .cache/
 .ipynb_checkpoints/
-*.log
 .coverage
 
 # Specific
@@ -20,5 +19,16 @@ data/SDSS\ -\ spectra/
 ## results of Holtzman 2008
 data/SMP-photometry/
 
-## CRC files
+# Should be in git-lfs but they are too big for free storage on Github
+
+## analysis outputs
 crc-scripts/*.o*
+logs/*
+
+## resulting data files
+resources/*.tsv
+resources/burnin/
+
+## figures
+figures/*.pdf
+figures/*.png
