@@ -264,7 +264,7 @@ def lnprior(theta, redshift):
         # check out jakevdp.github.io/blog/2014/06/14/
         # frequentism-and-bayesianism-4-bayesian-in-python/
 
-        return -1*(1.5*np.log(1 + sfSlope**2) +
+        return -1*(#1.5*np.log(1 + sfSlope**2) +
                    (center-dust2)**2/(2*sigma**2) +
                    np.log(np.sqrt(2*np.pi)*sigma) +
                    (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) +
