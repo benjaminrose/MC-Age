@@ -232,7 +232,7 @@ def lnprior(theta, redshift):
     # should we allow sfTrans < tStart?
 
     # Initially set flat priors, except for variables to follow if-statement
-    if (-1.0  < logzsol < 0.5           and
+    if (-2.5  < logzsol < 0.5           and
         0.0   <= dust2                  and
         0.1   < tau     < 10.0          and
         0.5   < tStart  < sfTrans - 2.0 and   #force at least 2 Gyr of tau
@@ -264,7 +264,7 @@ def lnprior(theta, redshift):
         # check out jakevdp.github.io/blog/2014/06/14/
         # frequentism-and-bayesianism-4-bayesian-in-python/
 
-        return -1*(1.5*np.log(1 + sfSlope**2) +
+        return -1*(#1.5*np.log(1 + sfSlope**2) +
                    (center-dust2)**2/(2*sigma**2) +
                    np.log(np.sqrt(2*np.pi)*sigma) +
                    (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) +
