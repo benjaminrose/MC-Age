@@ -416,7 +416,6 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
         Returns nothing if 
 
     """
-    import pdb; pdb.set_trace()
     #set up logger
     logger = logging.getLogger("fsps-age.calculateAge.calculateSFH")
     logger.info('called calculateSFH')
