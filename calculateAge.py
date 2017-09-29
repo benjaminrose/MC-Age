@@ -346,9 +346,11 @@ def setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler, redshift):
     pos[:,3] = np.random.uniform(1.0, 5.0, size=nwalkers)    # tStart
     age = cosmo.age(redshift).to('Gyr').value
     pos[:,4] = np.random.uniform(3.0, age - 0.1, size=nwalkers)   # sfTrans
-    # Keep this one a bit tight because it should have a diminithing influace
+    # Keep this one a bit tight because it should have a diminishing influence
     # as it approaches it bounds.
-    pos[:,5] = np.random.uniform(-10.0, 10.0, size=nwalkers)   # sfSlope
+    # It does have a MAJOR influence if it is large. This is HOW we get young
+    # populations.
+    pos[:,5] = np.random.uniform(-8.0, 19.0, size=nwalkers)   # sfSlope
     # Keep values tight if expected value is well understood
     # Also this variable is highly influential to the likelihood
     pos[:,6] = np.random.uniform(-28, -15.0, size=nwalkers)    # c
