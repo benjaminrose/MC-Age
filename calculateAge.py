@@ -128,7 +128,8 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
         parameters & a fitting constant to raise the mass from 1 solar mass
         (FSPS) to reality. Should be in order expected by
         `calculateAge.runFSPS()` with a constant on the end:
-        `[logzsol, dust2, tau, tStart, sfTrans, sfSlope, c]`.
+        `[logzsol, dust2, tau, tStart, sfTrans, phi, c]` except
+        `sfSlope` = tan(`phi`).
     magnitudes : np.ndarray
         A list of the magnitudes of the stellar populations. Currently needs
         to be *ugriz* only.
@@ -161,7 +162,7 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
 
     See Also
     --------
-    runFSPS : explains `theta` parameters
+    runFSPS : explains `theta` parameters, except `sfSlope` = tan(`phi`)
     lnprior : the prior probability
     lnprob : the posterior probability 
     """
@@ -176,7 +177,7 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
                          ' respectively.')
 
     # calculate what the FSPS model is for the appropriate values in `theta`.
-    model = runFSPS(sp, redshift, *theta[:-1]) + theta[-1]
+    model = runFSPS(sp, redshift, *theta[:-2], np.tan(theta[-2])) + theta[-1]
 
     # test if `magnitudes` and `magerr` and `model` are all the same length
     # this verifies that `runFSPS()` has not changed what filters it is using.
@@ -211,7 +212,8 @@ def lnprior(theta, redshift):
     Parameters
     ----------
     theta : list
-        Needs to be in order `[logzsol, dust2, tau, tStart, sfTrans, sfSlope]`. Variables are defined in runFSPS.
+        Needs to be in order `[logzsol, dust2, tau, tStart, sfTrans, phi]`.
+        Variables are defined in runFSPS, except `sfSlope` = tan(`phi`).
     
     Returns
     -------
@@ -222,10 +224,10 @@ def lnprior(theta, redshift):
 
     See Also
     --------
-    runFSPS : ? explains theta parameters. 
+    runFSPS : explains theta parameters, except `sfSlope` = tan(`phi`).
     """
     # Conroy 2009 says Charlot 2000 recommends (dust1, dust2) = (1.0, 0.3)
-    logzsol, dust2, tau, tStart, sfTrans, sfSlope, c = theta
+    logzsol, dust2, tau, tStart, sfTrans, phi, c = theta
     age = cosmo.age(redshift).to('Gyr').value
     # initial guess is `[0., 0., 1., 1., 10., 1., -20.]`
     # If `sfTrans` set to 0.0, there is no truncation.
@@ -237,7 +239,7 @@ def lnprior(theta, redshift):
         0.1   < tau     < 10.0          and
         0.5   < tStart  < sfTrans - 2.0 and   #force at least 2 Gyr of tau
         2.5   < sfTrans <= age          and
-        -20.0 < sfSlope < 20.0          and
+        -1.520838 < phi < 1.520838      and    # from -20 to 20 in slope
         -45.0 < c       < -5.0):
         
         # logzsol #
@@ -259,13 +261,7 @@ def lnprior(theta, redshift):
         #Note that this return only takes place if `dust2`>0, so this is only
         #the right and side of the Gaussian. 
 
-        # sfSlope #
-        # Note that slope should not be flat-top if it was uninformed.
-        # check out jakevdp.github.io/blog/2014/06/14/
-        # frequentism-and-bayesianism-4-bayesian-in-python/
-
-        return -1*(#1.5*np.log(1 + sfSlope**2) +
-                   (center-dust2)**2/(2*sigma**2) +
+        return -1*((center-dust2)**2/(2*sigma**2) +
                    np.log(np.sqrt(2*np.pi)*sigma) +
                    (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) +
                    np.log(np.sqrt(2*np.pi)*SIGMA_Z))
@@ -283,7 +279,7 @@ def lnprob(theta, magnitudes, magerr, redshift, sp):
     theta : array-like
         A list of the values of the current iteration of model parameters. 
         Should be in order expected by `calculateAge.runFSPS()`: [logzsol, 
-        dust2, tau, tStart, sfTrans, sfSlope, c].
+        dust2, tau, tStart, sfTrans, phi, c], except `sfSlope` = tan(`phi`).
     magnitudes : array-like
         A list of the magnitudes of the stellar populations. Currently needs to be *ugriz* only.
     magerr : array-like
@@ -331,7 +327,7 @@ def setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler, redshift):
     #     0.1   < tau     < 10.0          and
     #     0.5   < tStart  < sfTrans - 2.0 and
     #     2.5   < sfTrans <= age          and
-    #     -20.0 < sfSlope < 20.0          and
+    #     -1.520838 < phi < 1.520838         and
     #     -45.0 < c       < -5.0):
     # Keep
     # Assuming you have enough walkers, These random numbers will "uniformly
@@ -351,6 +347,8 @@ def setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler, redshift):
     # It does have a MAJOR influence if it is large. This is HOW we get young
     # populations.
     pos[:,5] = np.random.uniform(-8.0, 19.0, size=nwalkers)   # sfSlope
+    # convert to phi
+    pos[:,5] = np.arctan(pos[:,5])
     # Keep values tight if expected value is well understood
     # Also this variable is highly influential to the likelihood
     pos[:,6] = np.random.uniform(-28, -15.0, size=nwalkers)    # c
@@ -501,6 +499,9 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     # save temp results in case something else fails soon.
     ############
     header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
+    # convert from phi to slope
+    to_save = sampler.flatchain
+    to_save[5] = np.tan(to_save[5])
     np.savetxt('resources/SN{}_chain.tsv'.format(SNID), sampler.flatchain, 
                 delimiter='\t', header=header)
     logger.info('saved full results resources/SN{}_chain.tsv'.format(SNID))
@@ -535,6 +536,9 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     # And makes it a flat chain
     samples = sampler.chain[:, burnInSize:, :].reshape((-1, ndim))
     
+    # convert from phi to slope
+    samples[5] = np.tan(samples[5])
+
     #Save basic results to standard out & log
     logzso, dust2, tau, tStart, sfTrans, sfSlope, c = map(
                             lambda v: (v[1], v[2]-v[1], v[1]-v[0]),

@@ -22,10 +22,11 @@ class BaseTestCase():
                   cloudy_dust=True, add_neb_emission = True,
                   sfh=5)
 
-    theta_low = [0, -1, 0, 0, 0, -20.1, -35.1]   # outside bounds
-    theta_high =[-3, -1, 10.1, 13, 13, 20.1, -4.9]    # outside bounds
+    # only used for `lnlike()`, 'lnprior()' & 'lnprob()' so sfSlope is now phi
+    theta_low = [0, -1, 0, 0, 0, np.arctan(-20.1), -35.1]   # outside bounds
+    theta_high =[-3, -1, 10.1, 13, 13, np.arctan(20.1), -4.9]  # outside bounds
     theta_mean = [-0.5, 0.0, 1.0, 2.0, 10.0, 0.0, -25]     # at Gaussian means
-    theta = [-0.3, 0.2, 1.0, 2.0, 10.0, 5.0, -25]
+    theta = [-0.3, 0.2, 1.0, 2.0, 10.0, np.arctan(5.0), -25]
 
     # from circle 1
     SED = [20.36, 18.76, 17.99, 17.67, 17.39]
@@ -105,18 +106,20 @@ class Test_lnlike(BaseTestCase):
         """likelihood should be higher for the correct star formation parameters and lower when changing even 1 parameter"""
         # self.sf_parameters1 is circle 1 sf parameters
         sf_params1 = self.sf_parameters1[:]
+        sf_params1[5] = np.arctan(sf_params1[5])    # convert from slope to phi
         sf_params1[2] = 7.0     # change tau
         sf_params2 = self.sf_parameters1[:]
+        sf_params2[5] = np.arctan(sf_params2[5])    # convert from slope to phi
         sf_params2[3] = 3.0    # change t_start
 
         # need to some positive sfSlope to see change in t_trans
         sf_params_trans = self.sf_parameters1[:]
-        sf_params_trans[5] = 2.0
+        sf_params_trans[5] = np.arctan(2.0)    # and convert from slope to phi
         sf_params_trans_changed = sf_params_trans[:]
         sf_params_trans_changed[4] = 10.0    # change t_trans
 
         sf_params4 = self.sf_parameters1[:]
-        sf_params4[5] = 15.0    # change sf_slope
+        sf_params4[5] = np.arctan(15.0)    # change sf_slope and convert to phi
 
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) >calculateAge.lnlike(sf_params1, self.SED, self.SED_err, self.redshift, self.sp), "Changing tau should lower likelihood"
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params2, self.SED, self.SED_err, self.redshift, self.sp), "Changing t_start should lower likelihood"
@@ -132,7 +135,13 @@ class Test_lnlike(BaseTestCase):
 
         see also similar test of `lnprob`.
         """
-        assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(self.sf_fit_params1, self.SED, self.SED_err, self.redshift, self.sp),  "Input SF parameters (from circle test) should be more likely than median results of bad fits."
+        # need to update sf_parameter `sfSlope` to `phi`.
+        input1 = self.sf_parameters1[:]
+        input1[5] = np.arctan(input1[5])
+        input2 = self.sf_fit_params1[:]
+        input2[5] = np.arctan(input2[5])
+
+        assert calculateAge.lnlike(input1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(input2, self.SED, self.SED_err, self.redshift, self.sp),  "Input SF parameters (from circle test) should be more likely than median results of bad fits."
 
 
 class Test_lnprior(BaseTestCase):
@@ -212,12 +221,12 @@ class Test_lnprior(BaseTestCase):
 class Test_lnprob(BaseTestCase):
     @longrun
     def test_posteriorFail(self):
-        theta = [0, -1, 0, 0, 0, -20.1, -35.1]
+        theta = [0, -1, 0, 0, 0, np.arctan(-20.1), -35.1]
         assert calculateAge.lnprob(theta, self.SED, self.SED_err, self.redshift, self.sp) == -np.inf, "Value should be outside prior range but ln-probability is not minus infinity"
 
     @longrun
     def test_posteriorPass(self):
-        theta = [-0.3, 0.2, 1.0, 2.0, 10.0, 5.0, -25]
+        theta = [-0.3, 0.2, 1.0, 2.0, 10.0, np.arctan(5.0), -25]
         assert calculateAge.lnprob(theta, self.SED, self.SED_err, self.redshift, self.sp) == calculateAge.lnprior(theta, self.redshift) + calculateAge.lnlike(theta, self.SED, self.SED_err, self.redshift, self.sp)
 
     @longrun
@@ -226,7 +235,10 @@ class Test_lnprob(BaseTestCase):
         circle test 1 should have a higher posterior probability the MCMC
         results found on 2017-08-01 from CRC: 153454.1 ("globalCircle-07-31")
         """
-        assert calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob([-2.5, 0.01, 7.17, 7.94, 10.40, -5.24, -23.48], self.SED, self.SED_err, self.redshift, self.sp)
+        # sf_parameters1 needs to be converted from `sfSlope` to `phi`
+        input_ = self.sf_parameters1[:]
+        input_[5] = np.arctan(input_[5])
+        assert calculateAge.lnprob(input_, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob([-2.5, 0.01, 7.17, 7.94, 10.40, np.arctan(-5.24), -23.48], self.SED, self.SED_err, self.redshift, self.sp)
 
     @longrun
     def test_idk(self):
@@ -234,7 +246,14 @@ class Test_lnprob(BaseTestCase):
 
         see also similar test of `lnlike`.
         """
-        assert calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob(self.sf_fit_params1, self.SED, self.SED_err, self.redshift, self.sp),  "Input SF parameters (from circle test) should be more likely than median results of bad fits."
+        # sf_parameters1 & sf_fit_params1& need to be converted from `sfSlope`
+        # to `phi`
+        input1 = self.sf_parameters1[:]
+        input1[5] = np.arctan(input1[5])
+        input2 = self.sf_fit_params1[:]
+        input2[5] = np.arctan(input2[5])
+
+        assert calculateAge.lnprob(input1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnprob(input2, self.SED, self.SED_err, self.redshift, self.sp),  "Input SF parameters (from circle test) should be more likely than median results of bad fits."
 
     @longrun
     def test_same_overtime(self):
@@ -244,15 +263,19 @@ class Test_lnprob(BaseTestCase):
         tests prove that the very bad "best-fit" is truly (via likelihood and
         proprietor calculations) very bad and worse then the expected fit.
         """
-        run1 = calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err,
+        # sf_parameters1 needs to be converted from `sfSlope` to `phi`
+        input_ = self.sf_parameters1[:]
+        input_[5] = np.arctan(input_[5])
+
+        run1 = calculateAge.lnprob(input_, self.SED, self.SED_err,
                                   self.redshift, self.sp)
-        run2 = calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err,
+        run2 = calculateAge.lnprob(input_, self.SED, self.SED_err,
                                   self.redshift, self.sp)
         # skip over many
         for i in range(100):
-            _ = calculateAge.lnprob(self.sf_parameters1, self.SED,
+            _ = calculateAge.lnprob(input_, self.SED,
                                     self.SED_err, self.redshift, self.sp)
-        run3 = calculateAge.lnprob(self.sf_parameters1, self.SED, self.SED_err,
+        run3 = calculateAge.lnprob(input_, self.SED, self.SED_err,
                                   self.redshift, self.sp)
         assert run1 == run2 == run3, "Results shouldn't change over runs"
 
