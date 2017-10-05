@@ -27,8 +27,8 @@ logs/*
 
 ## resulting data files
 resources/*.tsv
-resources/burnin/
+resources/burnin/*
 
 ## figures
-figures/*.pdf
-figures/*.png
+*.pdf
+*.png
