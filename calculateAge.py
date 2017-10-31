@@ -250,7 +250,7 @@ def lnprior(theta, redshift):
         # distribution (between logzsol & redshift) centered at -0.5, and
         # sigma = 0.5 dex
         CENTER_Z = -0.5
-        SIGMA_Z = 0.5
+        SIGMA_Z = 0.6   #cover -1.5 in 2sigma
 
         # dust2 #
         #high dust (dust2>1) is (starburst) is ~1% of galaxies
@@ -691,25 +691,22 @@ def integrate_age(tau, tStart, sfTrans, sfSlope, redshift):
     # return a function that integrates over Gupta's variables.
     return lengthOfSF.to('Gyr').value - numerator/denominator
 
-def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug=False):
+def calculateAge(redshift, SED, SEDerr, SNID, sp=None, debug=False):
     """calculateAge either from a given Star Formation History (SFH) or from a 
     *ugriz* SED. If a SED is given (the default) then it calculates the SFH by 
     calling `calculateSFH()`.
     
     Parameters
     ----------
-    x : array-like
+    SED : array-like
         Either an SED of *ugriz* magnitudes or SFH parameters (`tau`, 
         `tStart`, `sfTrans`, `sfSlope` of Shimha 2014 equation 6) if `SED` is 
         set to `False`.
     redshift : float
         The redshift of the region where the age is being calculated.
-    SEDerr : array-like, optional
-        Optional if `SED` is `False` and `x` is the SFH parameters. 
-    isSED : boolean, optional
-        A flag to determine if x is an SED (default value) or star formation 
-        history parameters. 
-    SNID : int, optional
+    SEDerr : array-like
+        Optional if `SED` is `False` and `SED` is the SFH parameters. 
+    SNID : int
         This is the ID number for the SN. Used for 'unique' ID while saving 
         data. Needed if `SED = True`.
     sp : fsps.fsps.StellarPopulation, optional
@@ -725,8 +722,8 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
     -------
     sfh : np.array
         The mean star formation history parameters (tau, tStart, sfTrans, 
-        sfSlope). Either calculated from the SED given in `x` or the 
-        parameters given in `x` if `SED = False`. A full posterior 
+        sfSlope). Either calculated from the SED given in `SED` or the 
+        parameters given in `SED` if `SED = False`. A full posterior 
         distribution is save by `calculateSFH()`
     age : float
         The mean mass-weighted(?) age from the given or calculated SFH
@@ -752,28 +749,22 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
     logger = logging.getLogger("fsps-age.calculateAge.calculateAge")
     logger.info('called calculateAge')
 
-    #if SED, calculate SFH
-    if isSED:
-        logger.info('Calculating SFH')
-        # no need for SNID. We can save in this function.
-        samples = calculateSFH(x, SEDerr, redshift, SNID, debug=debug)
-        # logger.info('importing SFH to speed!!!!!')
-        # samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
-        #extract variables
-        logzso, dust2, tau, tStart, sfTrans, sfSlope, c = np.hsplit(samples, 7)
-        #reshape these to be 1D arrays
-        logzso = logzso.reshape(-1)
-        dust2 = dust2.reshape(-1)
-        tau = tau.reshape(-1)
-        tStart = tStart.reshape(-1)
-        sfTrans = sfTrans.reshape(-1)
-        sfSlope = sfSlope.reshape(-1)
-        c = c.reshape(-1)
-    else:
-        logger.info('using SFH that was given')
-        #unpack input parameters
-        #todo(4 should not be hard coded)
-        tau, tStart, sfTrans, sfSlope = np.hsplit(x, 4)
+    # calculate SFH
+    logger.info('Calculating SFH')
+    # no need for SNID. We can save in this function.
+    samples = calculateSFH(SED, SEDerr, redshift, SNID, debug=debug)
+    # logger.info('importing SFH to speed!!!!!')
+    # samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
+    #extract variables
+    logzso, dust2, tau, tStart, sfTrans, sfSlope, c = np.hsplit(samples, 7)
+    #reshape these to be 1D arrays
+    logzso = logzso.reshape(-1)
+    dust2 = dust2.reshape(-1)
+    tau = tau.reshape(-1)
+    tStart = tStart.reshape(-1)
+    sfTrans = sfTrans.reshape(-1)
+    sfSlope = sfSlope.reshape(-1)
+    c = c.reshape(-1)
 
     #with SFH -> Calculate age
     '''
@@ -800,15 +791,14 @@ def calculateAge(redshift, x, SEDerr=None, isSED=True, SNID=None, sp=None, debug
         logger.info('skipping saving of data while debugging')
     else:
         # if MCMC was ran --> save full MCMC results with age
-        if isSED:
-            logger.debug('saving full MCMC & age data')
-            samples = np.append(samples, age.reshape(age.size, 1), axis=-1)
+        logger.debug('saving full MCMC & age data')
+        samples = np.append(samples, age.reshape(age.size, 1), axis=-1)
 
-            header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\tage\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag\tGyr'
+        header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\tage\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag\tGyr'
 
-            np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
-                    delimiter='\t', header=header)
-            logger.info('saved resources/SN{}_chain.tsv'.format(SNID))
+        np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
+                delimiter='\t', header=header)
+        logger.info('saved resources/SN{}_chain.tsv'.format(SNID))
 
         print(np.nanmedian(age))
         print(np.median(age))
