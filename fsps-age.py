@@ -156,18 +156,18 @@ def redoGupta(cli):
 
     # todo: how should the CLI switch between Messier and Gupta?
     if cli['gupta']:
-        redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
-                        cli['--debug'], cli['gupta'])
+        dataset = 'gupta'
     elif cli['messier']:
-        redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
-                        cli['--debug'], cli['gupta'])
+        dataset = 'messier'
     elif cli['circle']:
-        redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
-                        cli['--debug'], 'circle')
+        dataset = 'circle'
     else:
         raise ValueError("The test functionality only works if 'gupta',",
                          " 'messier' or 'circle' is called. You somehow got",
                          " passed the CLI and did not select one of these.")
+    
+    redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
+                        cli['--debug'], )
 
 
 def burnin(cli):
