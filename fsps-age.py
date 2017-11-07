@@ -167,7 +167,7 @@ def redoGupta(cli):
                          " passed the CLI and did not select one of these.")
     
     redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
-                        cli['--debug'], )
+                        cli['--debug'], dataset)
 
 
 def burnin(cli):
