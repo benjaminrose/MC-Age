@@ -28,7 +28,9 @@ This code was written by Benjamin Rose. The science was helped by Peter Garnavic
 
 ### Contribution and Licenses
 
-This code is currently unlicensed. I do appreciate scientific verification. And if anyone wants to continue this scientific search I would appreciate being contacted about a collaboration.
+I do appreciate scientific verification. If you find an issue or think something should work differently please open an issue or pull request. Specific details and guidelines for contributing will come once interest in this project is shown. If anyone wants to continue this scientific search I would appreciate being contacted about a collaboration. 
+
+This software is licensed with the MIT license. The intent is to encourage reproducible and open science even though the license is more permissive.
 
 ## Paper
 
