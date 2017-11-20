@@ -122,12 +122,12 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
     # Import data file
     if dataset in ['gupta', 'messier', 'circle']:
         if dataset == 'gupta':
-            # logger.info('importing GlobalPhotometry-Gupta.tsv'.format(jobID))
-            # data = pd.read_csv('data/GlobalPhotometry-Split/GlobalPhotometry-Gupta-{}.tsv'.format(jobID), 
-            #                    delimiter='\t', skiprows=[0,1,2,4],
-            #                    skipinitialspace=True, na_values='...', index_col=False)
-            pass   # fix to work like messier
-        if dataset == "messier":
+            logger.info('importing GlobalPhotometry-Gupta.tsv')
+            data = pd.read_csv('data/GlobalPhotometry-Gupta.tsv',
+                                delimiter='\t', skiprows=[0,1,2,4],
+                                skipinitialspace=True, na_values='...',
+                                index_col=False)
+        elif dataset == "messier":
             # these galaxies are more "known' then gupta, at least by type
             logger.info('importing galaxyPhotometry.tsv')
             data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t')
