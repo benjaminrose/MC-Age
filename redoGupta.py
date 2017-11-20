@@ -137,13 +137,21 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
             data = pd.read_csv('data/circlePhotometry.tsv', delimiter='\t')
     
     #cut down dataset
-    stepSize = int(np.ceil(len(data)/lenJobs))
+    Ndata = len(data)
+    stepSize = int(np.ceil(Ndata/lenJobs))
     startIndex = (int(jobID)-1)*stepSize
     endIndex = startIndex + stepSize
+
+    #check if start value is outside data size
+    if startIndex >= Ndata:
+        logger.info('This jobID is not needed. Start value larger than data' +
+                    ' size')
+        return  
+
     #use `.loc` or else zips won't work
-    if endIndex >= len(data):
+    if endIndex >= Ndata:
         #using `[x:x]` returns a DataFrame, Using `[x]` returns a Series
-        data = data.loc[startIndex:startIndex]
+        data = data.loc[startIndex:Ndata-1]
     else:
         #`loc` is inclusive, WHY!!
         data = data.loc[startIndex:endIndex-1]
