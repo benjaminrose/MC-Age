@@ -1,5 +1,15 @@
 API Documentation
 =============
+.. autofuction:: calculateAge.runFSPS
 
-.. automodule:: fsps-age
+Main usage
+----------
+
+.. automodule:: fspsage
+	:members:
+
+CalcualteAge
+------------
+
+.. automodule:: calculateAge
     :members:

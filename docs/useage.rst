@@ -1,6 +1,14 @@
-# Usage
+Usage
+====================================
+Can I get to documents working?
 
-## burnin
+
+.. automodule:: fspsage
+    :members:
+
+
+`burnin`
+===============
 
 ## run
 
