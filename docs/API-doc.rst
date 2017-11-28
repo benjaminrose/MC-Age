@@ -1,6 +1,5 @@
 API Documentation
-=============
-.. autofuction:: calculateAge.runFSPS
+==================
 
 Main usage
 ----------

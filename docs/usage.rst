@@ -1,5 +1,5 @@
 Usage
-====================================
+======
 Can I get to documents working?
 
 
@@ -8,7 +8,7 @@ Can I get to documents working?
 
 
 `burnin`
-===============
+--------
 
 ## run
 
