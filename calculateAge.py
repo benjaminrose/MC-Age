@@ -235,7 +235,7 @@ def lnprior(theta, redshift):
 
     # Initially set flat priors, except for variables to follow if-statement
     if (-2.5  < logzsol < 0.5           and
-        0.0   <= dust2                  and
+        0.0   <= dust2 <= 0.9           and
         0.1   < tau     < 10.0          and
         0.5   < tStart  < sfTrans - 2.0 and   #force at least 2 Gyr of tau
         2.5   < sfTrans <= age          and

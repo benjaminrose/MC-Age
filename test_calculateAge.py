@@ -125,7 +125,10 @@ class Test_lnlike(BaseTestCase):
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params2, self.SED, self.SED_err, self.redshift, self.sp), "Changing t_start should lower likelihood"
         # need another value of sf_slope to test sf_trans, so using
         # sf_params_trans rather then self.sf_parameters1
-        assert calculateAge.lnlike(sf_params_trans, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params_trans_changed, self.SED, self.SED_err, self.redshift, self.sp), "Changing t_trans should lower likelihood"
+        n1 = calculateAge.lnlike(sf_params_trans, self.SED, self.SED_err, self.redshift, self.sp)
+        n2 = calculateAge.lnlike(sf_params_trans_changed, self.SED, self.SED_err, self.redshift, self.sp)
+        print(n1, n2)
+        assert n1 > n2 , "Changing t_trans should lower likelihood"
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params4, self.SED, self.SED_err, self.redshift, self.sp), "Changing sf_slope should lower likelihood"
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(self.sf_parameters3, self.SED, self.SED_err, self.redshift, self.sp),  "Correct SF parameters should be more likely than another set"
     
@@ -162,7 +165,7 @@ class Test_lnprior(BaseTestCase):
         assert calculateAge.lnprior(self.theta, self.redshift) > -np.inf, "Prior failing unexpectedly"
 
     def test_correctResult_mean(self):
-        """Takes a calculated a prior probability from `self.theta_mean`, from http://www.wolframalpha.com/input/?i=-1*(1.5*log(1+%2B+0.0**2)+%2B+(0.0-0.0)**2%2F(2*0.3**2)+%2B+log(sqrt(2*pi)*0.3)+%2B+(-0.5+%2B+0.5)**2%2F(2*0.5**2)+%2B+log(sqrt(2*pi)*0.5)), then compares to see if calcuateAge.lnprior calculated the same value.
+        """Takes a calculated a prior probability from `self.theta_mean`, from http://www.wolframalpha.com/input/?i=-1*((0.0-0.0)**2%2F(2*0.3**2)+%2B+log(sqrt(2*pi)*0.3)+%2B+(-0.5+-+-0.5)**2%2F(2*0.6**2)+%2B+log(sqrt(2*pi)*0.6)), then compares to see if calcuateAge.lnprior calculated the same value.
 
         Probability comes from `self.theta_mean`: 
         CENTER_Z = -0.5
@@ -173,15 +176,18 @@ class Test_lnprior(BaseTestCase):
         dust2 = center
         sfSlope = 0.0
         theta = [logzsol, dust2, 1.0, 2.0, 10.0, sfSlope, -25]
-        expected = -1*(1.5*np.log(1 + sfSlope**2) + (center-dust2)**2/(2*sigma**2) + np.log(np.sqrt(2*np.pi)*sigma) + (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) + np.log(np.sqrt(2*np.pi)*SIGMA_Z))
+        expected = -1*((center-dust2)**2/(2*sigma**2) +
+                   np.log(np.sqrt(2*np.pi)*sigma) +
+                   (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) +
+                   np.log(np.sqrt(2*np.pi)*SIGMA_Z))
         """
         # It looks like the return value has 16 decimals
-        expected = 0.0592429184765358
+        expected = -0.12307863831741855
         assert np.isclose(calculateAge.lnprior(self.theta_mean, self.redshift),
                           expected), "Prior not returning expected result."
 
     def test_correctResult_other(self):
-        """Takes a calculated a prior probability from `self.theta`, from http://www.wolframalpha.com/input/?i=-1*(1.5*log(1+%2B+5.0**2)+%2B+(0.0-0.2)**2%2F(2*0.3**2)+%2B+log(sqrt(2*pi)*0.3)+%2B+(-0.5+%2B+0.3)**2%2F(2*0.5**2)+%2B+log(sqrt(2*pi)*0.5)), then compares to see if calcuateAge.lnprior calculated the same value.
+        """Takes a calculated a prior probability from `self.theta`, from http://www.wolframalpha.com/input/?i=-1*((0.0-0.2)**2%2F(2*0.3**2)+%2B+log(sqrt(2*pi)*0.3)+%2B+(-0.5+-+-0.3)**2%2F(2*0.6**2)+%2B+log(sqrt(2*pi)*0.6)), then compares to see if calcuateAge.lnprior calculated the same value.
 
         Probability comes from `self.theta_mean`: 
         CENTER_Z = -0.5
@@ -192,14 +198,13 @@ class Test_lnprior(BaseTestCase):
         dust2 = 0.2
         sfSlope = 5.0
         theta = [logzsol, dust2, 1.0, 2.0, 10.0, sfSlope, -25]
-        expected = -1*(1.5*np.log(1 + sfSlope**2) + 
-                    (center-dust2)**2/(2*sigma**2) + 
-                    np.log(np.sqrt(2*np.pi)*sigma) + 
-                    (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) + 
-                    np.log(np.sqrt(2*np.pi)*SIGMA_Z))
+        expected = -1*((center-dust2)**2/(2*sigma**2) +
+                   np.log(np.sqrt(2*np.pi)*sigma) +
+                   (CENTER_Z - logzsol)**2/(2*SIGMA_Z**2) +
+                   np.log(np.sqrt(2*np.pi)*SIGMA_Z))
         """
         # It looks like the return value has 16 decimals
-        expected = -5.1301241107779094
+        expected = -0.4008564160951964
         calculated = calculateAge.lnprior(self.theta, self.redshift)
         assert np.isclose(calculated, expected), "Prior not returning " \
                "expected result. {} {}".format(calculated, expected)
