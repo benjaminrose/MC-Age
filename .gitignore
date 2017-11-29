@@ -8,6 +8,10 @@
 .ipynb_checkpoints/
 .coverage
 
+# Documentation
+docs/_build/*
+
+
 # Specific
 
 ## these are raw files that might be used later in the project
