@@ -462,9 +462,9 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
         # `emcee`'s "stretch move" will fill in the gaps by pulling all the low likelihood walkers harder to the high likelihood zones. We just need to run this section long enough for a low likelihood walker to get paired with a high likelihood walker, ~N the number of walkers.
         ndim, nwalkers = 7, 300
         maxLikilhoodSize = 300
-        burnInSize = 200
-        nsteps = 1000
-        # We want ~250,000 accepted values: nwalkers*(nsteps - burninSize).
+        burnInSize = 500
+        nsteps = 3000
+        # We want ~750,000 accepted values: nwalkers*(nsteps - burninSize).
         # We want this many because it looks good?
     logger.info('running {} walkers,\n\t\t {} initial search steps,\n\t\t {} final steps,\n\t\twith {} burnin steps remove'.format(nwalkers, maxLikilhoodSize, nsteps, burnInSize))
 
