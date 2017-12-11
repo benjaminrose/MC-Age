@@ -33,6 +33,7 @@ logs/*
 resources/*.tsv
 resources/*/*.tsv
 resources/burnin/*
+*.npy
 
 ## figures
 *.pdf
