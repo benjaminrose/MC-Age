@@ -6,10 +6,10 @@ Science goal:
     Modeling Photometry
 
 Usage:
-    fsps-age.py burnin OBJID
-    fsps-age.py run (circle | messier | gupta) JOBID JOBLENGTH [-d | --debug]
-    fsps-age.py (-h | --help)
-    fsps-age.py --version
+    fspsage.py burnin OBJID
+    fspsage.py run (circle | messier | gupta) JOBID JOBLENGTH [-d | --debug]
+    fspsage.py (-h | --help)
+    fspsage.py --version
 
 Option:
     JOBID           the ID for the piece of the data set to be analyzed
@@ -41,10 +41,12 @@ from docopt import docopt
 import numpy as np
 import fsps
 
+# from fsps_age import __version__
+# print(__version__)
 __author__ = "Benjamin Rose"
 __version__ = "0.1"
 __license__ = ""
-
+# from sys import exit; exit()
 
 def formatLogging():
     """Setting up the logger parts that are the same for all commands
@@ -144,6 +146,9 @@ def redoGupta(cli):
 
     We want to redo what Gupta did to make sure we can actually do something
     before we analyze on new data.
+
+    :param cli:
+        The dictionary of the CLI constructed by :docop:.
     """
     """ run redoGupta.py
 

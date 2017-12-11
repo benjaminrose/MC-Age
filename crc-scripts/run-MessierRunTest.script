@@ -8,4 +8,4 @@
 module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
 
 cd ..    # get to the correct logging file folder
-python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fsps-age.py run messier 1 8
+python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run messier 1 8
