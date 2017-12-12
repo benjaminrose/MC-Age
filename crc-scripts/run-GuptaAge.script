@@ -1,14 +1,14 @@
 #!/bin/csh
 #$ -M brose3@nd.edu  # email for notifications
 #$ -m abe            # send mail when begins, ends and aborts
-#$ -N globalGupta-07-28          # specific job name
+#$ -N globalGupta-12-06          # specific job name
 #$ -q long           # debug or long queue
 #$ -r y              # or n Tell SGE if your job is "re-runnable"
 # 196 items will be split into 50 jobs
-#$ -t 1-50:1       # set up job array
+#$ -t 1-49:1       # set up job array, use 49 cores for 196 datapoints
 
 module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
 
 fsync -d 300 $SGE_STDOUT_PATH &  ## Save to output every 300 seconds
 cd ..    # get to the correct logging file folder
-python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fsps-age.py run gupta ${SGE_TASK_ID} 50
+python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fsps-age.py run gupta ${SGE_TASK_ID} 49
