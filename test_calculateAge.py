@@ -113,10 +113,12 @@ class Test_lnlike(BaseTestCase):
         sf_params2[3] = 3.0    # change t_start
 
         # need to some positive sfSlope to see change in t_trans
+        # some how it needs a big change in transition. 
+        # this has to do with forcing 1 solar mass of production total. 
         sf_params_trans = self.sf_parameters1[:]
         sf_params_trans[5] = np.arctan(2.0)    # and convert from slope to phi
         sf_params_trans_changed = sf_params_trans[:]
-        sf_params_trans_changed[4] = 10.0    # change t_trans
+        sf_params_trans_changed[4] = 11.0    # change t_trans
 
         sf_params4 = self.sf_parameters1[:]
         sf_params4[5] = np.arctan(15.0)    # change sf_slope and convert to phi
