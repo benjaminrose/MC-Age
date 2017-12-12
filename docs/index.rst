@@ -3,39 +3,50 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-========
-FSPS-age
-========
 
-*Calculating the age of the local stellar population to test SN Ia systematic.*
+.. age
+.. fsps
+.. mcmc
+.. baysian
+.. photometry
+.. photo
+.. stellar
 
+
+.. (Photometric) Stellar Population Age Estimation
+
+.. spae
+
+==========================================
+spae --- Stellar Population Age Estimation
+==========================================
 
 About
------
-This project uses FSPS, and python-FSPS to estimate ages of stellar populations from photometry. The main science goal is to look for systematics in Type Ia supernovae. The code is available at 
+=====
+This project uses FSPS, and python-FSPS to estimate the age of a stellar populations from a photometric SED. The code is available on github_.
 
-https://github.com/benjaminrose/SNIa-Local-Environments
+.. _github: https://github.com/benjaminrose/SNIa-Local-Environments
+
+Science goal
+===========
+
+Check local environment effects on SNIa by looking for correlations between HR and the age of the local environment calculated from SDSS Scene Modeling Photometry
 
 
 .. include:: ../README.rst
 
-User Guide
-----------
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   usage
+   .. usage
    circle-test
    API-doc
 
 Indices and tables
 -------------------
 
+* :ref:`search`
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
-
-
-Documentation needs ``autodocs`` (auto installed?), ``sphinx_rtd_theme``, and ``numpydoc`` to run.
