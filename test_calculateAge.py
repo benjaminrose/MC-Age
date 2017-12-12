@@ -118,7 +118,7 @@ class Test_lnlike(BaseTestCase):
         sf_params_trans = self.sf_parameters1[:]
         sf_params_trans[5] = np.arctan(2.0)    # and convert from slope to phi
         sf_params_trans_changed = sf_params_trans[:]
-        sf_params_trans_changed[4] = 11.0    # change t_trans
+        sf_params_trans_changed[4] = 12.0    # change t_trans
 
         sf_params4 = self.sf_parameters1[:]
         sf_params4[5] = np.arctan(15.0)    # change sf_slope and convert to phi
