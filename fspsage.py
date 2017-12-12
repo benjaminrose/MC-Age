@@ -41,12 +41,9 @@ from docopt import docopt
 import numpy as np
 import fsps
 
-# from fsps_age import __version__
-# print(__version__)
 __author__ = "Benjamin Rose"
 __version__ = "0.1"
-__license__ = ""
-# from sys import exit; exit()
+__license__ = "MIT"
 
 def formatLogging():
     """Setting up the logger parts that are the same for all commands
