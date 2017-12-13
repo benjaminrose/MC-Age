@@ -119,8 +119,7 @@ class Test_lnlike(BaseTestCase):
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(sf_params4, self.SED, self.SED_err, self.redshift, self.sp), "Changing sf_slope should lower likelihood"
         assert calculateAge.lnlike(self.sf_parameters1, self.SED, self.SED_err, self.redshift, self.sp) > calculateAge.lnlike(self.sf_parameters3, self.SED, self.SED_err, self.redshift, self.sp),  "Correct SF parameters should be more likely than another set"
     
-    @pytest.mark.xfail(reason="IDK. Works locally, but fails with newer",
-                        + " settings on TravisCI.")
+    @pytest.mark.xfail(reason'IDK. Works locally, but fails with newer settings on TravisCI.')
     @longrun
     def test_likechanges_transition(self):
         """
