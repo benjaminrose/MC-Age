@@ -43,7 +43,7 @@ cosmo = FlatLambdaCDM(H0=70, Om0=0.27)
 # fsps-age.py if we want to use its settings.
 module_logger = logging.getLogger("fsps-age.calculateAge")
 
-def runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope):
+def runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, phi):
     """Calculates expected SED for given stellar population (`sp`) and allows
     for variations in `redshift`, `logzsol`, `dust2`, `tau`, `tStart`,
     `sfTrans`, and `sfSlope`. Returns the apparent magnitude in *ugriz*.
@@ -73,8 +73,8 @@ def runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope):
     sfTrans : float
         Transition time of the SFH from exponential to linear, in Gyr.
         FSPS's `sf_trunc`.
-    sfSlope : float
-        The slope of the linear SFR after time `sfTrans`.
+    phi : float
+        The angle of the slope of the linear SFR after time `sfTrans`, ``sfSlope``$=tan$``phi``.
     
     Returns
     -------
@@ -101,7 +101,7 @@ def runFSPS(sp, redshift, logzsol, dust2, tau, tStart, sfTrans, sfSlope):
     sp.params['tau'] = tau
     sp.params['sf_start'] = tStart
     sp.params['sf_trunc'] = sfTrans
-    sp.params['sf_slope'] = sfSlope
+    sp.params['sf_slope'] = np.tan(phi)
 
     # calculate age of universe when observed light was emitted
     tage = cosmo.age(redshift).to('Gyr').value
@@ -177,7 +177,7 @@ def lnlike(theta, magnitudes, magerr, redshift, sp):
                          ' respectively.')
 
     # calculate what the FSPS model is for the appropriate values in `theta`.
-    model = runFSPS(sp, redshift, *theta[:-2], np.tan(theta[-2])) + theta[-1]
+    model = runFSPS(sp, redshift, *theta[:-1]) + theta[-1]
 
     # test if `magnitudes` and `magerr` and `model` are all the same length
     # this verifies that `runFSPS()` has not changed what filters it is using.
@@ -346,9 +346,8 @@ def setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler, redshift):
     # as it approaches it bounds.
     # It does have a MAJOR influence if it is large. This is HOW we get young
     # populations.
-    pos[:,5] = np.random.uniform(-8.0, 19.0, size=nwalkers)   # sfSlope
-    # convert to phi
-    pos[:,5] = np.arctan(pos[:,5])
+    # from -8 to +19 in slope
+    pos[:,5] = np.random.uniform(-1.4464, 1.5182, size=nwalkers)   # phi
     # Keep values tight if expected value is well understood
     # Also this variable is highly influential to the likelihood
     pos[:,6] = np.random.uniform(-28, -15.0, size=nwalkers)    # c
@@ -501,10 +500,9 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     ############
     # save temp results in case something else fails soon.
     ############
-    header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
+    header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfAngle\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
     # convert from phi to slope
     to_save = sampler.flatchain
-    to_save[5] = np.tan(to_save[5])
     np.savetxt('resources/SN{}_chain.tsv'.format(SNID), sampler.flatchain, 
                 delimiter='\t', header=header)
     logger.info('saved full results resources/SN{}_chain.tsv'.format(SNID))
@@ -525,7 +523,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     allLnProb = sampler.lnprobability     # size == (nwalkers, nsteps)
 
     # Note header should be:
-    # logzsol, dust2, tau, tStart, sfTrans, sfSlope, c
+    # logzsol, dust2, tau, tStart, sfTrans, sfAngle, c
     # dex, 1/Gyr, Gyr, Gyr, , mag
     np.save('resources/burnin/SN{}_samples'.format(SNID), allSamples)
     np.save('resources/burnin/SN{}_lnprob'.format(SNID), allLnProb)
@@ -538,9 +536,6 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     #This method is a bit strange, but cuts the "burn in" section with ease
     # And makes it a flat chain
     samples = sampler.chain[:, burnInSize:, :].reshape((-1, ndim))
-    
-    # convert from phi to slope
-    samples[5] = np.tan(samples[5])
 
     #Save basic results to standard out & log
     logzso, dust2, tau, tStart, sfTrans, sfSlope, c = map(
@@ -553,7 +548,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     print('MCMC: ', logzso, dust2, tau, tStart, sfTrans, sfSlope, c)
 
     ## save trimmed results to disk
-    header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
+    header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfAngle\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
     np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
                 delimiter='\t', header=header)
     logger.info('saved resources/SN{}_chain.tsv'.format(SNID))
@@ -797,7 +792,7 @@ def calculateAge(redshift, SED, SEDerr, SNID, sp=None, debug=False):
         logger.debug('saving full MCMC & age data')
         samples = np.append(samples, age.reshape(age.size, 1), axis=-1)
 
-        header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfSlope\tc\tage\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag\tGyr'
+        header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfAngle\tc\tage\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag\tGyr'
 
         np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
                 delimiter='\t', header=header)
