@@ -461,11 +461,14 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
         # need 16,384 walkers! 3 samples per dimension would be 2,187.
         # `emcee`'s "stretch move" will fill in the gaps by pulling all the low likelihood walkers harder to the high likelihood zones. We just need to run this section long enough for a low likelihood walker to get paired with a high likelihood walker, ~N the number of walkers.
         ndim, nwalkers = 7, 300
-        maxLikilhoodSize = 300
-        burnInSize = 500
-        nsteps = 3000
-        # We want ~750,000 accepted values: nwalkers*(nsteps - burninSize).
+        maxLikilhoodSize = 500    # increase from 300 just cause?
+        burnInSize = 500          # 500 seems to be good.
+        nsteps = 1350         
+        # We want ~250,000 accepted values: nwalkers*(nsteps - burninSize).
         # We want this many because it looks good?
+        # 750,000 seemed to be too much. There was no change in the
+        # distributions from the first, second, third quarter million or the
+        # whole distribution.
     logger.info('running {} walkers,\n\t\t {} initial search steps,\n\t\t {} final steps,\n\t\twith {} burnin steps remove'.format(nwalkers, maxLikilhoodSize, nsteps, burnInSize))
 
     sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, args=(SED, SEDerr, redshift, sp))
