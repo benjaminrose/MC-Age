@@ -2,7 +2,7 @@ Readme --- Stellar Population Age Estimator
 ###########################################
 
 
-.. image:: https://travis-ci.org/benjaminrose/SNIa-Local-Environments.svg?token=4zcThx8qWuKzVAuCdesD&branch=master
+.. image:: https://travis-ci.org/benjaminrose/SNIa-Local-Environments.svg?branch=master
    :target: https://travis-ci.org/benjaminrose/SNIa-Local-Environments
    :alt: Test status
 .. image:: https://codecov.io/gh/benjaminrose/SNIa-Local-Environments/branch/master/graph/badge.svg?token=sID9V6UFre
@@ -37,9 +37,9 @@ A usage message is available at, ::
 
 	python fsps-age.py -h
 
-or as the module doc string in fsps-age.py_.
+or as the module doc string in fspsage.py_.
 
-.. _fsps-age.py: https://github.com/benjaminrose/SNIa-Local-Environments/blob/master/fsps-age.py#L1
+.. _fspsage.py: https://github.com/benjaminrose/SNIa-Local-Environments/blob/master/fspsage.py#L1
 
 Credit
 ~~~~~~
