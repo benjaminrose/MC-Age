@@ -754,14 +754,15 @@ def calculateAge(redshift, SED, SEDerr, SNID, sp=None, debug=False):
     # logger.info('importing SFH to speed!!!!!')
     # samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
     #extract variables
-    logzso, dust2, tau, tStart, sfTrans, sfSlope, c = np.hsplit(samples, 7)
+    logzso, dust2, tau, tStart, sfTrans, phi, c = np.hsplit(samples, 7)
     #reshape these to be 1D arrays
     logzso = logzso.reshape(-1)
     dust2 = dust2.reshape(-1)
     tau = tau.reshape(-1)
     tStart = tStart.reshape(-1)
     sfTrans = sfTrans.reshape(-1)
-    sfSlope = sfSlope.reshape(-1)
+    phi = phi.reshape(-1)
+    sfSlope = np.tan(phi)
     c = c.reshape(-1)
 
     #with SFH -> Calculate age
