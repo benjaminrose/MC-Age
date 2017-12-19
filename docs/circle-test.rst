@@ -48,6 +48,8 @@ Here are the different input 1, star formation histories in a table
 +-----+---------+-------+-----+--------+---------+---------+----------------------------+
 |c7   | -0.5    | 0.1   | 0.5 | 1.5    | 6.0     | 15.0    | mostly late linear, like c2|
 +-----+---------+-------+-----+--------+---------+---------+----------------------------+
+|c8   | -0.5    | 0.1   | 0.1 | 8.0    | 12.0    | 20.0    | very young                 |
++-----+---------+-------+-----+--------+---------+---------+----------------------------+
 
 and as copyable code
 
@@ -60,6 +62,7 @@ and as copyable code
     logzsol, dust2, tau, tStart, sfTrans, sfSlope = -1.5, 0.1, 0.5, 1.5, 9.0, -1.0
     logzsol, dust2, tau, tStart, sfTrans, sfSlope = -0.5, 0.8, 7.0, 3.0, 10.0, 15.0
     logzsol, dust2, tau, tStart, sfTrans, sfSlope = -0.5, 0.1, 0.5, 1.5, 6.0, 15.0
+    logzsol, dust2, tau, tStart, sfTrans, sfSlope = -0.5, 0.1, 0.1, 8.0, 12.0, 20.0
 
 .. logzsol, dust2, tau, tStart, sfTrans, sfSlope = 0.0, 0.1, 10.0, 6.0, 8.0, 19.0
 .. logzsol, dust2, tau, tStart, sfTrans, sfSlope = 0.0, 0.1, 10.0, 9.0, 10.0, 19.0
