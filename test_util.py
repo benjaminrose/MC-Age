@@ -23,7 +23,7 @@ class TestMode():
         """
         assert len(self.mode) == 3
     def test_return_value(self):
-        assert abs(self.mode[0]) < 0.4, "mode is not close (<0.5) to zero."
+        assert abs(self.mode[0]) < 0.5, "mode is not close (<0.5) to zero."
 
 class TestMedian():
     median = util.median(np.random.randn(1000))

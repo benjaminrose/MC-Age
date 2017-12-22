@@ -15,8 +15,9 @@ matrix:
         python: 3.6
         env: MAIN_CMD="pytest -v -rx --cov-config=.coveragerc --cov"
       - os: osx
-        #will be python3 from homebrew
-        language: generic
+        # will be python3 from homebrew
+        # homebrew now needs ruby2.3 not default (from generic) of 2.0.
+        language: ruby-2.3.1
         env: 
           - PYVERSION=python3
           # Only run tests, not coverage
