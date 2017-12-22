@@ -1,11 +1,11 @@
 #!/bin/csh
 #$ -M brose3@nd.edu  # email for notifications
 #$ -m abe            # send mail when begins, ends and aborts
-#$ -N MessierTest-06-12          # specific job name
+#$ -N MessierTestM63-12-21          # specific job name
 #$ -q long           # debug or long queue
 #$ -r y              # or n Tell SGE if your job is "re-runnable"
 
 module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
 
 cd ..    # get to the correct logging file folder
-python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run messier 1 8
+python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run messier 8 8
