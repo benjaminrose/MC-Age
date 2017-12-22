@@ -41,7 +41,7 @@ Check local environment effects on SNIa by looking for correlations between HR a
    :caption: Contents:
 
    .. usage
-   circle-test
+   consistency-tests
    API-doc
 
 Indices and tables

@@ -23,14 +23,21 @@ sys.path.insert(0, os.path.abspath('../'))
 
 # remove modules that depend on C.
 # http://read-the-docs.readthedocs.io/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
-from unittest.mock import MagicMock
-class Mock(MagicMock):
-    @classmethod
-    def __getattr__(cls, name):
-            return MagicMock()
+# & https://stackoverflow.com/questions/28975274/is-there-a-way-to-prebuild-the-rst-files-generated-by-autodoc-in-sphinx
+# from unittest.mock import MagicMock
+# class Mock(MagicMock):
+#     @classmethod
+#     def __getattr__(cls, name):
+#             return Mock()
 
-MOCK_MODULES = ['numpy', 'scipy',  'pandas', 'fsps']
-sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+#     @classmethod
+#     def __getitem__(cls, name):
+#         return Mock()
+
+# MOCK_MODULES = ['numpy', 'scipy', 'pandas', 'fsps']
+# sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+# for mod_name in MOCK_MODULES:
+#         sys.modules.update({mod_name: Mock()})
 
 # -- General configuration ------------------------------------------------
 

@@ -12,3 +12,9 @@ CalcualteAge
 
 .. automodule:: calculateAge
     :members:
+
+utilities
+------------
+
+.. automodule:: util
+    :members:

@@ -6,6 +6,7 @@ Usage-CRC (production):
     pytest -v -rx --runxfail
 
 Usage-quick (no StellarPopulations)
+    After changing line 18
     pytest -v -rx --cov-config=.coveragerc --cov --runxfail
 """
 import pytest
