@@ -3,14 +3,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-ID = '4'
-# START = 600
-START = 250
+ID = '63'
+# START = 600  # 500 is the default burn in value.
+START = 600
 
 # size should be (nwalkers, nsteps, ndim)
-samples = np.load('../resources/burnin/varrying slope priors/SN{}_samples.npy'.format(ID))
+samples = np.load('../resources/burnin/SN{}_samples.npy'.format(ID))
 # size is (nwalkers, nsteps)
-lnprop_resutls = np.load('../resources/burnin/varrying slope priors/SN{}_lnprob.npy'.format(ID))
+lnprop_resutls = np.load('../resources/burnin/SN{}_lnprob.npy'.format(ID))
 
 print(samples[:,:,0].shape)
 
