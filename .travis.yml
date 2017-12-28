@@ -17,7 +17,8 @@ matrix:
       - os: osx
         # will be python3 from homebrew
         # homebrew now needs ruby2.3 not default (from generic) of 2.0.
-        language: ruby-2.3.1
+        language: ruby
+        rvm: 2.3
         env: 
           - PYVERSION=python3
           # Only run tests, not coverage
