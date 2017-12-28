@@ -36,8 +36,11 @@ def combine_ages(dataset):
     elif dataset == 'circle':
         # find files with 1 digits after 'SN'
         files = glob.glob('resources/SN[0-9]_chain.tsv')
+    elif dataset == 'campbell':
+        raise NotImplementedError('Campbell ages are not implemented yet.')
     else:
         raise ValueError
+    print("Collecting ages for {} stellar populations".format(len(files)))
 
     ages = np.array([])
 
@@ -45,12 +48,14 @@ def combine_ages(dataset):
         #this is very slow
         data = Table.read(f, format='ascii.csv', delimiter='\t',
                       data_start=2)
+        data = data.to_pandas()
+        data.dropna(inplace=True)
         # calculate data an append it to ages variable
         # Is there was a way that does not calculate `len` each time?
         if len(ages) == 0:
-            ages = np.array([median(data['age'])])
+            ages = np.array([mode(data['age'])])
         else:
-            ages = np.vstack((ages, np.array([median(data['age'])])))
+            ages = np.vstack((ages, np.array([mode(data['age'])])))
    
 
     # get SN ID's
@@ -70,7 +75,7 @@ def combine_ages(dataset):
     to_save = np.hstack((names, ages))
 
     # Save data
-    header = 'SN ID\tAge\tUpper CR\tLower CR\n\tGyr\tGyr\tGyr'
+    header = 'sn id\tage\tlower limit\tupper limit\n\tGyr\tGyr\tGyr'
     with open('resources/ages_{}.tsv'.format(dataset), 'wb') as f:
         np.savetxt(f, to_save, delimiter='\t', header=header)
 
@@ -164,8 +169,10 @@ def get_sp():
 
 if __name__ == '__main__':
     # data = np.append(np.random.randn(600)*4, (np.random.randn(1000)+7))
-    data = np.random.randn(1000)
-    print('mode result: ', mode(data))#, interval=49))
-    import matplotlib.pyplot as plt
-    plt.hist(data, bins='auto')
-    plt.savefig('del.pdf')
+    # data = np.random.randn(1000)
+    # print('mode result: ', mode(data))#, interval=49))
+    # import matplotlib.pyplot as plt
+    # plt.hist(data, bins='auto')
+    # plt.savefig('del.pdf')
+
+    combine_ages('circle')
