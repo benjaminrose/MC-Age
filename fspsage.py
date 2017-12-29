@@ -7,20 +7,20 @@ Science goal:
 
 Usage:
     fspsage.py burnin OBJID
-    fspsage.py run (circle | messier | gupta) JOBID JOBLENGTH [-d | --debug]
+    fspsage.py run DATASET JOBID JOBLENGTH [-d | --debug]
     fspsage.py (-h | --help)
     fspsage.py --version
 
 Option:
+    burnin          run a shorter run on specific objects only
+    OBJID           the SN (or Messier) ID of the object to observe
+    run             estimate age for a given data set
+    DATASET         analyses circle, messier, gupta or campbell data sets
     JOBID           the ID for the piece of the data set to be analyzed
     JOBLENGTH       the total number of objects looked at
-    circle
-    gupta messier   select the dataset to test
-    burnin          run a shorter run on specific objects only
-    OBJID           The SN (or Messier) ID of the object to observe
-    -d --debug      Run shorter and with more logs
-    -h --help       Show this screen
-    --version       Show version
+    -d --debug      run shorter and with more logs
+    -h --help       show this screen
+    --version       show version
 
 Benjamin Rose
 brose3@nd.edu
@@ -156,20 +156,11 @@ def redoGupta(cli):
     """
     import redoGupta
 
-    # todo: how should the CLI switch between Messier and Gupta?
-    if cli['gupta']:
-        dataset = 'gupta'
-    elif cli['messier']:
-        dataset = 'messier'
-    elif cli['circle']:
-        dataset = 'circle'
-    else:
-        raise ValueError("The test functionality only works if 'gupta',",
-                         " 'messier' or 'circle' is called. You somehow got",
-                         " passed the CLI and did not select one of these.")
+    if not cli['DATASET'] in ['gupta', 'messier', 'circle', 'campbell']:
+        raise ValueError("Please use '--help' option for details on DATASET")
     
     redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
-                        cli['--debug'], dataset)
+                        cli['--debug'], cli['DATASET'])
 
 
 def burnin(cli):

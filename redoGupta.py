@@ -84,7 +84,7 @@ def getPhotometry():
 # todo this might need a new name.
 def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
     """This runs through each broken-up tsv of the global photometry and calling
-     calculateAge to save global age calculations.
+    calculateAge to save global age calculations.
     
     Parameters
     ----------
@@ -103,24 +103,14 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
         does not save resulting chain. Should take around ~12 mins to get a 
         value of one SN.
 
-    dataset : str, ['gupta', 'messier', 'circle']
+    dataset : str, ['gupta', 'messier', 'circle', 'campbell']
         flag to switch between two "calibration" methods: redoing Gupta's
-        analysis (with `'gupta'`), looking at about ~10 local galaxies and making sure spirals are younger then ellipticals (with `'messier'`), or testing to recover "known" star formation histories (with `'circle'). This defaults to `'circle'`. More details on circle photometry can be found at
-
-    Raises
-    ------
-    
-    Notes
-    -----
-    
-    Examples
-    --------
-    
+        analysis (with `'gupta'`), looking at about ~10 local galaxies and making sure spirals are younger then ellipticals (with `'messier'`), or testing to recover "known" star formation histories (with `'circle'). This defaults to `'circle'`. More details on circle photometry can be found at . . .
     """
     logger = logging.getLogger("fsps-age.redoGupta.redoGupta")
 
     # Import data file
-    if dataset in ['gupta', 'messier', 'circle']:
+    if dataset in ['gupta', 'messier', 'circle', 'campbell']:
         if dataset == 'gupta':
             logger.info('importing GlobalPhotometry-Gupta.tsv')
             data = pd.read_csv('data/GlobalPhotometry-Gupta.tsv',
@@ -131,10 +121,15 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
             # these galaxies are more "known' then gupta, at least by type
             logger.info('importing galaxyPhotometry.tsv')
             data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t')
+        elif dataset == 'campbell':
+            logger.info('importing CampbellHoltzman.tsv')
+            data = pd.read_csv('data/CampbellHoltzman.tsv', delimiter='\t')
         else:
             # default to circle test
             logger.info('importing circlePhotometry.tsv')
             data = pd.read_csv('data/circlePhotometry.tsv', delimiter='\t')
+    else:
+        raise ValueError("Invalid dataset argument")
     
     #cut down dataset
     Ndata = len(data)
