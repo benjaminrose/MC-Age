@@ -255,8 +255,8 @@ def lnprior(theta, redshift):
         # dust2 #
         #high dust (dust2>1) is (starburst) is ~1% of galaxies
         #also Conroy 2009 2.6 says 0.3 is fine for most.
-        sigma = 0.3
-        center = 0.0
+        sigma = 0.2
+        center = 0.3
         #return ln-prior of dust2. Centered at 0 with sigma from above. 
         #Note that this return only takes place if `dust2`>0, so this is only
         #the right and side of the Gaussian. 
@@ -346,8 +346,8 @@ def setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler, redshift):
     # as it approaches it bounds.
     # It does have a MAJOR influence if it is large. This is HOW we get young
     # populations.
-    # from -8 to +19 in slope
-    pos[:,5] = np.random.uniform(-1.4464, 1.5182, size=nwalkers)   # phi
+    # from -1 to +19 in slope
+    pos[:,5] = np.random.uniform(-0.78, 1.5182, size=nwalkers)   # phi
     # Keep values tight if expected value is well understood
     # Also this variable is highly influential to the likelihood
     pos[:,6] = np.random.uniform(-28, -15.0, size=nwalkers)    # c

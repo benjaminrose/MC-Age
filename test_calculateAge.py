@@ -26,7 +26,7 @@ class BaseTestCase():
     # only used for `lnlike()`, 'lnprior()' & 'lnprob()' so sfSlope is now phi
     theta_low = [0, -1, 0, 0, 0, np.arctan(-20.1), -35.1]   # outside bounds
     theta_high =[-3, -1, 10.1, 13, 13, np.arctan(20.1), -4.9]  # outside bounds
-    theta_mean = [-0.5, 0.0, 1.0, 2.0, 10.0, 0.0, -25]     # at Gaussian means
+    theta_mean = [-0.5, 0.3, 1.0, 2.0, 10.0, 0.0, -25]     # at Gaussian means
     theta = [-0.3, 0.2, 1.0, 2.0, 10.0, np.arctan(5.0), -25]
 
     # from circle 1
@@ -173,14 +173,16 @@ class Test_lnprior(BaseTestCase):
         assert calculateAge.lnprior(self.theta, self.redshift) > -np.inf, "Prior failing unexpectedly"
 
     def test_correctResult_mean(self):
-        """Takes a calculated a prior probability from `self.theta_mean`, from http://www.wolframalpha.com/input/?i=-1*((0.0-0.0)**2%2F(2*0.3**2)+%2B+log(sqrt(2*pi)*0.3)+%2B+(-0.5+-+-0.5)**2%2F(2*0.6**2)+%2B+log(sqrt(2*pi)*0.6)), then compares to see if calcuateAge.lnprior calculated the same value.
+        """Compare a previously calculated prior value with `self.theta_mean`
 
+        http://www.wolframalpha.com/input/?i=-1*((0.3-0.3)**2%2F(2*0.2**2)+%2B+log(sqrt(2*pi)*0.2)+%2B+(-0.5+-+-0.5)**2%2F(2*0.6**2)+%2B+log(sqrt(2*pi)*0.6))
+        
         Probability comes from `self.theta_mean`: 
         CENTER_Z = -0.5
         SIGMA_Z = 0.5
         logzsol = CENTER_Z
-        center = 0.0
-        sigma = 0.3
+        center = 0.3
+        sigma = 0.2
         dust2 = center
         sfSlope = 0.0
         theta = [logzsol, dust2, 1.0, 2.0, 10.0, sfSlope, -25]
@@ -190,19 +192,21 @@ class Test_lnprior(BaseTestCase):
                    np.log(np.sqrt(2*np.pi)*SIGMA_Z))
         """
         # It looks like the return value has 16 decimals
-        expected = -0.12307863831741855
+        expected = 0.28238646979074557
         assert np.isclose(calculateAge.lnprior(self.theta_mean, self.redshift),
                           expected), "Prior not returning expected result."
 
     def test_correctResult_other(self):
-        """Takes a calculated a prior probability from `self.theta`, from http://www.wolframalpha.com/input/?i=-1*((0.0-0.2)**2%2F(2*0.3**2)+%2B+log(sqrt(2*pi)*0.3)+%2B+(-0.5+-+-0.3)**2%2F(2*0.6**2)+%2B+log(sqrt(2*pi)*0.6)), then compares to see if calcuateAge.lnprior calculated the same value.
+        """Compare a previously calculated prior value with `self.theta`
+
+        http://www.wolframalpha.com/input/?i=-1*((0.3-0.2)**2%2F(2*0.2**2)+%2B+log(sqrt(2*pi)*0.2)+%2B+(-0.5+-+-0.3)**2%2F(2*0.6**2)+%2B+log(sqrt(2*pi)*0.6)) --- corrected.
 
         Probability comes from `self.theta_mean`: 
         CENTER_Z = -0.5
         SIGMA_Z = 0.5
         logzsol = -0.3
-        center = 0.0
-        sigma = 0.3
+        center = 0.3
+        sigma = 0.2
         dust2 = 0.2
         sfSlope = 5.0
         theta = [logzsol, dust2, 1.0, 2.0, 10.0, sfSlope, -25]
@@ -212,7 +216,7 @@ class Test_lnprior(BaseTestCase):
                    np.log(np.sqrt(2*np.pi)*SIGMA_Z))
         """
         # It looks like the return value has 16 decimals
-        expected = -0.4008564160951964
+        expected =  0.1018309142351900
         calculated = calculateAge.lnprior(self.theta, self.redshift)
         assert np.isclose(calculated, expected), "Prior not returning " \
                "expected result. {} {}".format(calculated, expected)
