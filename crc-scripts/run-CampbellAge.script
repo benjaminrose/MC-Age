@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/csh
 #$ -M brose3@nd.edu  # email for notifications
 #$ -m abe            # send mail when begins, ends and aborts
-#$ -N Campbell1-12-29          # specific job name
+#$ -N Campbell1-01-04          # specific job name
 #$ -q long           # debug or long queue
 #$ -r y              # or n Tell SGE if your job is "re-runnable"
 # first 306 items will be split into 77 jobs
@@ -15,4 +15,4 @@
 module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
 
 cd ..    # get to the correct logging file folder
-python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run gupta ${SGE_TASK_ID} 77
+python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run campbell ${SGE_TASK_ID} 77
