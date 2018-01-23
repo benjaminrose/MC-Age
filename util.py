@@ -21,30 +21,46 @@ def combine_ages(dataset):
     Parameters
     ----------
     dataset :
-        Currently only works for the `gupta` data.
+        Selects a dataset to combine. Works with 'gupta', 'messier',
+        'circle', or 'campbell'.
+
+    Raise
+    -----
+    ValueError
+        Raised if and invalid `dataset` is used.
     """
 
     # import & calculate median (& +/- intervals)
     if dataset == 'gupta':
         # find files with 4 or more characters after 'SN'
-        files = glob.glob('resources/SN????*_chain.tsv')
+        # files = glob.glob('resources/SN????*_chain.tsv')
+        # will be 4 or more numbers and dataset name
+        files = glob.glob('resources/SN????*_gupta_chain.tsv')
     elif dataset == 'messier':
         # find files with 2 and 3 digits after 'SN'
-        files1 = glob.glob('resources/SN'+'[0-9]'*2+'_chain.tsv')
-        files2 = glob.glob('resources/SN'+'[0-9]'*3+'_chain.tsv')
-        files = files1 + files2  # Yeah python list concatenation!!
+        # files1 = glob.glob('resources/SN'+'[0-9]'*2+'_chain.tsv')
+        # files2 = glob.glob('resources/SN'+'[0-9]'*3+'_chain.tsv')
+        # files = files1 + files2  # Yeah python list concatenation!!
+        # will be anything and dataset name
+        files = glob.glob('resources/SN*_messier_chain.tsv')
     elif dataset == 'circle':
         # find files with 1 digits after 'SN'
         files = glob.glob('resources/SN[0-9]_chain.tsv')
+        # will be 1 number and dataset name
+        # files = glob.glob('resources/SN[0-9]_circle_chain.tsv')
     elif dataset == 'campbell':
-        raise NotImplementedError('Campbell ages are not implemented yet.')
+        # files = glob.glob('resources/SN????*_chain.tsv')
+        # will be 4 or more numbers and dataset name
+        files = glob.glob('resources/SN????*_campbell_chain.tsv')
     else:
         raise ValueError
-    print("Collecting ages for {} stellar populations".format(len(files)))
+    print("Collecting {} ages for the {} stellar populations".format(
+           len(files), dataset))
 
     ages = np.array([])
 
     for f in files:
+        print('reading {}'.format(f))
         #this is very slow
         data = Table.read(f, format='ascii.csv', delimiter='\t',
                       data_start=2)
@@ -53,13 +69,14 @@ def combine_ages(dataset):
         # calculate data an append it to ages variable
         # Is there was a way that does not calculate `len` each time?
         if len(ages) == 0:
-            ages = np.array([mode(data['age'])])
+            ages = np.array([median(data['age'])])
         else:
-            ages = np.vstack((ages, np.array([mode(data['age'])])))
+            ages = np.vstack((ages, np.array([median(data['age'])])))
    
 
     # get SN ID's
     # Don't get 'SN' because that will force it to be a string and mess up `to_save`
+    print('getting SN IDs')
     p = re.compile(r'\d+')
     # add a holding value so I can append to
     names = np.array([1])
@@ -75,6 +92,7 @@ def combine_ages(dataset):
     to_save = np.hstack((names, ages))
 
     # Save data
+    print('saving data')
     header = 'sn id\tage\tlower limit\tupper limit\n\tGyr\tGyr\tGyr'
     with open('resources/ages_{}.tsv'.format(dataset), 'wb') as f:
         np.savetxt(f, to_save, delimiter='\t', header=header)
@@ -105,7 +123,8 @@ def median(data, interval=34):
 
     # w/ 500,000 runs each, a few non-physical ages slip in and produce a nan
     v = np.nanpercentile(data, [low, 50, high])
-    return np.array([v[1], v[2]-v[1], v[1]-v[0]])
+    # return np.array([v[1], v[2]-v[1], v[1]-v[0]])
+    return np.array([v[1], v[0], v[2]])
 
 def mode(data, interval=34):
     """calculates and returns the "mode" of a continuous variable and also returns the interval percentile.
@@ -144,13 +163,24 @@ def mode(data, interval=34):
             mode = hist[1][mode_index[1]]
         else:
             # if there are two non-consecutive modes
-            raise RuntimeWarning('There exists two non-consecutive modes')
+            # raise RuntimeWarning('There exists two non-consecutive modes')
+            print('\nTwo non-consecutive modes')
+            print(mode_index)
+            print(hist[1][mode_index])
+            print('\n')
+            mode = hist[1][mode_index[0]]
     else:
         # hist[1] is bin edges. I need the mid-point
         mode = (hist[1][mode_index] + hist[1][mode_index+1])/2
     # remove the excess numpy array wrapper
     if mode.size == 1:
-        mode = mode[0]
+        # most times mode is an ndarray of size 1. Onetime it was a float.
+        # It looks like the two non-consecutive modes workaround causes this.
+        if type(mode) is not np.float64:
+            try:
+                mode = mode[0]
+            except:
+                import pdb; pdb.set_trace()
     else:
         raise ValueError('somehow there are still two modes')
 
@@ -175,4 +205,4 @@ if __name__ == '__main__':
     # plt.hist(data, bins='auto')
     # plt.savefig('del.pdf')
 
-    combine_ages('circle')
+    combine_ages('messier')

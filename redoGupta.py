@@ -168,7 +168,7 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
         #does this save the data tagged as global?
         logger.info('getting age for SN' + str(sn))
         age = calculateAge.calculateAge(redshift, photometry, uncertainty, 
-                                        SNID=sn, debug=debug)
+                                        SNID=sn, debug=debug, dataset=dataset)
         logger.info("Global age for SN{}: ".format(sn) + str(age))
         print("Global age for SN{}: ".format(sn), age)
         
