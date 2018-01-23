@@ -5,14 +5,17 @@
 #$ -q long           # debug or long queue
 #$ -r y              # or n Tell SGE if your job is "re-runnable"
 # first 306 items will be split into 77 jobs
-#$ -t 1-77:1       # set up job array, will analyze 4 hosts per task
+#$ -t 1-306:1       # set up job array, will analyze 4 hosts per task
 # CRC lets me only have 50 running jobs but I can have 2,000 tasks/job array.
 # the long queue only runs things for 15 days.
 # if use 102 tasks, this puts me into 3 blocks of 50 runs. I will have to wait for 9 to run in a row, but each task should only take about 10 days.
 # If 77 tasks, 4 hosts will be analyses per task. At 3.5 days per host that puts each task running for 14 days. Very close to the 15 day max for a job. This is the same as run-GuptaAge.script
 # if I use under 50 tasks  (44 tasks 7 runs each), each task will take over 24 days. CRC limit is 15 days.
+# just run 1 object per task. This will be bottle necked by CRC's max tasks at a time (75 from experience) but once one stops the next one starts. So I won't get 3 fast ones waiting for 3 slow ones in another task.
 
 module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
 
+fsync -d 300 $SGE_STDOUT_PATH &  ## Save to output every 300 seconds
+
 cd ..    # get to the correct logging file folder
-python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run campbell ${SGE_TASK_ID} 77
+python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run campbell ${SGE_TASK_ID} 306

@@ -379,7 +379,7 @@ def setUpMCMC(ndim, nwalkers, maxLikilhoodSize, sampler, redshift):
 #     return
 
 def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False, 
-                 burnin=False):
+                 burnin=False, dataset=None):
     """Calculates the SFH. Returns the cleaned chain.
     
     Parameters
@@ -403,6 +403,8 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
         value of one SN.
     burnin : bool
         Should MCMC run with a smaller number of walkers, smaller search for initial Maximum Likelihood location, and not throw away any 'burn-in' steps? This is used to test and validate what burn-in size should be used. This argument does nothing if `debug` is `True`.
+    dataset : str
+        String used in saving files.
     
     Returns
     -------
@@ -503,9 +505,10 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfAngle\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
     # convert from phi to slope
     to_save = sampler.flatchain
-    np.savetxt('resources/SN{}_chain.tsv'.format(SNID), sampler.flatchain, 
-                delimiter='\t', header=header)
-    logger.info('saved full results resources/SN{}_chain.tsv'.format(SNID))
+    np.savetxt('resources/SN{}_{}_chain.tsv'.format(SNID, dataset),
+               sampler.flatchain, delimiter='\t', header=header)
+    logger.info('saved full results resources/SN{}_{}_chain.tsv'.format(SNID,
+                dataset))
 
     #save acceptance fraction & ln-probability
     logger.info("Mean ln-probability for each walker: {}".format(
@@ -549,9 +552,9 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
 
     ## save trimmed results to disk
     header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfAngle\tc\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag'
-    np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
+    np.savetxt('resources/SN{}_{}_chain.tsv'.format(SNID, dataset), samples, 
                 delimiter='\t', header=header)
-    logger.info('saved resources/SN{}_chain.tsv'.format(SNID))
+    logger.info('saved resources/SN{}_{}_chain.tsv'.format(SNID, dataset))
     
     logger.debug('done running calculateSFH')
 
@@ -689,7 +692,8 @@ def integrate_age(tau, tStart, sfTrans, sfSlope, redshift):
     # return a function that integrates over Gupta's variables.
     return lengthOfSF.to('Gyr').value - numerator/denominator
 
-def calculateAge(redshift, SED, SEDerr, SNID, sp=None, debug=False):
+def calculateAge(redshift, SED, SEDerr, SNID, sp=None, debug=False,
+                 dataset=None):
     """calculateAge either from a given Star Formation History (SFH) or from a 
     *ugriz* SED. If a SED is given (the default) then it calculates the SFH by 
     calling `calculateSFH()`.
@@ -715,6 +719,8 @@ def calculateAge(redshift, SED, SEDerr, SNID, sp=None, debug=False):
         Flag to have MCMC run incredibly short and in no way accurately. Also 
         does not save resulting chain. Should take around ~12 mins to get a 
         value of one SN.
+    dataset : str
+        String used in saving files.
     
     Returns
     -------
@@ -733,16 +739,9 @@ def calculateAge(redshift, SED, SEDerr, SNID, sp=None, debug=False):
     LinAlgException
         If the matrix is not numerically invertible.
 
-    See Also
-    --------
-    calculateSFH : A way to calculate a Star Formation History from an SED
-    
-    Notes
-    -----
-    
-    Examples
-    --------
-    
+    See Also 
+    -------- 
+    calculateSFH : A way to calculate a Star Formation History from an SED 
     """
     logger = logging.getLogger("fsps-age.calculateAge.calculateAge")
     logger.info('called calculateAge')
@@ -750,7 +749,8 @@ def calculateAge(redshift, SED, SEDerr, SNID, sp=None, debug=False):
     # calculate SFH
     logger.info('Calculating SFH')
     # no need for SNID. We can save in this function.
-    samples = calculateSFH(SED, SEDerr, redshift, SNID, debug=debug)
+    samples = calculateSFH(SED, SEDerr, redshift, SNID, debug=debug,
+                           dataset=dataset)
     # logger.info('importing SFH to speed!!!!!')
     # samples = np.genfromtxt('resources/SN0_chain.tsv', delimiter='\t')
     #extract variables
@@ -795,9 +795,9 @@ def calculateAge(redshift, SED, SEDerr, SNID, sp=None, debug=False):
 
         header = 'logzsol\tdust2\ttau\ttStart\tsfTrans\tsfAngle\tc\tage\ndex\t\t1/Gyr\tGyr\tGyr\t\tmag\tGyr'
 
-        np.savetxt('resources/SN{}_chain.tsv'.format(SNID), samples, 
-                delimiter='\t', header=header)
-        logger.info('saved resources/SN{}_chain.tsv'.format(SNID))
+        np.savetxt('resources/SN{}_{}_chain.tsv'.format(SNID, dataset),
+                   samples, delimiter='\t', header=header)
+        logger.info('saved resources/SN{}_{}_chain.tsv'.format(SNID, dataset))
 
         print(np.nanmedian(age))
         print(np.median(age))

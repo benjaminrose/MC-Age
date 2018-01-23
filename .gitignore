@@ -38,3 +38,4 @@ resources/burnin/*
 ## figures
 *.pdf
 *.png
+data/CampbellHoltzman-afterAASShort\.tsv
