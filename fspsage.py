@@ -35,15 +35,16 @@ Python 3.5
     main.py age NAME U G R I Z U_ERR G_ERR R_ERR I_ERR Z_ERR
     main.py local [-d | --debug]
 """
+
+__author__ = "Benjamin Rose"
+__version__ = "0.2"
+__license__ = "MIT"
+
 import logging
 
 from docopt import docopt
 import numpy as np
 import fsps
-
-__author__ = "Benjamin Rose"
-__version__ = "0.2"
-__license__ = "MIT"
 
 def formatLogging():
     """Setting up the logger parts that are the same for all commands
