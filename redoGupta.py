@@ -14,22 +14,56 @@ import numpy as np
 import pandas as pd
 from astropy import units as u
 from astropy.coordinates import SkyCoord
+from astropy.io import fits
 
 import calculateAge
 
 module_logger = logging.getLogger("fsps-age.redoGupta")
 
-def getPhotometry():
+def getPhotometry(dataset='Gupta'):
+    """use astroquery to get host galaxy global photometry 
+
+    Parameters
+    ----------
+    dataset: str
+        Do you want to get the data for calibration (`"Gupta"`) or to compare
+        local to global values (`"Campbell"`).
+    """
     #this gives annoying warnings, so I moved it here
     from astroquery.sdss import SDSS
 
-    #Get global photometry of objects observed by Gupta
-    data = pd.read_csv('data/Gupta11_table2.txt', delimiter='\t', 
-                       skiprows=[0,1,2], skipinitialspace=True, 
-                       na_values='...', index_col=False)
+    if dataset == "Gupta":
+        #Get objects analyzed by Gupta
+        data = pd.read_csv('data/Gupta11_table2.txt', delimiter='\t', 
+                           skiprows=[0,1,2], skipinitialspace=True, 
+                           na_values='...', index_col=False)
+    elif dataset == "Campbell":
+        #Get Campbell/Holtzmann objects & set up to match Gupta file
+        data = pd.read_csv('data/CampbellHoltzman.tsv', delimiter='\t')
+        data = data.rename(columns={'SNID': 'SN ID'})
+        data['RA'] = np.nan
+        data['Dec'] = np.nan
+
+        # Get data set with RA & Dec from Campbell's data set
+        hdu = fits.open('data/SDSS_Photometric_SNe_Ia.fits')
+        campbell = hdu[1].data
+
+        # Get RA and Dec from other file
+        for i in range(len(data)):
+            # get index of campbell for next SN in data
+            index = np.where(campbell['CID'] == data.loc[i, 'SN ID'])[0]
+
+            #store RA & dec
+            data.loc[i, 'RA'] = campbell['GAL_RA'][index]
+            data.loc[i, 'Dec'] = campbell['GAL_DEC'][index]
+
+    else:
+        #todo(convert to error, log, or warning)
+        print("can only look up 'Gupta' or 'Campbell' data sets")
+        from sys import exit; exit()
 
     #Make a new data table
-    HostData = data[['SN ID', 'IAU']]
+    # HostData = data[['SN ID', 'IAU']]
 
     for i in range(len(data)):
         Galpos = SkyCoord(ra=data.loc[i, 'RA']*u.deg, 
@@ -174,5 +208,5 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
         
 
 if __name__ == '__main__':
-    # getPhotometry()
-    redoGupta(1)
+    getPhotometry('Campbell')
+    # redoGupta(1)
