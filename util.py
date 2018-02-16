@@ -205,4 +205,5 @@ if __name__ == '__main__':
     # plt.hist(data, bins='auto')
     # plt.savefig('del.pdf')
 
-    combine_ages('messier')
+    # combine_ages('messier')
+    combine_ages('campbell')
