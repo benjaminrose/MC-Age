@@ -1,9 +1,10 @@
 #!/bin/csh
 #$ -M brose3@nd.edu  # email for notifications
 #$ -m abe            # send mail when begins, ends and aborts
-#$ -N Campbell-02-16         # specific job name
+#$ -N Campbell-Global-02-16         # specific job name
 #$ -q long           # debug or long queue
 #$ -r y              # or n Tell SGE if your job is "re-runnable"
+# first 306 items will be split into 77 jobs
 #$ -t 1-306:1       # set up job array, will analyze 4 hosts per task
 
 module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
@@ -11,4 +12,4 @@ module load python/3.5.2   #need 3.5 to work with FSPS's Fortran
 fsync -d 300 $SGE_STDOUT_PATH &  ## Save to output every 300 seconds
 
 cd ..    # get to the correct logging file folder
-python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run campbell ${SGE_TASK_ID} 306
+python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run campbellG ${SGE_TASK_ID} 306
