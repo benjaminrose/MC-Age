@@ -159,8 +159,8 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
             logger.info('importing CampbellHoltzman.tsv')
             data = pd.read_csv('data/CampbellHoltzman.tsv', delimiter='\t')
         elif dataset == 'campbellG':
-            logger.info('importing CampellHoltzman_global.tsv')
-            data = pd.read_csv('data/CampellHoltzman_global.tsv',
+            logger.info('importing CampbellHoltzman_global.tsv')
+            data = pd.read_csv('data/CampbellHoltzman_global.tsv',
                                delimiter='\t')
         else:
             # default to circle test
