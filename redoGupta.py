@@ -144,7 +144,7 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
     logger = logging.getLogger("fsps-age.redoGupta.redoGupta")
 
     # Import data file
-    if dataset in ['gupta', 'messier', 'circle', 'campbell']:
+    if dataset in ['gupta', 'messier', 'circle', 'campbell', 'campbellG']:
         if dataset == 'gupta':
             logger.info('importing GlobalPhotometry-Gupta.tsv')
             data = pd.read_csv('data/GlobalPhotometry-Gupta.tsv',
@@ -158,6 +158,10 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
         elif dataset == 'campbell':
             logger.info('importing CampbellHoltzman.tsv')
             data = pd.read_csv('data/CampbellHoltzman.tsv', delimiter='\t')
+        elif dataset == 'campbellG':
+            logger.info('importing CampellHoltzman_global.tsv')
+            data = pd.read_csv('data/CampellHoltzman_global.tsv',
+                               delimiter='\t')
         else:
             # default to circle test
             logger.info('importing circlePhotometry.tsv')
