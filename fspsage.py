@@ -41,10 +41,15 @@ __version__ = "0.2"
 __license__ = "MIT"
 
 import logging
+from os import environ
 
 from docopt import docopt
 import numpy as np
-import fsps
+try:
+    environ['READTHEDOCS']
+except:
+    # if not on read the docs import fsps
+    import fsps
 
 def formatLogging():
     """Setting up the logger parts that are the same for all commands

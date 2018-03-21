@@ -26,10 +26,15 @@ Function outline, here is what each function calls or required data. Model param
     - `starFormation()` -- the functional form of our SFH
 """
 import logging
+from os import environ
 
 import numpy as np
 from scipy import integrate
-import fsps
+try:
+    environ['READTHEDOCS']
+except:
+    # if not on read the docs import fsps
+    import fsps
 import emcee
 import astropy.units as u
 # from astropy.cosmology import WMAP9 as cosmo   # a generic cosmology

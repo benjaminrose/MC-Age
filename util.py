@@ -10,10 +10,15 @@ Python 3.5
 
 import glob
 import re
+from os import environ
 
 import numpy as np
 from astropy.table import Table
-import fsps
+try:
+    environ['READTHEDOCS']
+except:
+    # if not on read the docs import fsps
+    import fsps
 
 def combine_ages(dataset):
     """combines the ages into one file
