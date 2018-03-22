@@ -22,12 +22,12 @@ Option:
     -h --help       show this screen
     --version       show version
 
-Benjamin Rose
-brose3@nd.edu
-benjamin.rose@me.com
-University of Notre Dame
-2017-01-19
-Python 3.5
+* Benjamin Rose
+* brose3@nd.edu
+* benjamin.rose@me.com
+* University of Notre Dame
+* 2017-01-19
+* Python 3.5
 """
 """future options.
     main.py testFspsParameters [-d | --debug]

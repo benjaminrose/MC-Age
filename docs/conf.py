@@ -71,7 +71,7 @@ master_doc = 'index'
 # project = 'FSPS age'
 # project = 'spae'
 project = 'mc-age'
-copyright = '2017, Benjamin Rose'
+copyright = '2017-2018, Benjamin Rose'
 author = 'Benjamin Rose'
 
 # The version info for the project you're documenting, acts as replacement for

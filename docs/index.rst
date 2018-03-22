@@ -32,9 +32,10 @@ This project uses FSPS, and python-FSPS to estimate the age of a stellar populat
 .. _github: https://github.com/benjaminrose/SNIa-Local-Environments
 
 Science goal
-===========
+============
 
 Check local environment effects on SNIa by looking for correlations between HR and the age of the local environment calculated from SDSS Scene Modeling Photometry
+
 
 
 .. include:: ../README.rst

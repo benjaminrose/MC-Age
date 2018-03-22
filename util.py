@@ -1,11 +1,11 @@
 """ util.py -- holds utility functions for fspsage
 
-Benjamin Rose
-brose3@nd.edu
-benjamin.rose@me.com
-University of Notre Dame
-2017-11-24
-Python 3.5
+* Benjamin Rose
+* brose3@nd.edu
+* benjamin.rose@me.com
+* University of Notre Dame
+* 2017-11-24
+* Python 3.5
 """
 
 import glob
@@ -104,7 +104,8 @@ def combine_ages(dataset):
         np.savetxt(f, to_save, delimiter='\t', header=header)
 
 def median(data, interval=34):
-    """calculates the median of a 1D array and ``interval`` size quartile uncertainties.
+    """calculates the median of a 1D array and ``interval`` size quartile
+    uncertainties.
 
     Parameters
     ----------
