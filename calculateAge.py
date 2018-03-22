@@ -29,11 +29,17 @@ import logging
 
 import numpy as np
 from scipy import integrate
-import fsps
 import emcee
 import astropy.units as u
 # from astropy.cosmology import WMAP9 as cosmo   # a generic cosmology
 from astropy.cosmology import FlatLambdaCDM
+
+# ignore fsps on Read The Docs
+try:
+    from os import environ
+    environ['READTHEDOCS']
+except KeyError:
+    import fsps
 
 # Kessler 2009a but flat and 2-sig figs (Gupta 2011, §2.3)
 cosmo = FlatLambdaCDM(H0=70, Om0=0.27)

@@ -13,7 +13,13 @@ import re
 
 import numpy as np
 from astropy.table import Table
-import fsps
+
+# ignore fsps on Read The Docs
+try:
+    from os import environ
+    environ['READTHEDOCS']
+except KeyError:
+    import fsps
 
 def combine_ages(dataset):
     """combines the ages into one file

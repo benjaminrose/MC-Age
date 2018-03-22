@@ -44,7 +44,13 @@ import logging
 
 from docopt import docopt
 import numpy as np
-import fsps
+
+# ignore fsps on Read The Docs
+try:
+    from os import environ
+    environ['READTHEDOCS']
+except KeyError:
+    import fsps
 
 def formatLogging():
     """Setting up the logger parts that are the same for all commands
