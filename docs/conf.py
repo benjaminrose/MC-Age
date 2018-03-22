@@ -69,7 +69,8 @@ master_doc = 'index'
 
 # General information about the project.
 # project = 'FSPS age'
-project = 'spae'
+# project = 'spae'
+project = 'mc-age'
 copyright = '2017, Benjamin Rose'
 author = 'Benjamin Rose'
 
