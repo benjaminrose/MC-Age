@@ -7,7 +7,7 @@ Main usage
 .. automodule:: fspsage
 	:members:
 
-CalcualteAge
+CalculateAge
 ------------
 
 .. automodule:: calculateAge
