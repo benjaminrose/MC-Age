@@ -7,10 +7,13 @@ This documents where each set of data comes from and how to re-obtain it.
     * This is an original data set that combines information from ``SDSS_Photometric_SNe_Ia.fits``
     (Campbell) and ``SMP-photometry`` (Holtzman).
     * It was created via ``Collecting Local SN Data.ipynb``.
+* ``CampbellHoltzman_formass.csv``
+    * This file was used as part of the inputs to ``kcorrect``. 
+    * is a subset of ``CampellHoltzman_global.tsv``
 * ``CampellHoltzman_mb.tsv``
-        * This is similar to ``CampellHoltzman.tsv`` but uses Malmquist bias corrected
-        distances. No trend with HR is found using this data.
-        * It was created via an older copy of ``Collecting Local SN Data.ipynb``.
+    * This is similar to ``CampellHoltzman.tsv`` but uses Malmquist bias corrected
+    distances. No trend with HR is found using this data.
+    * It was created via an older copy of ``Collecting Local SN Data.ipynb``.
 * ``CampellHoltzman_global.tsv``
 	* The global photometry of the same hosts as ``CampellHoltzman.tsv``
 	* Retrieval method is the same as ``GobalPhotomtery-Gupta.tsv``.

@@ -10,3 +10,7 @@ This folder is the output dumping folder for my projects. For this project these
 * campbell - results for local data (Holtzman 2008) data of some Campbell 2013 objects
 
 .. _CurateND: https://curate.nd.edu
+
+There is also the resulting stellar mass values stored in ``kcorrect_stellarmass.csv``. These values were generated via kcorrect_ from ``/data/CampbellHoltzman_formass.tsv``.
+
+.. _kcorrect: http://kcorrect.org
