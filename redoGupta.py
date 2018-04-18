@@ -138,8 +138,12 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
         value of one SN.
 
     dataset : str, ['gupta', 'messier', 'circle', 'campbell']
-        flag to switch between two "calibration" methods: redoing Gupta's
-        analysis (with `'gupta'`), looking at about ~10 local galaxies and making sure spirals are younger then ellipticals (with `'messier'`), or testing to recover "known" star formation histories (with `'circle'). This defaults to `'circle'`. More details on circle photometry can be found at . . .
+        flag to switch between two "calibration" methods: redoing
+        Gupta's analysis (with `'gupta'`), looking at about ~10 local
+        galaxies and making sure spirals are younger then ellipticals
+        (with `'messier'`), or testing to recover "known" star formation
+        histories (with `'circle'). This defaults to `'circle'`. More
+        details on circle photometry can be found at . . .
     """
     logger = logging.getLogger("fsps-age.redoGupta.redoGupta")
 
