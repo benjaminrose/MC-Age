@@ -1,29 +1,11 @@
-.. fsps-age documentation master file, created by
+.. mc-age documentation master file, created by
    sphinx-quickstart on Tue Nov 21 16:48:56 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-
-.. age
-.. fsps
-.. mcmc
-.. baysian
-.. photometry
-.. photo
-.. stellar
-
-
-.. (Photometric) Stellar Population Age Estimation
-
-.. spae
-
-.. ==========================================
-.. spae --- Stellar Population Age Estimation
-.. ==========================================
-
-=============================================
-MC-Age --- Estimating Stellar Population Ages
-=============================================
+=======================================================
+MC-Age --- Estimating Stellar Population Ages with FSPS
+=======================================================
 
 About
 =====
