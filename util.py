@@ -58,6 +58,10 @@ def combine_ages(dataset):
         # files = glob.glob('resources/SN????*_chain.tsv')
         # will be 4 or more numbers and dataset name
         files = glob.glob('resources/SN????*_campbell_chain.tsv')
+    elif dataset == 'campbellG':
+        # files = glob.glob('resources/SN????*_chain.tsv')
+        # will be 4 or more numbers and dataset name
+        files = glob.glob('resources/SN????*_campbellG_chain.tsv')
     else:
         raise ValueError
     print("Collecting {} ages for the {} stellar populations".format(
@@ -201,7 +205,7 @@ def get_sp():
     This is for constancy throughout the program.
     """
     return fsps.StellarPopulation(zcontinuous=2, cloudy_dust=True,
-                                 add_neb_emission = True, sfh=5)
+                                  add_neb_emission=True, sfh=5)
 
 
 if __name__ == '__main__':
@@ -213,4 +217,4 @@ if __name__ == '__main__':
     # plt.savefig('del.pdf')
 
     # combine_ages('messier')
-    combine_ages('campbell')
+    combine_ages('campbellG')
