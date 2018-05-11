@@ -15,7 +15,7 @@ Option:
     burnin          run a shorter run on specific objects only
     OBJID           the SN (or Messier) ID of the object to observe
     run             estimate age for a given data set
-    DATASET         analyses circle, messier, gupta, campbell, campbellG data sets
+    DATASET         analyses circle, messier, gupta, campbell, campbellG, and riess data sets
     JOBID           the ID for the piece of the data set to be analyzed
     JOBLENGTH       the total number of objects looked at
     -d --debug      run shorter and with more logs
@@ -163,7 +163,7 @@ def redoGupta(cli):
     """
     import redoGupta
 
-    if not cli['DATASET'] in ['gupta', 'messier', 'circle', 'campbell', 'campbellG']:
+    if not cli['DATASET'] in ['gupta', 'messier', 'circle', 'campbell', 'campbellG', 'riess']:
         raise ValueError("Please use '--help' option for details on DATASET")
     
     redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
