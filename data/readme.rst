@@ -33,16 +33,18 @@ From DR12 via astroquery 0.3.4, by hand on SkyServer DR13, and Gupta 2011 redshi
     * One object is the same as 
     * 101 is M101, 9391 is UGC 9391, and all the rest are NGC objects.
     * The redshifts are from Simbad and the photometry is SDSS modelMag
-    * Partial data is below:
+    * Objects outside of SDSS footprint, but sadly PanSTARS did not observe in the *u* band:
 
 '''
-101
 1365    0.005476    0.00001
 1448    0.003895
 2442    0.004846
 4038    0.005593
 5917    0.006472
 '''
+    * M101 does not need to be reran.
+    * Also note that NGC 3447 is strange and sparse. It's best photometry seems to be DR7, everything after that puts it at ~20 mag!
+    * comparing objects, DR12 (astroquerry default) is very similar to DR7 (Simbad) and DR8 (cause it's skyserver works better than DR7). The objects are only off in the hundredths place. Not within error, but within what we need.
 
 * ``SDSS_Photometric_SNe_Ia.fits``
     * This is the data released in Campbell 2013. It is the cosmological data
