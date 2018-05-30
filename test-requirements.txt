@@ -3,7 +3,7 @@ pytest-pep8==1.0.6
 pytest-cov==2.5.1
 
 # to push results to codecov.io
-codecov
+codecov==2.0.15
 
 # for linting tests
 pylint
