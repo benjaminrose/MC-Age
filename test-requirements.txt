@@ -6,6 +6,6 @@ pytest-cov==2.5.1
 codecov==2.0.15
 
 # for linting tests
-pylint
+pylint==1.9.1
 pycodestyle
 pydocstyle
