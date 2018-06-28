@@ -9,9 +9,9 @@ Stellar Population Age Estimator
 .. image:: https://codecov.io/gh/benjaminrose/SNIa-Local-Environments/branch/master/graph/badge.svg?token=sID9V6UFre
 	:target: https://codecov.io/gh/benjaminrose/SNIa-Local-Environments
 	:alt: Code coverage status via codecov
-.. image:: https://readthedocs.org/projects/fsps-age/badge/?version=latest
-   :target: http://fsps-age.readthedocs.io/en/latest/?badge=latest
-   :alt: Documentation Status
+.. image:: https://readthedocs.org/projects/mc-age/badge/?version=latest
+	:target: https://mc-age.readthedocs.io/en/latest/?badge=latest
+	:alt: Documentation Status
 .. image:: http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
 	:target: http://www.astropy.org/
 	:alt: This code uses astropy
