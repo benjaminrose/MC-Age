@@ -1,0 +1,24 @@
+SN,Host,x_1,x_1 uncert,c,c uncert,citation
+1981B,4536,-0.32,0.14,0.030,0.010,Jha Reiss & Kirshner 2007*
+1990N,4639,0.628,0.044,0.0141,0.0038,Jha Reiss & Kirshner 2007*
+1994ae,3370,0.324,0.097,-0.065,0.033,Jha Reiss & Kirshner 2007*
+1995al,3021,0.711,0.075,0.0513,0.0063,Jha Reiss & Kirshner 2007*
+1998aq,3982,-0.397,0.065,-0.0857,0.0071,Jha Reiss & Kirshner 2007*
+2002fk,1309,0.22,0.042,-0.1010,0.0033,Open Supernova Catalog*; 012MNRAS.425.1789S,2010ApJS..190..418G; 2009ApJ...700..331H,Sternberg Astronomical Institute Supernova Light Curve Catalogue
+2003du,9391,0.307,0.035,-0.1006,0.0039,Jha Reiss & Kirshner 2007*
+2007af,5584,-0.451,0.020,0.0533,0.0041,Hicken* (Contreras2010) (from Dhawan2014)
+2009ig,1015,1.76,0.15,-0.058,0.013,Hicken?*
+2011by,3972,0.02,0.13,0.012,0.014,Open Supernova Catalog*; 2014Ap&SS.354...89B
+2011fe,101,-0.206,0.071,-0.066,0.021,Pereira2013
+2012cg,4424,0.45,0.04,0.08,0.02,Vinkó2018 (Munari2012 not sure what this has)
+2012ht,3447,-1.25,0.05,-0.08,0.03,Vinkó2018 (BVRI values)
+2013dy,7250,0.695,0.044,0.089,0.025,Vinkó2018 (BVRI values)
+#N is NGC,U(9391/2003du) is UGC, & M101/2011fe
+#* on the citation indicates the source of the lc not the SALT parameters
+#no ages were calulated for (1448,2001el),(5917,2005cf),(4038,2007sr),(1365,2012fr),(2442,2015F),
+#Open SN catalog -- http://adsabs.harvard.edu/abs/2017ApJ...835...64G
+#
+#0.027,0.100,-0.1140,0.0100 for 2002fk does not have a well matched convertion to SATL s (and reported in Moreno-Raya2016a)
+#0.32,0.51,-0.11,0.032 has a better convertion to s, but worse looking lc. -- I should see what I get without u band
+#x_1 values can be compared to Moreno-Raya2016a with s =  0.98 + 0.091x_1 + 0.003x_1^2 − 0.00075x_1^3
+# good to check +2002fk, +2003du, +1995al, +2007af -- all with in 0.02 ish

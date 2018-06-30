@@ -1,0 +1,113 @@
+@SN 1994ae
+@reference Jha, Reiss & Kirshner 2007 SNANA database
+@time JD-2400000
+@ra 161.752823
+@ra_unit deg
+@dec 17.273630
+@dec_unit deg
+@z 0.0055
+@z_uncert 0.0001
+@z_frame CMB
+time band flux fluxerr zp zpsys
+49672.969 standard::b .11324E+06 4276.2 0 vega
+49672.969 standard::v .11663E+06 2900.3 0 vega
+49672.969 standard::r .13050E+06 2644.2 0 vega
+49672.969 standard::i .14468E+06 3731.1 0 vega
+49674.961 standard::b .22720E+06 9207.2 0 vega
+49674.961 standard::v .22223E+06 8187.2 0 vega
+49674.961 standard::r .24957E+06 5976.5 0 vega
+49674.961 standard::i .26254E+06 5803.5 0 vega
+49676.961 standard::b .32211E+06 49544. 0 vega
+49676.961 standard::v .32689E+06 16860. 0 vega
+49676.961 standard::r .36983E+06 6471.9 0 vega
+49676.961 standard::i .36509E+06 11097. 0 vega
+49678.000 standard::b .38797E+06 15723. 0 vega
+49678.000 standard::v .39337E+06 14130. 0 vega
+49678.000 standard::r .42306E+06 9741.3 0 vega
+49685.000 standard::r .57227E+06 10542. 0 vega
+49685.000 standard::i .48040E+06 13274. 0 vega
+49686.000 standard::u .95675E+06 74021. 0 vega
+49686.000 standard::b .59759E+06 13210. 0 vega
+49686.000 standard::v .60534E+06 16726. 0 vega
+49686.000 standard::r .60478E+06 15597. 0 vega
+49686.000 standard::i .48440E+06 17400. 0 vega
+49686.988 standard::u .90532E+06 36688. 0 vega
+49686.988 standard::b .58506E+06 15088. 0 vega
+49686.988 standard::v .58776E+06 11368. 0 vega
+49686.988 standard::r .59484E+06 9861.6 0 vega
+49686.988 standard::i .46903E+06 13392. 0 vega
+49688.039 standard::b .57332E+06 18482. 0 vega
+49688.039 standard::v .56598E+06 15639. 0 vega
+49688.039 standard::r .57703E+06 7972.0 0 vega
+49688.039 standard::i .45165E+06 17471. 0 vega
+49689.031 standard::u .81059E+06 38822. 0 vega
+49689.059 standard::b .52966E+06 22928. 0 vega
+49689.059 standard::v .56494E+06 12488. 0 vega
+49689.059 standard::r .57703E+06 53147. 0 vega
+49689.059 standard::i .44340E+06 28587. 0 vega
+49690.031 standard::u .79214E+06 37938. 0 vega
+49690.031 standard::b .51004E+06 18790. 0 vega
+49690.031 standard::v .55412E+06 18373. 0 vega
+49690.031 standard::r .55821E+06 17481. 0 vega
+49690.031 standard::i .41725E+06 31897. 0 vega
+49694.031 standard::b .42267E+06 14793. 0 vega
+49694.031 standard::v .47599E+06 11837. 0 vega
+49694.031 standard::r .47337E+06 10028. 0 vega
+49694.031 standard::i .33636E+06 8054.7 0 vega
+49695.031 standard::b .39264E+06 11211. 0 vega
+49695.031 standard::v .46602E+06 14593. 0 vega
+49695.031 standard::r .45373E+06 8358.1 0 vega
+49695.031 standard::i .30648E+06 27945. 0 vega
+49695.969 standard::b .37119E+06 11966. 0 vega
+49695.969 standard::v .43732E+06 10472. 0 vega
+49695.969 standard::r .42150E+06 5046.8 0 vega
+49695.969 standard::i .29840E+06 6046.4 0 vega
+49696.961 standard::b .33916E+06 8746.5 0 vega
+49696.961 standard::v .42150E+06 10870. 0 vega
+49696.961 standard::r .38905E+06 5374.9 0 vega
+49696.961 standard::i .28132E+06 5959.4 0 vega
+49699.980 standard::b .26767E+06 11341. 0 vega
+49699.980 standard::v .34834E+06 7379.1 0 vega
+49699.980 standard::r .32122E+06 11834. 0 vega
+49699.980 standard::i .26134E+06 7461.7 0 vega
+49700.969 standard::b .24033E+06 15273. 0 vega
+49700.969 standard::v .33947E+06 7503.9 0 vega
+49700.969 standard::r .31246E+06 6619.2 0 vega
+49700.969 standard::i .25096E+06 7165.3 0 vega
+49702.961 standard::b .19770E+06 6190.9 0 vega
+49702.961 standard::v .30620E+06 6204.4 0 vega
+49702.961 standard::r .30395E+06 5039.0 0 vega
+49702.961 standard::i .26473E+06 7314.7 0 vega
+49705.059 standard::b .16657E+06 7210.6 0 vega
+49705.059 standard::v .27848E+06 7181.8 0 vega
+49705.059 standard::r .29950E+06 5517.0 0 vega
+49705.059 standard::i .27797E+06 6144.5 0 vega
+49707.059 standard::b .13564E+06 4997.3 0 vega
+49707.059 standard::v .26062E+06 9601.4 0 vega
+49707.059 standard::r .29215E+06 8072.3 0 vega
+49707.059 standard::i .27900E+06 15418. 0 vega
+49709.852 standard::b 98175.     4521.1 0 vega
+49709.852 standard::v .20893E+06 5772.9 0 vega
+49709.852 standard::r .26546E+06 7334.9 0 vega
+49709.852 standard::i .26062E+06 7201.1 0 vega
+49715.930 standard::b 63621.     2461.1 0 vega
+49715.930 standard::v .17092E+06 4565.3 0 vega
+49715.930 standard::r .23486E+06 8652.4 0 vega
+49715.930 standard::i .30960E+06 19961. 0 vega
+49721.031 standard::b 48306.     1779.7 0 vega
+49721.031 standard::v .13465E+06 7316.9 0 vega
+49721.031 standard::r .17669E+06 3254.7 0 vega
+49721.031 standard::i .25165E+06 8344.1 0 vega
+49725.012 standard::b 41725.     1383.5 0 vega
+49725.012 standard::v .10549E+06 2137.5 0 vega
+49725.012 standard::r .13983E+06 2447.0 0 vega
+49725.012 standard::i .19843E+06 4386.2 0 vega
+49726.961 standard::u 35876.     6476.4 0 vega
+49726.961 standard::b 39958.     2208.1 0 vega
+49726.961 standard::v .10309E+06 1709.0 0 vega
+49726.961 standard::r .13366E+06 2462.1 0 vega
+49726.961 standard::i .17539E+06 4361.5 0 vega
+49730.328 standard::b 34995.     322.31 0 vega
+49730.328 standard::v 85507.     787.55 0 vega
+49730.328 standard::r .11066E+06 1019.2 0 vega
+49730.328 standard::i .13552E+06 1248.2 0 vega

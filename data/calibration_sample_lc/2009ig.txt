@@ -1,0 +1,47 @@
+@SN 2009ig
+@reference Hicken SNANA database
+@time JD-2400000
+@ra 39.548388
+@ra_unit deg
+@dec -0.68735554
+@dec_unit deg
+@z 0.008
+@z_uncert 0.0001
+@z_frame CMB
+time band flux fluxerr zp zpsys
+55078.5 standard::b 372906.    13611.1 0 vega
+55079.5 standard::b 371364.    47237.6 0 vega
+55085.5 standard::b 335120.    11260.0 0 vega
+55089.5 standard::b 264972.    7657.69 0 vega
+55092.4 standard::b 217170.    7079.75 0 vega
+55094.4 standard::b 183823.    6580.87 0 vega
+55098.3 standard::b 128233.    4539.45 0 vega
+55101.3 standard::b 97588.9    12481.6 0 vega
+55102.3 standard::b 92257.2    1946.63 0 vega
+55103.4 standard::b 83099.8    2360.03 0 vega
+55104.4 standard::b 76418.8    2323.13 0 vega
+55106.3 standard::b 65523.9    1618.44 0 vega
+55115.5 standard::b 36897.8    1070.03 0 vega
+55119.4 standard::b 32508.8    2870.52 0 vega
+55122.4 standard::b 30143.9    1618.73 0 vega
+55123.4 standard::b 29785.2    1256.93 0 vega
+55125.4 standard::b 27289.8    1732.90 0 vega
+55127.3 standard::b 27580.4    1094.94 0 vega
+55078.5 standard::v 398841.    7258.91 0 vega
+55079.5 standard::v 410015.    7216.27 0 vega
+55086.5 standard::v 380540.    6545.28 0 vega
+55087.4 standard::v 364754.    6164.34 0 vega
+55089.5 standard::v 332354.    11266.8 0 vega
+55092.4 standard::v 281061.    11467.3 0 vega
+55094.3 standard::v 251652.    4403.91 0 vega
+55098.3 standard::v 211641.    4127.00 0 vega
+55101.3 standard::v 191779.    4410.91 0 vega
+55102.3 standard::v 183823.    3235.29 0 vega
+55103.4 standard::v 177992.    4378.60 0 vega
+55104.4 standard::v 173460.    5099.73 0 vega
+55106.3 standard::v 162405.    3248.10 0 vega
+55115.5 standard::v 96917.0    2054.64 0 vega
+55119.4 standard::v 79031.5    1533.21 0 vega
+55122.4 standard::v 70372.0    1548.19 0 vega
+55123.4 standard::v 68171.1    2045.13 0 vega
+55127.3 standard::v 60394.9    5671.08 0 vega

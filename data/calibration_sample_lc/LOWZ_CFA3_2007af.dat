@@ -1,0 +1,2945 @@
+SURVEY: CFA3  
+SNID: 2007af  
+IAUC: 07af 
+RA:  -144.412233  deg 
+DECL: -0.393867 deg 
+MWEBV: 0.039  
+MAG_TYPE: LOG10 
+MAG_REF: VEGA   
+REDSHIFT_HELIO: 0.005430 +- 0.000100 (Helio frame) 
+REDSHIFT_CMB: 0.006260 +- 0.000100 (CMB frame) 
+REDSHIFT_FINAL: 0.006260 +- 0.000100 (CMB frame) 
+REDSHIFT_STATUS: WARNING (Z_ERROR is FUDGED!) 
+SEARCH_PEAKMJD: 54173.800  
+NEPOCH: 225  
+FILTERS:  UBVRIri 
+
+
+ 
+# ----------------------------------------------- 
+EPOCH: 1 
+MJD: 54162.3608  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 98355.81 (x10^11) 
+FLUXCAL_ERRTOT: 1278.63 (x10^11) 
+MAG: 15.018  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 1 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 2 
+MJD: 54162.3631  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 125429.59 (x10^11) 
+FLUXCAL_ERRTOT: 1505.16 (x10^11) 
+MAG: 14.754  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 2 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 3 
+MJD: 54162.3655  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 116949.94 (x10^11) 
+FLUXCAL_ERRTOT: 1169.50 (x10^11) 
+MAG: 14.830  
+MAG_ERRPLUS: 0.010  
+MAG_ERRMINUS: 0.010  
+END_OF_EPOCH: 3 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 4 
+MJD: 54162.3685  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 104905.92 (x10^11) 
+FLUXCAL_ERRTOT: 2412.84 (x10^11) 
+MAG: 14.948  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 4 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 5 
+MJD: 54163.4587  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 171711.74 (x10^11) 
+FLUXCAL_ERRTOT: 1888.83 (x10^11) 
+MAG: 14.413  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 5 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 6 
+MJD: 54163.4610  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 160250.72 (x10^11) 
+FLUXCAL_ERRTOT: 1442.26 (x10^11) 
+MAG: 14.488  
+MAG_ERRPLUS: 0.009  
+MAG_ERRMINUS: 0.009  
+END_OF_EPOCH: 6 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 7 
+MJD: 54163.4782  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 172504.33 (x10^11) 
+FLUXCAL_ERRTOT: 1725.04 (x10^11) 
+MAG: 14.408  
+MAG_ERRPLUS: 0.010  
+MAG_ERRMINUS: 0.010  
+END_OF_EPOCH: 7 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 8 
+MJD: 54163.4805  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 163530.97 (x10^11) 
+FLUXCAL_ERRTOT: 1635.31 (x10^11) 
+MAG: 14.466  
+MAG_ERRPLUS: 0.010  
+MAG_ERRMINUS: 0.010  
+END_OF_EPOCH: 8 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 9 
+MJD: 54164.4271  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 173300.57 (x10^11) 
+FLUXCAL_ERRTOT: 2079.61 (x10^11) 
+MAG: 14.403  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 9 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 10 
+MJD: 54164.4294  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 213010.00 (x10^11) 
+FLUXCAL_ERRTOT: 2343.11 (x10^11) 
+MAG: 14.179  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 10 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 11 
+MJD: 54164.4318  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 202488.33 (x10^11) 
+FLUXCAL_ERRTOT: 2024.88 (x10^11) 
+MAG: 14.234  
+MAG_ERRPLUS: 0.010  
+MAG_ERRMINUS: 0.010  
+END_OF_EPOCH: 11 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 12 
+MJD: 54165.4521  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 210087.40 (x10^11) 
+FLUXCAL_ERRTOT: 2310.96 (x10^11) 
+MAG: 14.194  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 12 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 13 
+MJD: 54165.4545  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 263997.61 (x10^11) 
+FLUXCAL_ERRTOT: 2639.98 (x10^11) 
+MAG: 13.946  
+MAG_ERRPLUS: 0.010  
+MAG_ERRMINUS: 0.010  
+END_OF_EPOCH: 13 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 14 
+MJD: 54165.4568  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 249115.07 (x10^11) 
+FLUXCAL_ERRTOT: 2242.04 (x10^11) 
+MAG: 14.009  
+MAG_ERRPLUS: 0.009  
+MAG_ERRMINUS: 0.009  
+END_OF_EPOCH: 14 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 15 
+MJD: 54165.4598  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 242325.99 (x10^11) 
+FLUXCAL_ERRTOT: 6542.80 (x10^11) 
+MAG: 14.039  
+MAG_ERRPLUS: 0.027  
+MAG_ERRMINUS: 0.027  
+END_OF_EPOCH: 15 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 16 
+MJD: 54168.4499  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 298400.81 (x10^11) 
+FLUXCAL_ERRTOT: 6266.42 (x10^11) 
+MAG: 13.813  
+MAG_ERRPLUS: 0.021  
+MAG_ERRMINUS: 0.021  
+END_OF_EPOCH: 16 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 17 
+MJD: 54168.4522  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 393368.88 (x10^11) 
+FLUXCAL_ERRTOT: 7080.64 (x10^11) 
+MAG: 13.513  
+MAG_ERRPLUS: 0.018  
+MAG_ERRMINUS: 0.018  
+END_OF_EPOCH: 17 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 18 
+MJD: 54168.4545  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 380890.38 (x10^11) 
+FLUXCAL_ERRTOT: 5332.47 (x10^11) 
+MAG: 13.548  
+MAG_ERRPLUS: 0.014  
+MAG_ERRMINUS: 0.014  
+END_OF_EPOCH: 18 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 19 
+MJD: 54168.4575  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 371877.58 (x10^11) 
+FLUXCAL_ERRTOT: 9668.82 (x10^11) 
+MAG: 13.574  
+MAG_ERRPLUS: 0.026  
+MAG_ERRMINUS: 0.026  
+END_OF_EPOCH: 19 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 20 
+MJD: 54169.4578  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 322998.12 (x10^11) 
+FLUXCAL_ERRTOT: 5490.97 (x10^11) 
+MAG: 13.727  
+MAG_ERRPLUS: 0.017  
+MAG_ERRMINUS: 0.017  
+END_OF_EPOCH: 20 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 21 
+MJD: 54169.4601  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 428548.52 (x10^11) 
+FLUXCAL_ERRTOT: 5571.13 (x10^11) 
+MAG: 13.420  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 21 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 22 
+MJD: 54169.4624  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 416485.61 (x10^11) 
+FLUXCAL_ERRTOT: 7080.26 (x10^11) 
+MAG: 13.451  
+MAG_ERRPLUS: 0.017  
+MAG_ERRMINUS: 0.017  
+END_OF_EPOCH: 22 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 23 
+MJD: 54169.4655  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 405882.19 (x10^11) 
+FLUXCAL_ERRTOT: 6494.12 (x10^11) 
+MAG: 13.479  
+MAG_ERRPLUS: 0.016  
+MAG_ERRMINUS: 0.016  
+END_OF_EPOCH: 23 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 24 
+MJD: 54170.3658  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 332047.34 (x10^11) 
+FLUXCAL_ERRTOT: 4316.62 (x10^11) 
+MAG: 13.697  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 24 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 25 
+MJD: 54170.3681  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 442180.92 (x10^11) 
+FLUXCAL_ERRTOT: 8401.44 (x10^11) 
+MAG: 13.386  
+MAG_ERRPLUS: 0.019  
+MAG_ERRMINUS: 0.019  
+END_OF_EPOCH: 25 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 26 
+MJD: 54170.3704  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 440554.86 (x10^11) 
+FLUXCAL_ERRTOT: 3964.99 (x10^11) 
+MAG: 13.390  
+MAG_ERRPLUS: 0.009  
+MAG_ERRMINUS: 0.009  
+END_OF_EPOCH: 26 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 27 
+MJD: 54170.3734  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 433710.56 (x10^11) 
+FLUXCAL_ERRTOT: 6071.95 (x10^11) 
+MAG: 13.407  
+MAG_ERRPLUS: 0.014  
+MAG_ERRMINUS: 0.014  
+END_OF_EPOCH: 27 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 28 
+MJD: 54170.3771  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 430130.26 (x10^11) 
+FLUXCAL_ERRTOT: 5591.69 (x10^11) 
+MAG: 13.416  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 28 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 29 
+MJD: 54170.3808  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 432513.83 (x10^11) 
+FLUXCAL_ERRTOT: 5622.68 (x10^11) 
+MAG: 13.410  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 29 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 30 
+MJD: 54171.3363  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 335119.73 (x10^11) 
+FLUXCAL_ERRTOT: 4691.68 (x10^11) 
+MAG: 13.687  
+MAG_ERRPLUS: 0.014  
+MAG_ERRMINUS: 0.014  
+END_OF_EPOCH: 30 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 31 
+MJD: 54171.3387  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 466444.53 (x10^11) 
+FLUXCAL_ERRTOT: 5597.33 (x10^11) 
+MAG: 13.328  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 31 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 32 
+MJD: 54171.3410  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 466874.33 (x10^11) 
+FLUXCAL_ERRTOT: 4668.74 (x10^11) 
+MAG: 13.327  
+MAG_ERRPLUS: 0.010  
+MAG_ERRMINUS: 0.010  
+END_OF_EPOCH: 32 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 33 
+MJD: 54171.3440  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 456667.39 (x10^11) 
+FLUXCAL_ERRTOT: 5936.68 (x10^11) 
+MAG: 13.351  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 33 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 34 
+MJD: 54171.3477  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 458352.92 (x10^11) 
+FLUXCAL_ERRTOT: 5041.88 (x10^11) 
+MAG: 13.347  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 34 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 35 
+MJD: 54171.3513  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 459198.01 (x10^11) 
+FLUXCAL_ERRTOT: 5510.38 (x10^11) 
+MAG: 13.345  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 35 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 36 
+MJD: 54172.3413  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 328397.62 (x10^11) 
+FLUXCAL_ERRTOT: 5582.76 (x10^11) 
+MAG: 13.709  
+MAG_ERRPLUS: 0.017  
+MAG_ERRMINUS: 0.017  
+END_OF_EPOCH: 36 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 37 
+MJD: 54172.3436  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 484841.74 (x10^11) 
+FLUXCAL_ERRTOT: 6787.78 (x10^11) 
+MAG: 13.286  
+MAG_ERRPLUS: 0.014  
+MAG_ERRMINUS: 0.014  
+END_OF_EPOCH: 37 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 38 
+MJD: 54172.3459  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 485735.67 (x10^11) 
+FLUXCAL_ERRTOT: 5343.09 (x10^11) 
+MAG: 13.284  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 38 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 39 
+MJD: 54172.3489  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 466015.11 (x10^11) 
+FLUXCAL_ERRTOT: 6990.23 (x10^11) 
+MAG: 13.329  
+MAG_ERRPLUS: 0.015  
+MAG_ERRMINUS: 0.015  
+END_OF_EPOCH: 39 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 40 
+MJD: 54174.4107  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 309029.54 (x10^11) 
+FLUXCAL_ERRTOT: 3399.32 (x10^11) 
+MAG: 13.775  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 40 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 41 
+MJD: 54174.4116  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 496592.32 (x10^11) 
+FLUXCAL_ERRTOT: 5462.52 (x10^11) 
+MAG: 13.260  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 41 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 42 
+MJD: 54174.4125  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 512389.24 (x10^11) 
+FLUXCAL_ERRTOT: 4611.50 (x10^11) 
+MAG: 13.226  
+MAG_ERRPLUS: 0.009  
+MAG_ERRMINUS: 0.009  
+END_OF_EPOCH: 42 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 43 
+MJD: 54174.4138  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 483058.80 (x10^11) 
+FLUXCAL_ERRTOT: 6279.76 (x10^11) 
+MAG: 13.290  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 43 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 44 
+MJD: 54175.4647  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 292415.24 (x10^11) 
+FLUXCAL_ERRTOT: 5555.89 (x10^11) 
+MAG: 13.835  
+MAG_ERRPLUS: 0.019  
+MAG_ERRMINUS: 0.019  
+END_OF_EPOCH: 44 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 45 
+MJD: 54175.4656  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 496135.15 (x10^11) 
+FLUXCAL_ERRTOT: 7442.03 (x10^11) 
+MAG: 13.261  
+MAG_ERRPLUS: 0.015  
+MAG_ERRMINUS: 0.015  
+END_OF_EPOCH: 45 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 46 
+MJD: 54175.4665  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 521915.27 (x10^11) 
+FLUXCAL_ERRTOT: 6784.90 (x10^11) 
+MAG: 13.206  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 46 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 47 
+MJD: 54175.4678  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 487528.49 (x10^11) 
+FLUXCAL_ERRTOT: 9750.57 (x10^11) 
+MAG: 13.280  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 47 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 48 
+MJD: 54176.4201  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 280801.87 (x10^11) 
+FLUXCAL_ERRTOT: 5616.04 (x10^11) 
+MAG: 13.879  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 48 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 49 
+MJD: 54176.4217  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 506757.28 (x10^11) 
+FLUXCAL_ERRTOT: 6587.84 (x10^11) 
+MAG: 13.238  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 49 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 50 
+MJD: 54176.4233  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 516654.24 (x10^11) 
+FLUXCAL_ERRTOT: 5166.54 (x10^11) 
+MAG: 13.217  
+MAG_ERRPLUS: 0.010  
+MAG_ERRMINUS: 0.010  
+END_OF_EPOCH: 50 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 51 
+MJD: 54176.4256  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 465586.09 (x10^11) 
+FLUXCAL_ERRTOT: 5587.03 (x10^11) 
+MAG: 13.330  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 51 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 52 
+MJD: 54177.3791  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 275676.66 (x10^11) 
+FLUXCAL_ERRTOT: 5789.21 (x10^11) 
+MAG: 13.899  
+MAG_ERRPLUS: 0.021  
+MAG_ERRMINUS: 0.021  
+END_OF_EPOCH: 52 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 53 
+MJD: 54177.3807  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 503037.08 (x10^11) 
+FLUXCAL_ERRTOT: 6539.48 (x10^11) 
+MAG: 13.246  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 53 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 54 
+MJD: 54177.3823  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 514754.32 (x10^11) 
+FLUXCAL_ERRTOT: 8236.07 (x10^11) 
+MAG: 13.221  
+MAG_ERRPLUS: 0.016  
+MAG_ERRMINUS: 0.016  
+END_OF_EPOCH: 54 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 55 
+MJD: 54177.3846  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 463020.27 (x10^11) 
+FLUXCAL_ERRTOT: 11112.49 (x10^11) 
+MAG: 13.336  
+MAG_ERRPLUS: 0.024  
+MAG_ERRMINUS: 0.024  
+END_OF_EPOCH: 55 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 56 
+MJD: 54179.4697  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 258226.02 (x10^11) 
+FLUXCAL_ERRTOT: 5164.52 (x10^11) 
+MAG: 13.970  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 56 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 57 
+MJD: 54179.4713  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 478630.09 (x10^11) 
+FLUXCAL_ERRTOT: 6700.82 (x10^11) 
+MAG: 13.300  
+MAG_ERRPLUS: 0.014  
+MAG_ERRMINUS: 0.014  
+END_OF_EPOCH: 57 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 58 
+MJD: 54179.4729  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 491134.00 (x10^11) 
+FLUXCAL_ERRTOT: 5893.61 (x10^11) 
+MAG: 13.272  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 58 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 59 
+MJD: 54179.4752  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 397008.68 (x10^11) 
+FLUXCAL_ERRTOT: 4764.10 (x10^11) 
+MAG: 13.503  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 59 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 60 
+MJD: 54185.3047  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 178155.81 (x10^11) 
+FLUXCAL_ERRTOT: 2316.03 (x10^11) 
+MAG: 14.373  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 60 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 61 
+MJD: 54185.3063  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 341350.07 (x10^11) 
+FLUXCAL_ERRTOT: 4096.20 (x10^11) 
+MAG: 13.667  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 61 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 62 
+MJD: 54185.3079  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 381944.27 (x10^11) 
+FLUXCAL_ERRTOT: 5729.16 (x10^11) 
+MAG: 13.545  
+MAG_ERRPLUS: 0.015  
+MAG_ERRMINUS: 0.015  
+END_OF_EPOCH: 62 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 63 
+MJD: 54185.3102  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 239221.38 (x10^11) 
+FLUXCAL_ERRTOT: 4305.98 (x10^11) 
+MAG: 14.053  
+MAG_ERRPLUS: 0.018  
+MAG_ERRMINUS: 0.018  
+END_OF_EPOCH: 63 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 64 
+MJD: 54188.2818  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 163832.48 (x10^11) 
+FLUXCAL_ERRTOT: 2129.82 (x10^11) 
+MAG: 14.464  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 64 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 65 
+MJD: 54188.2834  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 294306.60 (x10^11) 
+FLUXCAL_ERRTOT: 3237.37 (x10^11) 
+MAG: 13.828  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 65 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 66 
+MJD: 54188.2850  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 322106.88 (x10^11) 
+FLUXCAL_ERRTOT: 2898.96 (x10^11) 
+MAG: 13.730  
+MAG_ERRPLUS: 0.009  
+MAG_ERRMINUS: 0.009  
+END_OF_EPOCH: 66 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 67 
+MJD: 54188.2873  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 175226.59 (x10^11) 
+FLUXCAL_ERRTOT: 2628.40 (x10^11) 
+MAG: 14.391  
+MAG_ERRPLUS: 0.015  
+MAG_ERRMINUS: 0.015  
+END_OF_EPOCH: 67 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 68 
+MJD: 54189.3716  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 164134.55 (x10^11) 
+FLUXCAL_ERRTOT: 2133.75 (x10^11) 
+MAG: 14.462  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 68 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 69 
+MJD: 54189.3749  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 301717.15 (x10^11) 
+FLUXCAL_ERRTOT: 3017.17 (x10^11) 
+MAG: 13.801  
+MAG_ERRPLUS: 0.010  
+MAG_ERRMINUS: 0.010  
+END_OF_EPOCH: 69 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 70 
+MJD: 54189.3772  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 154881.66 (x10^11) 
+FLUXCAL_ERRTOT: 2013.46 (x10^11) 
+MAG: 14.525  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 70 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 71 
+MJD: 54190.3548  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 160250.72 (x10^11) 
+FLUXCAL_ERRTOT: 3205.01 (x10^11) 
+MAG: 14.488  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 71 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 72 
+MJD: 54190.3564  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 275676.66 (x10^11) 
+FLUXCAL_ERRTOT: 4410.83 (x10^11) 
+MAG: 13.899  
+MAG_ERRPLUS: 0.016  
+MAG_ERRMINUS: 0.016  
+END_OF_EPOCH: 72 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 73 
+MJD: 54190.3580  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 289467.63 (x10^11) 
+FLUXCAL_ERRTOT: 6078.82 (x10^11) 
+MAG: 13.846  
+MAG_ERRPLUS: 0.021  
+MAG_ERRMINUS: 0.021  
+END_OF_EPOCH: 73 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 74 
+MJD: 54190.3603  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 136144.47 (x10^11) 
+FLUXCAL_ERRTOT: 1906.02 (x10^11) 
+MAG: 14.665  
+MAG_ERRPLUS: 0.014  
+MAG_ERRMINUS: 0.014  
+END_OF_EPOCH: 74 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 75 
+MJD: 54191.4551  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 165805.91 (x10^11) 
+FLUXCAL_ERRTOT: 3813.54 (x10^11) 
+MAG: 14.451  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 75 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 76 
+MJD: 54191.4567  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 267423.77 (x10^11) 
+FLUXCAL_ERRTOT: 5348.48 (x10^11) 
+MAG: 13.932  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 76 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 77 
+MJD: 54191.4583  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 264728.07 (x10^11) 
+FLUXCAL_ERRTOT: 6088.75 (x10^11) 
+MAG: 13.943  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 77 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 78 
+MJD: 54192.3886  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 164437.17 (x10^11) 
+FLUXCAL_ERRTOT: 3782.05 (x10^11) 
+MAG: 14.460  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 78 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 79 
+MJD: 54192.3918  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 251188.64 (x10^11) 
+FLUXCAL_ERRTOT: 5777.34 (x10^11) 
+MAG: 14.000  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 79 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 80 
+MJD: 54193.4304  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 241880.02 (x10^11) 
+FLUXCAL_ERRTOT: 3628.20 (x10^11) 
+MAG: 14.041  
+MAG_ERRPLUS: 0.015  
+MAG_ERRMINUS: 0.015  
+END_OF_EPOCH: 80 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 81 
+MJD: 54196.3642  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 247970.49 (x10^11) 
+FLUXCAL_ERRTOT: 3223.62 (x10^11) 
+MAG: 14.014  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 81 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 82 
+MJD: 54196.3658  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 206823.56 (x10^11) 
+FLUXCAL_ERRTOT: 2895.53 (x10^11) 
+MAG: 14.211  
+MAG_ERRPLUS: 0.014  
+MAG_ERRMINUS: 0.014  
+END_OF_EPOCH: 82 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 83 
+MJD: 54197.3285  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 184161.99 (x10^11) 
+FLUXCAL_ERRTOT: 3683.24 (x10^11) 
+MAG: 14.337  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 83 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 84 
+MJD: 54197.3340  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 70080.95 (x10^11) 
+FLUXCAL_ERRTOT: 1261.46 (x10^11) 
+MAG: 15.386  
+MAG_ERRPLUS: 0.018  
+MAG_ERRMINUS: 0.018  
+END_OF_EPOCH: 84 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 85 
+MJD: 54198.2666  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 183315.84 (x10^11) 
+FLUXCAL_ERRTOT: 3849.63 (x10^11) 
+MAG: 14.342  
+MAG_ERRPLUS: 0.021  
+MAG_ERRMINUS: 0.021  
+END_OF_EPOCH: 85 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 86 
+MJD: 54198.2682  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 236809.98 (x10^11) 
+FLUXCAL_ERRTOT: 3552.15 (x10^11) 
+MAG: 14.064  
+MAG_ERRPLUS: 0.015  
+MAG_ERRMINUS: 0.015  
+END_OF_EPOCH: 86 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 87 
+MJD: 54198.2698  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 191778.54 (x10^11) 
+FLUXCAL_ERRTOT: 2493.12 (x10^11) 
+MAG: 14.293  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 87 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 88 
+MJD: 54198.2721  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 66803.62 (x10^11) 
+FLUXCAL_ERRTOT: 1068.86 (x10^11) 
+MAG: 15.438  
+MAG_ERRPLUS: 0.016  
+MAG_ERRMINUS: 0.016  
+END_OF_EPOCH: 88 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 89 
+MJD: 54199.4318  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 187585.82 (x10^11) 
+FLUXCAL_ERRTOT: 2063.44 (x10^11) 
+MAG: 14.317  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 89 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 90 
+MJD: 54199.4334  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 225112.70 (x10^11) 
+FLUXCAL_ERRTOT: 4277.14 (x10^11) 
+MAG: 14.119  
+MAG_ERRPLUS: 0.019  
+MAG_ERRMINUS: 0.019  
+END_OF_EPOCH: 90 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 91 
+MJD: 54199.4350  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 179308.14 (x10^11) 
+FLUXCAL_ERRTOT: 2510.31 (x10^11) 
+MAG: 14.366  
+MAG_ERRPLUS: 0.014  
+MAG_ERRMINUS: 0.014  
+END_OF_EPOCH: 91 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 92 
+MJD: 54199.4373  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 60311.48 (x10^11) 
+FLUXCAL_ERRTOT: 964.98 (x10^11) 
+MAG: 15.549  
+MAG_ERRPLUS: 0.016  
+MAG_ERRMINUS: 0.016  
+END_OF_EPOCH: 92 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 93 
+MJD: 54199.4481  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 187585.82 (x10^11) 
+FLUXCAL_ERRTOT: 2251.03 (x10^11) 
+MAG: 14.317  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 93 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 94 
+MJD: 54201.3266  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 187585.82 (x10^11) 
+FLUXCAL_ERRTOT: 2438.62 (x10^11) 
+MAG: 14.317  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 94 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 95 
+MJD: 54201.3283  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 212226.69 (x10^11) 
+FLUXCAL_ERRTOT: 2334.49 (x10^11) 
+MAG: 14.183  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 95 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 96 
+MJD: 54201.3299  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 161733.51 (x10^11) 
+FLUXCAL_ERRTOT: 2587.74 (x10^11) 
+MAG: 14.478  
+MAG_ERRPLUS: 0.016  
+MAG_ERRMINUS: 0.016  
+END_OF_EPOCH: 96 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 97 
+MJD: 54201.3352  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 55975.76 (x10^11) 
+FLUXCAL_ERRTOT: 1007.56 (x10^11) 
+MAG: 15.630  
+MAG_ERRPLUS: 0.018  
+MAG_ERRMINUS: 0.018  
+END_OF_EPOCH: 97 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 98 
+MJD: 54206.4288  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 156170.86 (x10^11) 
+FLUXCAL_ERRTOT: 1874.05 (x10^11) 
+MAG: 14.516  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 98 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 99 
+MJD: 54206.4304  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 119563.88 (x10^11) 
+FLUXCAL_ERRTOT: 2271.71 (x10^11) 
+MAG: 14.806  
+MAG_ERRPLUS: 0.019  
+MAG_ERRMINUS: 0.019  
+END_OF_EPOCH: 99 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 100 
+MJD: 54206.4327  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 34865.83 (x10^11) 
+FLUXCAL_ERRTOT: 767.05 (x10^11) 
+MAG: 16.144  
+MAG_ERRPLUS: 0.022  
+MAG_ERRMINUS: 0.022  
+END_OF_EPOCH: 100 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 101 
+MJD: 54207.3725  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 137277.70 (x10^11) 
+FLUXCAL_ERRTOT: 1784.61 (x10^11) 
+MAG: 14.656  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 101 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 102 
+MJD: 54207.3741  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 142429.52 (x10^11) 
+FLUXCAL_ERRTOT: 1566.72 (x10^11) 
+MAG: 14.616  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 102 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 103 
+MJD: 54207.3757  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 110968.57 (x10^11) 
+FLUXCAL_ERRTOT: 2219.37 (x10^11) 
+MAG: 14.887  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 103 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 104 
+MJD: 54207.3780  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 35416.04 (x10^11) 
+FLUXCAL_ERRTOT: 814.57 (x10^11) 
+MAG: 16.127  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 104 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 105 
+MJD: 54207.3810  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 35026.76 (x10^11) 
+FLUXCAL_ERRTOT: 770.59 (x10^11) 
+MAG: 16.139  
+MAG_ERRPLUS: 0.022  
+MAG_ERRMINUS: 0.022  
+END_OF_EPOCH: 105 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 106 
+MJD: 54207.3839  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 35448.67 (x10^11) 
+FLUXCAL_ERRTOT: 815.32 (x10^11) 
+MAG: 16.126  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 106 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 107 
+MJD: 54208.3363  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 128943.66 (x10^11) 
+FLUXCAL_ERRTOT: 1418.38 (x10^11) 
+MAG: 14.724  
+MAG_ERRPLUS: 0.011  
+MAG_ERRMINUS: 0.011  
+END_OF_EPOCH: 107 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 108 
+MJD: 54208.3395  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 105390.14 (x10^11) 
+FLUXCAL_ERRTOT: 2107.80 (x10^11) 
+MAG: 14.943  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 108 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 109 
+MJD: 54208.3418  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 34324.17 (x10^11) 
+FLUXCAL_ERRTOT: 961.08 (x10^11) 
+MAG: 16.161  
+MAG_ERRPLUS: 0.028  
+MAG_ERRMINUS: 0.028  
+END_OF_EPOCH: 109 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 110 
+MJD: 54208.3448  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 34514.37 (x10^11) 
+FLUXCAL_ERRTOT: 1000.92 (x10^11) 
+MAG: 16.155  
+MAG_ERRPLUS: 0.029  
+MAG_ERRMINUS: 0.029  
+END_OF_EPOCH: 110 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 111 
+MJD: 54208.3478  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 33790.92 (x10^11) 
+FLUXCAL_ERRTOT: 1148.89 (x10^11) 
+MAG: 16.178  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 111 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 112 
+MJD: 54209.4144  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 120559.10 (x10^11) 
+FLUXCAL_ERRTOT: 1446.71 (x10^11) 
+MAG: 14.797  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 112 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 113 
+MJD: 54209.4160  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 126473.63 (x10^11) 
+FLUXCAL_ERRTOT: 1517.68 (x10^11) 
+MAG: 14.745  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 113 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 114 
+MJD: 54209.4177  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 100092.15 (x10^11) 
+FLUXCAL_ERRTOT: 2001.84 (x10^11) 
+MAG: 14.999  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 114 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 115 
+MJD: 54209.4200  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 33174.16 (x10^11) 
+FLUXCAL_ERRTOT: 1094.75 (x10^11) 
+MAG: 16.198  
+MAG_ERRPLUS: 0.033  
+MAG_ERRMINUS: 0.033  
+END_OF_EPOCH: 115 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 116 
+MJD: 54209.4230  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 32508.73 (x10^11) 
+FLUXCAL_ERRTOT: 1072.79 (x10^11) 
+MAG: 16.220  
+MAG_ERRPLUS: 0.033  
+MAG_ERRMINUS: 0.033  
+END_OF_EPOCH: 116 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 117 
+MJD: 54209.4259  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 33113.11 (x10^11) 
+FLUXCAL_ERRTOT: 1125.85 (x10^11) 
+MAG: 16.200  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 117 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 118 
+MJD: 54213.3313  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 96738.64 (x10^11) 
+FLUXCAL_ERRTOT: 1354.34 (x10^11) 
+MAG: 15.036  
+MAG_ERRPLUS: 0.014  
+MAG_ERRMINUS: 0.014  
+END_OF_EPOCH: 118 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 119 
+MJD: 54213.3329  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 104231.74 (x10^11) 
+FLUXCAL_ERRTOT: 1355.01 (x10^11) 
+MAG: 14.955  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 119 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 120 
+MJD: 54213.3345  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 84566.82 (x10^11) 
+FLUXCAL_ERRTOT: 1945.04 (x10^11) 
+MAG: 15.182  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 120 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 121 
+MJD: 54213.3368  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 28813.76 (x10^11) 
+FLUXCAL_ERRTOT: 950.85 (x10^11) 
+MAG: 16.351  
+MAG_ERRPLUS: 0.033  
+MAG_ERRMINUS: 0.033  
+END_OF_EPOCH: 121 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 122 
+MJD: 54214.3222  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 91369.24 (x10^11) 
+FLUXCAL_ERRTOT: 1370.54 (x10^11) 
+MAG: 15.098  
+MAG_ERRPLUS: 0.015  
+MAG_ERRMINUS: 0.015  
+END_OF_EPOCH: 122 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 123 
+MJD: 54214.3238  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 100925.29 (x10^11) 
+FLUXCAL_ERRTOT: 1211.10 (x10^11) 
+MAG: 14.990  
+MAG_ERRPLUS: 0.012  
+MAG_ERRMINUS: 0.012  
+END_OF_EPOCH: 123 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 124 
+MJD: 54214.3254  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 82186.41 (x10^11) 
+FLUXCAL_ERRTOT: 1725.91 (x10^11) 
+MAG: 15.213  
+MAG_ERRPLUS: 0.021  
+MAG_ERRMINUS: 0.021  
+END_OF_EPOCH: 124 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 125 
+MJD: 54214.3277  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 27365.29 (x10^11) 
+FLUXCAL_ERRTOT: 957.79 (x10^11) 
+MAG: 16.407  
+MAG_ERRPLUS: 0.035  
+MAG_ERRMINUS: 0.035  
+END_OF_EPOCH: 125 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 126 
+MJD: 54216.4392  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 90448.21 (x10^11) 
+FLUXCAL_ERRTOT: 1537.62 (x10^11) 
+MAG: 15.109  
+MAG_ERRPLUS: 0.017  
+MAG_ERRMINUS: 0.017  
+END_OF_EPOCH: 126 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 127 
+MJD: 54216.4409  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 75509.22 (x10^11) 
+FLUXCAL_ERRTOT: 1812.22 (x10^11) 
+MAG: 15.305  
+MAG_ERRPLUS: 0.024  
+MAG_ERRMINUS: 0.024  
+END_OF_EPOCH: 127 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 128 
+MJD: 54216.4432  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 26230.10 (x10^11) 
+FLUXCAL_ERRTOT: 918.05 (x10^11) 
+MAG: 16.453  
+MAG_ERRPLUS: 0.035  
+MAG_ERRMINUS: 0.035  
+END_OF_EPOCH: 128 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 129 
+MJD: 54217.2558  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 77481.85 (x10^11) 
+FLUXCAL_ERRTOT: 1549.64 (x10^11) 
+MAG: 15.277  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 129 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 130 
+MJD: 54217.2591  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 73181.28 (x10^11) 
+FLUXCAL_ERRTOT: 1536.81 (x10^11) 
+MAG: 15.339  
+MAG_ERRPLUS: 0.021  
+MAG_ERRMINUS: 0.021  
+END_OF_EPOCH: 130 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 131 
+MJD: 54217.2614  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 24344.45 (x10^11) 
+FLUXCAL_ERRTOT: 486.89 (x10^11) 
+MAG: 16.534  
+MAG_ERRPLUS: 0.020  
+MAG_ERRMINUS: 0.020  
+END_OF_EPOCH: 131 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 132 
+MJD: 54219.3390  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 73654.62 (x10^11) 
+FLUXCAL_ERRTOT: 957.51 (x10^11) 
+MAG: 15.332  
+MAG_ERRPLUS: 0.013  
+MAG_ERRMINUS: 0.013  
+END_OF_EPOCH: 132 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 133 
+MJD: 54219.3406  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 83099.80 (x10^11) 
+FLUXCAL_ERRTOT: 1495.80 (x10^11) 
+MAG: 15.201  
+MAG_ERRPLUS: 0.018  
+MAG_ERRMINUS: 0.018  
+END_OF_EPOCH: 133 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 134 
+MJD: 54219.3422  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 69310.65 (x10^11) 
+FLUXCAL_ERRTOT: 1524.83 (x10^11) 
+MAG: 15.398  
+MAG_ERRPLUS: 0.022  
+MAG_ERRMINUS: 0.022  
+END_OF_EPOCH: 134 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 135 
+MJD: 54221.3506  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 67297.67 (x10^11) 
+FLUXCAL_ERRTOT: 1547.85 (x10^11) 
+MAG: 15.430  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 135 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 136 
+MJD: 54226.3934  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 56806.76 (x10^11) 
+FLUXCAL_ERRTOT: 1988.24 (x10^11) 
+MAG: 15.614  
+MAG_ERRPLUS: 0.035  
+MAG_ERRMINUS: 0.035  
+END_OF_EPOCH: 136 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 137 
+MJD: 54226.3950  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 65947.75 (x10^11) 
+FLUXCAL_ERRTOT: 1253.01 (x10^11) 
+MAG: 15.452  
+MAG_ERRPLUS: 0.019  
+MAG_ERRMINUS: 0.019  
+END_OF_EPOCH: 137 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 138 
+MJD: 54226.3967  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 58613.82 (x10^11) 
+FLUXCAL_ERRTOT: 1465.35 (x10^11) 
+MAG: 15.580  
+MAG_ERRPLUS: 0.025  
+MAG_ERRMINUS: 0.025  
+END_OF_EPOCH: 138 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 139 
+MJD: 54226.3990  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 22469.84 (x10^11) 
+FLUXCAL_ERRTOT: 1348.19 (x10^11) 
+MAG: 16.621  
+MAG_ERRPLUS: 0.060  
+MAG_ERRMINUS: 0.060  
+END_OF_EPOCH: 139 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 140 
+MJD: 54232.3805  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 45750.94 (x10^11) 
+FLUXCAL_ERRTOT: 1555.53 (x10^11) 
+MAG: 15.849  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 140 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 141 
+MJD: 54232.3821  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 56285.95 (x10^11) 
+FLUXCAL_ERRTOT: 900.58 (x10^11) 
+MAG: 15.624  
+MAG_ERRPLUS: 0.016  
+MAG_ERRMINUS: 0.016  
+END_OF_EPOCH: 141 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 142 
+MJD: 54232.3861  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 20455.02 (x10^11) 
+FLUXCAL_ERRTOT: 715.93 (x10^11) 
+MAG: 16.723  
+MAG_ERRPLUS: 0.035  
+MAG_ERRMINUS: 0.035  
+END_OF_EPOCH: 142 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 143 
+MJD: 54234.3524  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 41648.56 (x10^11) 
+FLUXCAL_ERRTOT: 1249.46 (x10^11) 
+MAG: 15.951  
+MAG_ERRPLUS: 0.030  
+MAG_ERRMINUS: 0.030  
+END_OF_EPOCH: 143 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 144 
+MJD: 54234.3540  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 52868.87 (x10^11) 
+FLUXCAL_ERRTOT: 1215.98 (x10^11) 
+MAG: 15.692  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 144 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 145 
+MJD: 54234.3556  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 48797.77 (x10^11) 
+FLUXCAL_ERRTOT: 1024.75 (x10^11) 
+MAG: 15.779  
+MAG_ERRPLUS: 0.021  
+MAG_ERRMINUS: 0.021  
+END_OF_EPOCH: 145 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 146 
+MJD: 54234.3579  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 20192.96 (x10^11) 
+FLUXCAL_ERRTOT: 605.79 (x10^11) 
+MAG: 16.737  
+MAG_ERRPLUS: 0.030  
+MAG_ERRMINUS: 0.030  
+END_OF_EPOCH: 146 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 147 
+MJD: 54236.3339  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 40588.22 (x10^11) 
+FLUXCAL_ERRTOT: 1339.41 (x10^11) 
+MAG: 15.979  
+MAG_ERRPLUS: 0.033  
+MAG_ERRMINUS: 0.033  
+END_OF_EPOCH: 147 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 148 
+MJD: 54236.3355  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 50164.91 (x10^11) 
+FLUXCAL_ERRTOT: 1103.63 (x10^11) 
+MAG: 15.749  
+MAG_ERRPLUS: 0.022  
+MAG_ERRMINUS: 0.022  
+END_OF_EPOCH: 148 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 149 
+MJD: 54236.3371  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 46558.61 (x10^11) 
+FLUXCAL_ERRTOT: 977.73 (x10^11) 
+MAG: 15.830  
+MAG_ERRPLUS: 0.021  
+MAG_ERRMINUS: 0.021  
+END_OF_EPOCH: 149 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 150 
+MJD: 54237.3139  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 38335.40 (x10^11) 
+FLUXCAL_ERRTOT: 1303.40 (x10^11) 
+MAG: 16.041  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 150 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 151 
+MJD: 54237.3155  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 47555.42 (x10^11) 
+FLUXCAL_ERRTOT: 1331.55 (x10^11) 
+MAG: 15.807  
+MAG_ERRPLUS: 0.028  
+MAG_ERRMINUS: 0.028  
+END_OF_EPOCH: 151 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 152 
+MJD: 54239.3545  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 36610.02 (x10^11) 
+FLUXCAL_ERRTOT: 878.64 (x10^11) 
+MAG: 16.091  
+MAG_ERRPLUS: 0.024  
+MAG_ERRMINUS: 0.024  
+END_OF_EPOCH: 152 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 153 
+MJD: 54239.3562  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 45666.74 (x10^11) 
+FLUXCAL_ERRTOT: 1050.33 (x10^11) 
+MAG: 15.851  
+MAG_ERRPLUS: 0.023  
+MAG_ERRMINUS: 0.023  
+END_OF_EPOCH: 153 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 154 
+MJD: 54239.3578  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 43411.02 (x10^11) 
+FLUXCAL_ERRTOT: 911.63 (x10^11) 
+MAG: 15.906  
+MAG_ERRPLUS: 0.021  
+MAG_ERRMINUS: 0.021  
+END_OF_EPOCH: 154 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 155 
+MJD: 54239.3601  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 18689.60 (x10^11) 
+FLUXCAL_ERRTOT: 654.14 (x10^11) 
+MAG: 16.821  
+MAG_ERRPLUS: 0.035  
+MAG_ERRMINUS: 0.035  
+END_OF_EPOCH: 155 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 156 
+MJD: 54240.3570  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 34229.46 (x10^11) 
+FLUXCAL_ERRTOT: 1026.88 (x10^11) 
+MAG: 16.164  
+MAG_ERRPLUS: 0.030  
+MAG_ERRMINUS: 0.030  
+END_OF_EPOCH: 156 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 157 
+MJD: 54240.3587  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 44218.09 (x10^11) 
+FLUXCAL_ERRTOT: 1061.23 (x10^11) 
+MAG: 15.886  
+MAG_ERRPLUS: 0.024  
+MAG_ERRMINUS: 0.024  
+END_OF_EPOCH: 157 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 158 
+MJD: 54240.3603  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 42501.08 (x10^11) 
+FLUXCAL_ERRTOT: 1020.03 (x10^11) 
+MAG: 15.929  
+MAG_ERRPLUS: 0.024  
+MAG_ERRMINUS: 0.024  
+END_OF_EPOCH: 158 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 159 
+MJD: 54244.2574  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 30817.68 (x10^11) 
+FLUXCAL_ERRTOT: 893.71 (x10^11) 
+MAG: 16.278  
+MAG_ERRPLUS: 0.029  
+MAG_ERRMINUS: 0.029  
+END_OF_EPOCH: 159 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 160 
+MJD: 54244.2590  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 39012.16 (x10^11) 
+FLUXCAL_ERRTOT: 936.29 (x10^11) 
+MAG: 16.022  
+MAG_ERRPLUS: 0.024  
+MAG_ERRMINUS: 0.024  
+END_OF_EPOCH: 160 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 161 
+MJD: 54244.2606  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 37879.13 (x10^11) 
+FLUXCAL_ERRTOT: 909.10 (x10^11) 
+MAG: 16.054  
+MAG_ERRPLUS: 0.024  
+MAG_ERRMINUS: 0.024  
+END_OF_EPOCH: 161 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 162 
+MJD: 54244.2653  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 30902.95 (x10^11) 
+FLUXCAL_ERRTOT: 957.99 (x10^11) 
+MAG: 16.275  
+MAG_ERRPLUS: 0.031  
+MAG_ERRMINUS: 0.031  
+END_OF_EPOCH: 162 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 163 
+MJD: 54244.2669  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 38547.84 (x10^11) 
+FLUXCAL_ERRTOT: 1117.89 (x10^11) 
+MAG: 16.035  
+MAG_ERRPLUS: 0.029  
+MAG_ERRMINUS: 0.029  
+END_OF_EPOCH: 163 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 164 
+MJD: 54244.2708  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 17314.10 (x10^11) 
+FLUXCAL_ERRTOT: 640.62 (x10^11) 
+MAG: 16.904  
+MAG_ERRPLUS: 0.037  
+MAG_ERRMINUS: 0.037  
+END_OF_EPOCH: 164 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 165 
+MJD: 54247.2886  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 35645.11 (x10^11) 
+FLUXCAL_ERRTOT: 926.77 (x10^11) 
+MAG: 16.120  
+MAG_ERRPLUS: 0.026  
+MAG_ERRMINUS: 0.026  
+END_OF_EPOCH: 165 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 166 
+MJD: 54247.2909  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 36408.27 (x10^11) 
+FLUXCAL_ERRTOT: 1237.88 (x10^11) 
+MAG: 16.097  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 166 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 167 
+MJD: 54251.3431  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 23442.29 (x10^11) 
+FLUXCAL_ERRTOT: 937.69 (x10^11) 
+MAG: 16.575  
+MAG_ERRPLUS: 0.040  
+MAG_ERRMINUS: 0.040  
+END_OF_EPOCH: 167 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 168 
+MJD: 54251.3454  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 31390.63 (x10^11) 
+FLUXCAL_ERRTOT: 847.55 (x10^11) 
+MAG: 16.258  
+MAG_ERRPLUS: 0.027  
+MAG_ERRMINUS: 0.027  
+END_OF_EPOCH: 168 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 169 
+MJD: 54252.3586  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 22552.78 (x10^11) 
+FLUXCAL_ERRTOT: 969.77 (x10^11) 
+MAG: 16.617  
+MAG_ERRPLUS: 0.043  
+MAG_ERRMINUS: 0.043  
+END_OF_EPOCH: 169 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 170 
+MJD: 54252.3609  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 31448.50 (x10^11) 
+FLUXCAL_ERRTOT: 849.11 (x10^11) 
+MAG: 16.256  
+MAG_ERRPLUS: 0.027  
+MAG_ERRMINUS: 0.027  
+END_OF_EPOCH: 170 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 171 
+MJD: 54252.3632  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 33052.17 (x10^11) 
+FLUXCAL_ERRTOT: 1189.88 (x10^11) 
+MAG: 16.202  
+MAG_ERRPLUS: 0.036  
+MAG_ERRMINUS: 0.036  
+END_OF_EPOCH: 171 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 172 
+MJD: 54253.2998  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 23141.95 (x10^11) 
+FLUXCAL_ERRTOT: 694.26 (x10^11) 
+MAG: 16.589  
+MAG_ERRPLUS: 0.030  
+MAG_ERRMINUS: 0.030  
+END_OF_EPOCH: 172 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 173 
+MJD: 54253.3021  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 29430.66 (x10^11) 
+FLUXCAL_ERRTOT: 912.35 (x10^11) 
+MAG: 16.328  
+MAG_ERRPLUS: 0.031  
+MAG_ERRMINUS: 0.031  
+END_OF_EPOCH: 173 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 174 
+MJD: 54253.3044  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 31131.50 (x10^11) 
+FLUXCAL_ERRTOT: 1089.60 (x10^11) 
+MAG: 16.267  
+MAG_ERRPLUS: 0.035  
+MAG_ERRMINUS: 0.035  
+END_OF_EPOCH: 174 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 175 
+MJD: 54256.2613  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 21857.48 (x10^11) 
+FLUXCAL_ERRTOT: 546.44 (x10^11) 
+MAG: 16.651  
+MAG_ERRPLUS: 0.025  
+MAG_ERRMINUS: 0.025  
+END_OF_EPOCH: 175 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 176 
+MJD: 54256.2636  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 27466.29 (x10^11) 
+FLUXCAL_ERRTOT: 686.66 (x10^11) 
+MAG: 16.403  
+MAG_ERRPLUS: 0.025  
+MAG_ERRMINUS: 0.025  
+END_OF_EPOCH: 176 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 177 
+MJD: 54256.2659  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 29376.50 (x10^11) 
+FLUXCAL_ERRTOT: 998.80 (x10^11) 
+MAG: 16.330  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 177 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 178 
+MJD: 54256.2689  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 15219.49 (x10^11) 
+FLUXCAL_ERRTOT: 517.46 (x10^11) 
+MAG: 17.044  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 178 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 179 
+MJD: 54259.2666  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 19195.53 (x10^11) 
+FLUXCAL_ERRTOT: 556.67 (x10^11) 
+MAG: 16.792  
+MAG_ERRPLUS: 0.029  
+MAG_ERRMINUS: 0.029  
+END_OF_EPOCH: 179 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 180 
+MJD: 54259.2689  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 25894.05 (x10^11) 
+FLUXCAL_ERRTOT: 569.67 (x10^11) 
+MAG: 16.467  
+MAG_ERRPLUS: 0.022  
+MAG_ERRMINUS: 0.022  
+END_OF_EPOCH: 180 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 181 
+MJD: 54259.2712  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 26570.52 (x10^11) 
+FLUXCAL_ERRTOT: 929.97 (x10^11) 
+MAG: 16.439  
+MAG_ERRPLUS: 0.035  
+MAG_ERRMINUS: 0.035  
+END_OF_EPOCH: 181 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 182 
+MJD: 54259.2742  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 15038.34 (x10^11) 
+FLUXCAL_ERRTOT: 541.38 (x10^11) 
+MAG: 17.057  
+MAG_ERRPLUS: 0.036  
+MAG_ERRMINUS: 0.036  
+END_OF_EPOCH: 182 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 183 
+MJD: 54260.3107  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 19177.85 (x10^11) 
+FLUXCAL_ERRTOT: 536.98 (x10^11) 
+MAG: 16.793  
+MAG_ERRPLUS: 0.028  
+MAG_ERRMINUS: 0.028  
+END_OF_EPOCH: 183 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 184 
+MJD: 54260.3130  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 24911.51 (x10^11) 
+FLUXCAL_ERRTOT: 622.79 (x10^11) 
+MAG: 16.509  
+MAG_ERRPLUS: 0.025  
+MAG_ERRMINUS: 0.025  
+END_OF_EPOCH: 184 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 185 
+MJD: 54260.3153  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 26791.68 (x10^11) 
+FLUXCAL_ERRTOT: 857.33 (x10^11) 
+MAG: 16.430  
+MAG_ERRPLUS: 0.032  
+MAG_ERRMINUS: 0.032  
+END_OF_EPOCH: 185 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 186 
+MJD: 54260.3183  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 14242.95 (x10^11) 
+FLUXCAL_ERRTOT: 512.75 (x10^11) 
+MAG: 17.116  
+MAG_ERRPLUS: 0.036  
+MAG_ERRMINUS: 0.036  
+END_OF_EPOCH: 186 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 187 
+MJD: 54265.2837  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 16474.04 (x10^11) 
+FLUXCAL_ERRTOT: 444.80 (x10^11) 
+MAG: 16.958  
+MAG_ERRPLUS: 0.027  
+MAG_ERRMINUS: 0.027  
+END_OF_EPOCH: 187 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 188 
+MJD: 54265.2861  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 21183.61 (x10^11) 
+FLUXCAL_ERRTOT: 508.41 (x10^11) 
+MAG: 16.685  
+MAG_ERRPLUS: 0.024  
+MAG_ERRMINUS: 0.024  
+END_OF_EPOCH: 188 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 189 
+MJD: 54265.2884  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 24277.28 (x10^11) 
+FLUXCAL_ERRTOT: 752.60 (x10^11) 
+MAG: 16.537  
+MAG_ERRPLUS: 0.031  
+MAG_ERRMINUS: 0.031  
+END_OF_EPOCH: 189 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 190 
+MJD: 54265.2914  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 13778.44 (x10^11) 
+FLUXCAL_ERRTOT: 496.02 (x10^11) 
+MAG: 17.152  
+MAG_ERRPLUS: 0.036  
+MAG_ERRMINUS: 0.036  
+END_OF_EPOCH: 190 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 191 
+MJD: 54266.2631  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 15878.15 (x10^11) 
+FLUXCAL_ERRTOT: 460.47 (x10^11) 
+MAG: 16.998  
+MAG_ERRPLUS: 0.029  
+MAG_ERRMINUS: 0.029  
+END_OF_EPOCH: 191 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 192 
+MJD: 54266.2654  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 20892.96 (x10^11) 
+FLUXCAL_ERRTOT: 543.22 (x10^11) 
+MAG: 16.700  
+MAG_ERRPLUS: 0.026  
+MAG_ERRMINUS: 0.026  
+END_OF_EPOCH: 192 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 193 
+MJD: 54266.2677  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 23356.08 (x10^11) 
+FLUXCAL_ERRTOT: 794.11 (x10^11) 
+MAG: 16.579  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 193 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 194 
+MJD: 54266.2707  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 13341.36 (x10^11) 
+FLUXCAL_ERRTOT: 653.73 (x10^11) 
+MAG: 17.187  
+MAG_ERRPLUS: 0.049  
+MAG_ERRMINUS: 0.049  
+END_OF_EPOCH: 194 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 195 
+MJD: 54267.2335  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 16039.84 (x10^11) 
+FLUXCAL_ERRTOT: 561.39 (x10^11) 
+MAG: 16.987  
+MAG_ERRPLUS: 0.035  
+MAG_ERRMINUS: 0.035  
+END_OF_EPOCH: 195 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 196 
+MJD: 54267.2358  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 20417.38 (x10^11) 
+FLUXCAL_ERRTOT: 592.10 (x10^11) 
+MAG: 16.725  
+MAG_ERRPLUS: 0.029  
+MAG_ERRMINUS: 0.029  
+END_OF_EPOCH: 196 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 197 
+MJD: 54267.2381  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 23248.77 (x10^11) 
+FLUXCAL_ERRTOT: 929.95 (x10^11) 
+MAG: 16.584  
+MAG_ERRPLUS: 0.040  
+MAG_ERRMINUS: 0.040  
+END_OF_EPOCH: 197 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 198 
+MJD: 54267.2411  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 13452.41 (x10^11) 
+FLUXCAL_ERRTOT: 672.62 (x10^11) 
+MAG: 17.178  
+MAG_ERRPLUS: 0.050  
+MAG_ERRMINUS: 0.050  
+END_OF_EPOCH: 198 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 199 
+MJD: 54272.2186  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 13514.50 (x10^11) 
+FLUXCAL_ERRTOT: 351.38 (x10^11) 
+MAG: 17.173  
+MAG_ERRPLUS: 0.026  
+MAG_ERRMINUS: 0.026  
+END_OF_EPOCH: 199 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 200 
+MJD: 54272.2209  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 17930.81 (x10^11) 
+FLUXCAL_ERRTOT: 609.65 (x10^11) 
+MAG: 16.866  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 200 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 201 
+MJD: 54272.2232  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 20854.51 (x10^11) 
+FLUXCAL_ERRTOT: 709.05 (x10^11) 
+MAG: 16.702  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 201 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 202 
+MJD: 54272.2262  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 12542.96 (x10^11) 
+FLUXCAL_ERRTOT: 614.60 (x10^11) 
+MAG: 17.254  
+MAG_ERRPLUS: 0.049  
+MAG_ERRMINUS: 0.049  
+END_OF_EPOCH: 202 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 203 
+MJD: 54273.2259  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 13353.65 (x10^11) 
+FLUXCAL_ERRTOT: 373.90 (x10^11) 
+MAG: 17.186  
+MAG_ERRPLUS: 0.028  
+MAG_ERRMINUS: 0.028  
+END_OF_EPOCH: 203 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 204 
+MJD: 54273.2282  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 17155.37 (x10^11) 
+FLUXCAL_ERRTOT: 583.28 (x10^11) 
+MAG: 16.914  
+MAG_ERRPLUS: 0.034  
+MAG_ERRMINUS: 0.034  
+END_OF_EPOCH: 204 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 205 
+MJD: 54273.2305  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 19879.25 (x10^11) 
+FLUXCAL_ERRTOT: 695.77 (x10^11) 
+MAG: 16.754  
+MAG_ERRPLUS: 0.035  
+MAG_ERRMINUS: 0.035  
+END_OF_EPOCH: 205 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 206 
+MJD: 54273.2336  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 12846.95 (x10^11) 
+FLUXCAL_ERRTOT: 539.57 (x10^11) 
+MAG: 17.228  
+MAG_ERRPLUS: 0.042  
+MAG_ERRMINUS: 0.042  
+END_OF_EPOCH: 206 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 207 
+MJD: 54276.2468  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 19444.64 (x10^11) 
+FLUXCAL_ERRTOT: 1030.57 (x10^11) 
+MAG: 16.778  
+MAG_ERRPLUS: 0.053  
+MAG_ERRMINUS: 0.053  
+END_OF_EPOCH: 207 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 208 
+MJD: 54276.2499  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 11673.47 (x10^11) 
+FLUXCAL_ERRTOT: 980.57 (x10^11) 
+MAG: 17.332  
+MAG_ERRPLUS: 0.084  
+MAG_ERRMINUS: 0.084  
+END_OF_EPOCH: 208 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 209 
+MJD: 54278.2079  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 14955.47 (x10^11) 
+FLUXCAL_ERRTOT: 538.40 (x10^11) 
+MAG: 17.063  
+MAG_ERRPLUS: 0.036  
+MAG_ERRMINUS: 0.036  
+END_OF_EPOCH: 209 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 210 
+MJD: 54278.2103  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 18230.56 (x10^11) 
+FLUXCAL_ERRTOT: 1476.68 (x10^11) 
+MAG: 16.848  
+MAG_ERRPLUS: 0.081  
+MAG_ERRMINUS: 0.081  
+END_OF_EPOCH: 210 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 211 
+MJD: 54278.2591  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 11694.99 (x10^11) 
+FLUXCAL_ERRTOT: 514.58 (x10^11) 
+MAG: 17.330  
+MAG_ERRPLUS: 0.044  
+MAG_ERRMINUS: 0.044  
+END_OF_EPOCH: 211 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 212 
+MJD: 54278.2614  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 14927.94 (x10^11) 
+FLUXCAL_ERRTOT: 552.33 (x10^11) 
+MAG: 17.065  
+MAG_ERRPLUS: 0.037  
+MAG_ERRMINUS: 0.037  
+END_OF_EPOCH: 212 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 213 
+MJD: 54281.1830  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 10139.11 (x10^11) 
+FLUXCAL_ERRTOT: 415.70 (x10^11) 
+MAG: 17.485  
+MAG_ERRPLUS: 0.041  
+MAG_ERRMINUS: 0.041  
+END_OF_EPOCH: 213 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 214 
+MJD: 54281.1876  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 16795.77 (x10^11) 
+FLUXCAL_ERRTOT: 739.01 (x10^11) 
+MAG: 16.937  
+MAG_ERRPLUS: 0.044  
+MAG_ERRMINUS: 0.044  
+END_OF_EPOCH: 214 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 215 
+MJD: 54281.1906  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 11566.45 (x10^11) 
+FLUXCAL_ERRTOT: 1145.08 (x10^11) 
+MAG: 17.342  
+MAG_ERRPLUS: 0.099  
+MAG_ERRMINUS: 0.099  
+END_OF_EPOCH: 215 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 216 
+MJD: 54285.1732  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 9532.35 (x10^11) 
+FLUXCAL_ERRTOT: 419.42 (x10^11) 
+MAG: 17.552  
+MAG_ERRPLUS: 0.044  
+MAG_ERRMINUS: 0.044  
+END_OF_EPOCH: 216 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 217 
+MJD: 54285.1756  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 12257.45 (x10^11) 
+FLUXCAL_ERRTOT: 478.04 (x10^11) 
+MAG: 17.279  
+MAG_ERRPLUS: 0.039  
+MAG_ERRMINUS: 0.039  
+END_OF_EPOCH: 217 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 218 
+MJD: 54285.1779  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 15645.88 (x10^11) 
+FLUXCAL_ERRTOT: 719.71 (x10^11) 
+MAG: 17.014  
+MAG_ERRPLUS: 0.046  
+MAG_ERRMINUS: 0.046  
+END_OF_EPOCH: 218 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 219 
+MJD: 54285.1809  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 10375.28 (x10^11) 
+FLUXCAL_ERRTOT: 861.15 (x10^11) 
+MAG: 17.460  
+MAG_ERRPLUS: 0.083  
+MAG_ERRMINUS: 0.083  
+END_OF_EPOCH: 219 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 220 
+MJD: 54290.1445  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 8363.73 (x10^11) 
+FLUXCAL_ERRTOT: 468.37 (x10^11) 
+MAG: 17.694  
+MAG_ERRPLUS: 0.056  
+MAG_ERRMINUS: 0.056  
+END_OF_EPOCH: 220 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 221 
+MJD: 54290.1491  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 14073.43 (x10^11) 
+FLUXCAL_ERRTOT: 759.97 (x10^11) 
+MAG: 17.129  
+MAG_ERRPLUS: 0.054  
+MAG_ERRMINUS: 0.054  
+END_OF_EPOCH: 221 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 222 
+MJD: 54292.2308  
+TELESCOPE: WHIPPLE  
+BAND: i 
+FLUXCAL: 8233.79 (x10^11) 
+FLUXCAL_ERRTOT: 370.52 (x10^11) 
+MAG: 17.711  
+MAG_ERRPLUS: 0.045  
+MAG_ERRMINUS: 0.045  
+END_OF_EPOCH: 222 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 223 
+MJD: 54292.2332  
+TELESCOPE: WHIPPLE  
+BAND: r 
+FLUXCAL: 10129.78 (x10^11) 
+FLUXCAL_ERRTOT: 405.19 (x10^11) 
+MAG: 17.486  
+MAG_ERRPLUS: 0.040  
+MAG_ERRMINUS: 0.040  
+END_OF_EPOCH: 223 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 224 
+MJD: 54292.2355  
+TELESCOPE: WHIPPLE  
+BAND: V 
+FLUXCAL: 13880.34 (x10^11) 
+FLUXCAL_ERRTOT: 902.22 (x10^11) 
+MAG: 17.144  
+MAG_ERRPLUS: 0.065  
+MAG_ERRMINUS: 0.065  
+END_OF_EPOCH: 224 
+
+ 
+# ----------------------------------------------- 
+EPOCH: 225 
+MJD: 54292.2385  
+TELESCOPE: WHIPPLE  
+BAND: B 
+FLUXCAL: 9453.66 (x10^11) 
+FLUXCAL_ERRTOT: 548.31 (x10^11) 
+MAG: 17.561  
+MAG_ERRPLUS: 0.058  
+MAG_ERRMINUS: 0.058  
+END_OF_EPOCH: 225 
+
+ 
+END_OF_SN: 0 
+

@@ -53,3 +53,6 @@ From DR12 via astroquery 0.3.4, by hand on SkyServer DR13, and Gupta 2011 redshi
     * This is the data released in Campbell 2013. It is the cosmological data
     for the spectroscopic and photometrically classified SN Ia from SDSS.
     * It is originally available at http://www.icg.port.ac.uk/stable/campbelh/SDSS_Photometric_SNe_Ia.fits
+* ``lc/``
+    * Raw light curves
+    * & light curves in the form needed by ``sncosmo`` and will be analyses by  ``get_salt_values.py``
