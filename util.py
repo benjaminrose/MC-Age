@@ -62,6 +62,8 @@ def combine_ages(dataset):
         # files = glob.glob('resources/SN????*_chain.tsv')
         # will be 4 or more numbers and dataset name
         files = glob.glob('resources/SN????*_campbellG_chain.tsv')
+    elif dataset == 'riess':
+        files = glob.glob('resources/SN*_riess_chain.tsv')
     else:
         raise ValueError
     print("Collecting {} ages for the {} stellar populations".format(
@@ -217,4 +219,5 @@ if __name__ == '__main__':
     # plt.savefig('del.pdf')
 
     # combine_ages('messier')
-    combine_ages('campbellG')
+    # combine_ages('campbellG')
+    combine_ages('riess')
