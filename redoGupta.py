@@ -148,7 +148,7 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
     logger = logging.getLogger("fsps-age.redoGupta.redoGupta")
 
     # Import data file
-    if dataset in ['gupta', 'messier', 'circle', 'campbell', 'campbellG', 'riess', 'riess_local']:
+    if dataset in ['gupta', 'messier', 'circle', 'campbell', 'campbellG', 'riess', 'riessL']:
         if dataset == 'gupta':
             logger.info('importing GlobalPhotometry-Gupta.tsv')
             data = pd.read_csv('data/GlobalPhotometry-Gupta.tsv',
