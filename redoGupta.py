@@ -137,7 +137,7 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
         does not save resulting chain. Should take around ~12 mins to get a 
         value of one SN.
 
-    dataset : str, ['gupta', 'messier', 'circle', 'campbell', 'campbellG', 'riess']
+    dataset : str, ['gupta', 'messier', 'circle', 'campbell', 'campbellG', 'riess', 'riessL']
         flag to switch between two "calibration" methods: redoing
         Gupta's analysis (with `'gupta'`), looking at about ~10 local
         galaxies and making sure spirals are younger then ellipticals
@@ -148,7 +148,7 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
     logger = logging.getLogger("fsps-age.redoGupta.redoGupta")
 
     # Import data file
-    if dataset in ['gupta', 'messier', 'circle', 'campbell', 'campbellG', 'riess']:
+    if dataset in ['gupta', 'messier', 'circle', 'campbell', 'campbellG', 'riess', 'riess_local']:
         if dataset == 'gupta':
             logger.info('importing GlobalPhotometry-Gupta.tsv')
             data = pd.read_csv('data/GlobalPhotometry-Gupta.tsv',
@@ -169,6 +169,10 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
         elif dataset == 'riess':
             logger.info('importing Riess2016_calibrators.tsv')
             data = pd.read_csv('data/Riess2016_calibrators.tsv',
+                               delimiter='\t')
+        elif dataset == 'riessL':
+            logger.info('importing Riess2016_calibrators.tsv')
+            data = pd.read_csv('data/Riess2016_calibrators_local.tsv',
                                delimiter='\t')
         else:
             # default to circle test

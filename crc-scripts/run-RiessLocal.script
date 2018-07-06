@@ -1,0 +1,15 @@
+#!/bin/csh
+#$ -M brose3@nd.edu  # email for notifications
+#$ -m abe            # send mail when begins, ends and aborts
+#$ -N Riess-Local-07-06         # specific job name
+#$ -q long           # debug or long queue
+#$ -r y              # or n Tell SGE if your job is "re-runnable"
+#$ -t 1-14:1       # set up job array for 14 hosts
+
+module unload gcc
+module load python/3.6.4   #need 3.5 to work with FSPS's Fortran, but now updated
+
+fsync -d 300 $SGE_STDOUT_PATH &  ## Save to output every 300 seconds
+
+cd ..    # get to the correct logging file folder
+python3 /afs/crc.nd.edu/user/b/brose3/Private/SNIa-Local-Environments/fspsage.py run riessL ${SGE_TASK_ID} 14

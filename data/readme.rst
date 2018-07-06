@@ -49,6 +49,7 @@ From DR12 via astroquery 0.3.4, by hand on SkyServer DR13, and Gupta 2011 redshi
     * Same as ``Riess2016_calibrators.tsv`` but for 1.5kpc radii apertures around the location of their SN.
 * ``Riess2016_formass.csv``
     * same as ``Riess2016_calibrators.tsv`` but saved as a csv rather than tsv.
+    * except that these "redshifts" are derived from the median NED cephiad distance and assuming a H_0 = 73.8  km/s/Mpc as fit by Campbell 2013 and used throughout this paper.
 * ``SDSS_Photometric_SNe_Ia.fits``
     * This is the data released in Campbell 2013. It is the cosmological data
     for the spectroscopic and photometrically classified SN Ia from SDSS.
