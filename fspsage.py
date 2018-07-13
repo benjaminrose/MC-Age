@@ -163,9 +163,6 @@ def redoGupta(cli):
     """
     import redoGupta
 
-    if not cli['DATASET'] in ['gupta', 'messier', 'circle', 'campbell', 'campbellG', 'riess', 'riessL']:
-        raise ValueError("Please use '--help' option for details on DATASET")
-    
     redoGupta.redoGupta(int(cli['JOBID']), int(cli['JOBLENGTH']),
                         cli['--debug'], cli['DATASET'])
 

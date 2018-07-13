@@ -148,37 +148,45 @@ def redoGupta(jobID, lenJobs=50, debug=False, dataset='circle'):
     logger = logging.getLogger("fsps-age.redoGupta.redoGupta")
 
     # Import data file
-    if dataset in ['gupta', 'messier', 'circle', 'campbell', 'campbellG', 'riess', 'riessL']:
-        if dataset == 'gupta':
-            logger.info('importing GlobalPhotometry-Gupta.tsv')
-            data = pd.read_csv('data/GlobalPhotometry-Gupta.tsv',
-                                delimiter='\t', skiprows=[0,1,2,4],
-                                skipinitialspace=True, na_values='...',
-                                index_col=False)
-        elif dataset == "messier":
-            # these galaxies are more "known' then gupta, at least by type
-            logger.info('importing galaxyPhotometry.tsv')
-            data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t')
-        elif dataset == 'campbell':
-            logger.info('importing CampbellHoltzman.tsv')
-            data = pd.read_csv('data/CampbellHoltzman.tsv', delimiter='\t')
-        elif dataset == 'campbellG':
-            logger.info('importing CampbellHoltzman_global.tsv')
-            data = pd.read_csv('data/CampbellHoltzman_global.tsv',
-                               delimiter='\t')
-        elif dataset == 'riess':
-            logger.info('importing Riess2016_calibrators.tsv')
-            data = pd.read_csv('data/Riess2016_calibrators.tsv',
-                               delimiter='\t')
-        elif dataset == 'riessL':
-            logger.info('importing Riess2016_calibrators.tsv')
-            data = pd.read_csv('data/Riess2016_calibrators_local.tsv',
-                               delimiter='\t')
-        else:
-            # default to circle test
-            logger.info('importing circlePhotometry.tsv')
-            data = pd.read_csv('data/circlePhotometry.tsv', delimiter='\t')
+    if dataset == 'gupta':
+        logger.info('importing GlobalPhotometry-Gupta.tsv')
+        data = pd.read_csv('data/GlobalPhotometry-Gupta.tsv',
+                            delimiter='\t', skiprows=[0,1,2,4],
+                            skipinitialspace=True, na_values='...',
+                            index_col=False)
+    elif dataset == 'guptaShort':
+        logger.info('importing GlobalPhotometry-Gupta.tsv')
+        data = pd.read_csv('data/Gupta_global_short.tsv',
+                            delimiter='\t', skiprows=[0,1,2,4],
+                            skipinitialspace=True, na_values='...',
+                            index_col=False)
+    elif dataset == "messier":
+        # these galaxies are more "known' then gupta, at least by type
+        logger.info('importing galaxyPhotometry.tsv')
+        data = pd.read_csv('data/galaxyPhotometry.tsv', delimiter='\t')
+    elif dataset == 'campbell':
+        logger.info('importing CampbellHoltzman.tsv')
+        data = pd.read_csv('data/CampbellHoltzman.tsv', delimiter='\t')
+    elif dataset == 'campbellG':
+        logger.info('importing CampbellHoltzman_global.tsv')
+        data = pd.read_csv('data/CampbellHoltzman_global.tsv',
+                           delimiter='\t')
+    elif dataset == 'riess':
+        logger.info('importing Riess2016_calibrators.tsv')
+        data = pd.read_csv('data/Riess2016_calibrators.tsv',
+                           delimiter='\t')
+    elif dataset == 'riessL':
+        logger.info('importing Riess2016_calibrators.tsv')
+        data = pd.read_csv('data/Riess2016_calibrators_local.tsv',
+                           delimiter='\t')
+    elif dataset == 'circle':
+        logger.info('importing circlePhotometry.tsv')
+        data = pd.read_csv('data/circlePhotometry.tsv', delimiter='\t')
+    elif dataset == 'elliptical':
+        logger.info('importing ellipt_burst_global.tsv')
+        data = pd.read_csv('data/ellipt_burst_global.tsv', delimiter='\t')
     else:
+        #this is now the only error checking for this. This use to be one of several.
         raise ValueError("Invalid dataset argument")
     
     #cut down dataset

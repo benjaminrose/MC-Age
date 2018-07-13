@@ -57,3 +57,8 @@ From DR12 via astroquery 0.3.4, by hand on SkyServer DR13, and Gupta 2011 redshi
 * ``lc/``
     * Raw light curves
     * & light curves in the form needed by ``sncosmo`` and will be analyses by  ``get_salt_values.py``
+* ``ellipt_burst_global.tsv``
+    * IC 219  host of SN 2005dm   (elliptical
+    * NGC 524  host of SN 2000cx  (elliptical)
+    * Arp 299 (starburst) host of many CC SN (local is 2010P)
+    * M82 (NGC 3034)  (starburst) host of SN 2014J
