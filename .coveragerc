@@ -1,6 +1,6 @@
 # setting for Codecov.io
 [run]
-omit = test*
+omit = test*, script*
 branch = True
 source = ./
 

@@ -4,6 +4,12 @@ import fsps
 
 import util
 
+# slow = pytest.mark.skipif(False, reason="Runs too long for quick tests.")
+slow = pytest.mark.skipif(
+    not pytest.config.getoption("--runslow"),
+    reason="need --runslow option to run"
+)
+
 class TestSP():
     def test_get_sp(self):
         """
@@ -18,6 +24,7 @@ class TestSP():
 
     # def metals_dust_effects_magnitudes(self):
 
+    @slow
     def test_dust_effects_magnitudes(self):
         """
         Varying the dust parameters, like what the MCMC does, should

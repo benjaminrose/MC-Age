@@ -12,10 +12,18 @@ class TestRedoGupta():
     analyses for days! Here are a few tests that I can do.
     """
     def testBadDataSet(self):
-        """Test failure with several invalid data set names"""
+        """Test failure with several invalid data set/path names"""
         with pytest.raises(ValueError, match=r'Invalid dataset'):
             redoGupta.redoGupta(1, dataset='test')
         with pytest.raises(ValueError, match=r'Invalid dataset'):
             redoGupta.redoGupta(1, dataset='bad')
         with pytest.raises(ValueError, match=r'Invalid dataset'):
             redoGupta.redoGupta(1, dataset='one more once')
+
+        # use these tests if can start to use arbitrary file names
+        # with pytest.raises(FileNotFoundError, match=r'test'):
+        #     redoGupta.redoGupta(1, dataset='test')
+        # with pytest.raises(FileNotFoundError, match=r'bad'):
+        #     redoGupta.redoGupta(1, dataset='bad')
+        # with pytest.raises(FileNotFoundError, match=r'more'):
+        #     redoGupta.redoGupta(1, dataset='one more once')
