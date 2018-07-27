@@ -22,6 +22,11 @@ data/SDSS\ -\ coadded/
 data/SDSS\ -\ spectra/
 ## results of Holtzman 2008
 data/SMP-photometry/
+## out of data raw data storage method. Kept in local directory for referance for when part of the code breaks when it was not updated to the new organizational sysetm
+data/oldruns/
+## dust maps. This should be create at instalation and not version controled.
+sfddata-master/*
+
 
 # Should be in git-lfs but they are too big for free storage on Github
 
