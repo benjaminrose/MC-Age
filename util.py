@@ -7,12 +7,10 @@
 * 2017-11-24
 * Python 3.5
 """
-
-import glob
-import re
-
 import numpy as np
-from astropy.table import Table
+import pandas as pd
+from sfdmap import SFDMap   # needs FITS dust maps installed
+from extinction import fitzpatrick99
 
 # ignore fsps on Read The Docs
 try:
@@ -21,97 +19,8 @@ try:
 except KeyError:
     import fsps
 
-def combine_ages(dataset):
-    """combines the ages into one file
-
-    Parameters
-    ----------
-    dataset :
-        Selects a dataset to combine. Works with 'gupta', 'messier',
-        'circle', or 'campbell'.
-
-    Raise
-    -----
-    ValueError
-        Raised if and invalid `dataset` is used.
-    """
-
-    # import & calculate median (& +/- intervals)
-    if dataset == 'gupta':
-        # find files with 4 or more characters after 'SN'
-        # files = glob.glob('resources/SN????*_chain.tsv')
-        # will be 4 or more numbers and dataset name
-        files = glob.glob('resources/SN????*_gupta_chain.tsv')
-    elif dataset == 'messier':
-        # find files with 2 and 3 digits after 'SN'
-        # files1 = glob.glob('resources/SN'+'[0-9]'*2+'_chain.tsv')
-        # files2 = glob.glob('resources/SN'+'[0-9]'*3+'_chain.tsv')
-        # files = files1 + files2  # Yeah python list concatenation!!
-        # will be anything and dataset name
-        files = glob.glob('resources/SN*_messier_chain.tsv')
-    elif dataset == 'circle':
-        # find files with 1 digits after 'SN'
-        files = glob.glob('resources/SN[0-9]_chain.tsv')
-        # will be 1 number and dataset name
-        # files = glob.glob('resources/SN[0-9]_circle_chain.tsv')
-    elif dataset == 'campbell':
-        # files = glob.glob('resources/SN????*_chain.tsv')
-        # will be 4 or more numbers and dataset name
-        files = glob.glob('resources/SN????*_campbell_chain.tsv')
-    elif dataset == 'campbellG':
-        # files = glob.glob('resources/SN????*_chain.tsv')
-        # will be 4 or more numbers and dataset name
-        files = glob.glob('resources/SN????*_campbellG_chain.tsv')
-    elif dataset == 'riess':
-        files = glob.glob('resources/SN*_riess_chain.tsv')
-    else:
-        raise ValueError
-    print("Collecting {} ages for the {} stellar populations".format(
-           len(files), dataset))
-
-    ages = np.array([])
-
-    for f in files:
-        print('reading {}'.format(f))
-        #this is very slow
-        data = Table.read(f, format='ascii.csv', delimiter='\t',
-                      data_start=2)
-        data = data.to_pandas()
-        data.dropna(inplace=True)
-        # calculate data an append it to ages variable
-        # Is there was a way that does not calculate `len` each time?
-        if len(ages) == 0:
-            ages = np.array([median(data['age'])])
-        else:
-            ages = np.vstack((ages, np.array([median(data['age'])])))
-   
-
-    # get SN ID's
-    # Don't get 'SN' because that will force it to be a string and mess up `to_save`
-    print('getting SN IDs')
-    p = re.compile(r'\d+')
-    # add a holding value so I can append to
-    names = np.array([1])
-    for i in files:
-        # save as float so `to_save` works
-        names = np.append(names, float(p.findall(i)[0]))
-    # remove holding value
-    names = names[1:]
-    # "reshape" so np.hstack works
-    names = names.reshape(len(names), 1)
-
-    # save names and ages to one variable
-    to_save = np.hstack((names, ages))
-
-    # Save data
-    print('saving data')
-    header = 'sn id\tage\tlower limit\tupper limit\n\tGyr\tGyr\tGyr'
-    with open('resources/ages_{}.tsv'.format(dataset), 'wb') as f:
-        np.savetxt(f, to_save, delimiter='\t', header=header)
-
 def median(data, interval=34):
-    """calculates the median of a 1D array and ``interval`` size quartile
-    uncertainties.
+    """Calculate the median and ``interval`` size quartile uncertainties.
 
     Parameters
     ----------
@@ -125,10 +34,11 @@ def median(data, interval=34):
     -------
     numpy.nparray
         Three values: median, upper and lower uncertainties.
+
     """
     low = 50 - interval     # 16 by default
     high = 50 + interval    # 84 by default
-    
+ 
     # map(
     #     lambda v: (v[1], v[2]-v[1], v[1]-v[0]),
     #     zip(*np.percentile(samples, [16, 50, 84], axis=0))
@@ -140,7 +50,9 @@ def median(data, interval=34):
     return np.array([v[1], v[0], v[2]])
 
 def mode(data, interval=34):
-    """calculates and returns the "mode" of a continuous variable and also returns the interval percentile.
+    """Calculate the "mode" of a continuous variable.
+
+    Also returns the interval percentile.
 
     Parameters
     ----------
@@ -148,18 +60,18 @@ def mode(data, interval=34):
         Needs to be an 1D array.
 
     interval: int
-        The percentile (to one side) you want for range 
+        The percentile (to one side) you want for range
 
     Returns
     -------
     numpy.nparray
         Three values: median, lower value and upper value. Note these are not
         uncertainties but the value of the parameter at these intervals.
+
     """
     low = 50 - interval     # 16 by default
     high = 50 + interval    # 84 by default
-    
-    
+
     hist = np.histogram(data, bins='fd')
     # hist[0] are frequencies
     # hist[1] are the bins
@@ -209,15 +121,58 @@ def get_sp():
     return fsps.StellarPopulation(zcontinuous=2, cloudy_dust=True,
                                   add_neb_emission=True, sfh=5)
 
+def correct_dust(data: pd.DataFrame, inplace: bool = False) -> pd.DataFrame:
+    """Corrects a data set of SED for dust.
 
-if __name__ == '__main__':
-    # data = np.append(np.random.randn(600)*4, (np.random.randn(1000)+7))
-    # data = np.random.randn(1000)
-    # print('mode result: ', mode(data))#, interval=49))
-    # import matplotlib.pyplot as plt
-    # plt.hist(data, bins='auto')
-    # plt.savefig('del.pdf')
+    Estimates the E(B-V) values from Schlegel, Finkbeiner & Davis (1998),
+    but uses the scaling of 0.86 is to reflect the recalibration
+    by Schlafly & Finkbeiner (2011). Also uses Fitzpatrick (1999) dust
+    extinction function, with an R_V = 3.1
 
-    # combine_ages('messier')
-    # combine_ages('campbellG')
-    combine_ages('riess')
+    Note this acts strange if passed part of a data frame. Either use:
+    ``correct_dust(df)`` or ``correct_dust(df.loc[0:2].copy())`` to make
+    sure the a copy/instance is passed rather than a view. **Caveat:** this
+    was discovered and tested before ``inplace`` was set as an option.
+    Using the default of ``inplace=False`` seems to fix this at first glance.
+
+    Parameters
+    ----------
+    data: pandas.DataFrame
+        The data that you want dust corrected. Need headers 'u', 'g',
+        'r', 'i', 'z', 'ra', 'dec'. RA and Dec should be floats in degrees.
+
+    inplace: bool (False)
+        Defaults to making an internal copy of the DataFrame and passing
+        that back. If set to `False` this will operate directly on in
+        the DataFrame.
+
+    Returns
+    -------
+    pandas.DataFrame
+        It returns the same data set, but with the 'u', 'g', 'r', 'i',
+        'z' dust corrected
+
+    """
+    # With out this, we operate directly in the DataFrame.
+    if not inplace:
+        data = data.copy()
+
+    # read from file, not environment variable
+    dust_map = SFDMap('sfddata-master')
+
+    #set up useful numbers
+    SED = np.array([3543, 4770, 6231, 7625, 9134])   # assumes ugriz in AA
+
+    # for each deredden:
+    # https://stackoverflow.com/questions/16476924/how-to-iterate-over-rows-in-a-dataframe-in-pandas#16476974
+    for index, row in data.iterrows():
+        # get E(B-V) at location, difference in extinction between the B and V bands
+        # get RA and Dec and then expand it out to the two needed arguments
+        ebv = dust_map.ebv(*row.loc[['ra', 'dec']])
+
+        # deredden the DataFrame
+        data.loc[index, ['u', 'g', 'r', 'i', 'z']] -= fitzpatrick99(SED, 3.1*ebv)
+
+
+    #return data after deredening
+    return data
