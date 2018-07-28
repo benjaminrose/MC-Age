@@ -41,6 +41,8 @@ try:
 except KeyError:
     import fsps
 
+import util
+
 # Kessler 2009a but flat and 2-sig figs (Gupta 2011, §2.3)
 cosmo = FlatLambdaCDM(H0=70, Om0=0.27)
 # CampbellCosmo = FlatLambdaCDM(H0=73.8, Om0=0.24)
@@ -431,9 +433,7 @@ def calculateSFH(SED, SEDerr, redshift, SNID=None, sp=None, debug=False,
     #set up StellarPopulation if need be
     if sp is None:
         logger.debug('no stellar population argument passed')
-        sp = fsps.StellarPopulation(zcontinuous=2, 
-                  cloudy_dust=True, add_neb_emission = True,
-                  sfh=5)
+        sp = util.get_sp()
         logger.debug('stellar population now created')
 
 
