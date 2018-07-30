@@ -14,10 +14,9 @@ This project uses FSPS, and python-FSPS to estimate the age of a stellar populat
 .. _github: https://github.com/benjaminrose/SNIa-Local-Environments
 
 Science goal
-============
+------------
 
-Check local environment effects on SNIa by looking for correlations between HR and the age of the local environment calculated from SDSS Scene Modeling Photometry
-
+We check local environment effects on SNIa by looking for correlations between Hubble Residual and the mass weighted average age of the local environment calculated from SDSS Scene Modeling Photometry. We also look at correlations between other variables including SALT2 stretch and color, and host galaxy stellar mass.
 
 
 .. include:: ../README.rst
@@ -28,12 +27,17 @@ Check local environment effects on SNIa by looking for correlations between HR a
    :caption: Contents:
 
    .. usage
+   data-files
    consistency-tests
+   script-doc
    API-doc
 
 Indices and tables
 -------------------
 
-* :ref:`search`
 * :ref:`genindex`
 * :ref:`modindex`
+
+Assumptions
+------------
+* This code assumes you are using SDSS *ugriz* SED's. There are several lines of code that would need to be updated if this assumption is changed. Hopefully they are marked with comments.

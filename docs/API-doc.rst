@@ -9,15 +9,18 @@ Usage and Options are available, correctly formated, via
 
 .. automodule:: fspsage
 	:members:
+	:undoc-members:
 
 CalculateAge
 ------------
 
 .. automodule:: calculateAge
     :members:
+    :undoc-members:
 
 Utilities
 ------------
 
 .. automodule:: util
     :members:
+    :undoc-members:
