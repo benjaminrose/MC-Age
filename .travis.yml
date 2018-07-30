@@ -71,7 +71,8 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r test-requirements.txt; fi
 
 # https://docs.travis-ci.com/user/common-build-problems/#build-times-out-because-no-output-was-received
-# It took 10 mins for one long test on my 2016 Macbook with an Intel Core m5, whole test is ~40 mins
-script: travis_wait 40 $MAIN_CMD
+# It took 10 mins for one long test on my 2016 Macbook with an Intel Core m5, whole test is ~40 mins.
+# There are two times when I need to create the stellar population (taking 10 mins each)
+script: travis_wait 60 $MAIN_CMD
 
 after_script: if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then codecov --token=38195770-d996-401c-b093-c245b36046f7; fi
