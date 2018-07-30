@@ -17,9 +17,8 @@ matrix:
         language: ruby
         rvm: 2.3
         env: 
-          - PYVERSION=python3
           # Only run tests, not coverage
-          - MAIN_CMD="pytest -v"
+          - MAIN_CMD="pytest -v --runslow"
       # - os: linux
       #   python: 3.6
       #   env: MAIN_CMD="pylint fspsage.py"
@@ -51,7 +50,7 @@ addons:
 
 # get gfortran, python3 & pystest for mac builds
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc $PYVERSION && pip3 install --upgrade pip && pip3 install pytest; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc && brew upgrade python && pip3 install --upgrade pip && pip3 install pytest; fi
 
 install: 
   #install dust maps
@@ -71,6 +70,8 @@ install:
   # install coverage uploader & pytest plugin to test coverage.
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install -r test-requirements.txt; fi
 
-script: $MAIN_CMD
+# https://docs.travis-ci.com/user/common-build-problems/#build-times-out-because-no-output-was-received
+# It took 10 mins on my 2016 Macbook with an Intel Core m5
+script: travis_wait $MAIN_CMD
 
 after_script: if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then codecov --token=38195770-d996-401c-b093-c245b36046f7; fi
