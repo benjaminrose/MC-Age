@@ -1,18 +1,78 @@
-Raw Data
-========
+Detailed Data Set Comments
+--------------------------
 
-This documents each data set.
+Detailed comments and documentation on each data set file in the ``data/`` folder.
 
-* ``CampellHoltzman.tsv``
-    * This is an original data set that combines information from ``SDSS_Photometric_SNe_Ia.fits``
-    (Campbell) and ``SMP-photometry`` (Holtzman).
-    * It was created via ``Collecting Local SN Data.ipynb``.
+RA & Dec are in degrees. PetroRad_r is in arcsec. Photometry is in magnitudes.
+
+Main Data
+`````````
+
+* ``campbell_local.tsv``
+    * An original data set that combines information from ``SDSS_Photometric_SNe_Ia.fits``
+    (Campbell) and ``SMP-photometry\`` (Holtzman).
+    * Hubble residuals ('hr') use the Malmquist bias corrected distances.
+    * It was created via ``Collecting Local SN Data.ipynb`` with the data cuts in the paper: z < 0.5, simga_mag < 1.5 mag, HR < 0.7 mag.
+    * N = 104
+* ``campbell_global.tsv``
+    * The global photometry of the same hosts as ``campbell_local.tsv``
+    * Retrieval SEDs in the same way as ``gupta_global.tsv``.
+    * N = 104
+* ``campbell_formass.csv``
+    * TODO
+    * a csv version of ``campbell_global.tsv`` 
+    * with ``PetroRad_r`` column removed
+
+Calibration Data
+````````````````
+
+* ``ellipt_burst_global.tsv``
+    * TODO
+    * note really SNID's but rather galaxy number. More details are in the ``notes`` header
+* ``ellipt_burst_local.tsv``
+    * Not needed therefore not there. 
+* ``gupta_global.tsv``
+    * The objects analyzed in Gupta 2011 but with the same quality cuts I performed on the Campbell/Holtzmann data set.
+    * This is the global photometry for the host galaxies of many SDSS-II SN. From DR12 via astroquery 0.3.4, by hand on SkyServer DR13, and Gupta 2011 redshift if none was found before
+    * N = 77
+* ``Gupta11_table2.???``
+    * TODO
+
+``self_consistancey.tsv``
+    * no need for RA and Dec in this file. Code skips dust correction for this data set.
+
+H_0 analysis
+`````````````
+
+``riess_local.tsv``
+``riess_global.tsv``
+``riess_formass.csv``
+
+Others
+``````
+
+* Table 7
+* Table 8
+* Table 9
+
+Folders
+```````
+* ``calibration_sample_lc/``
+    * Raw light curves
+    * & light curves in the form needed by ``sncosmo`` and will be analyses by  ``get_salt_values.py``
+* ``oldruns/``
+    * original version of data folder. Used for much of the development. Was removed on 2018-07-27 for this current system.
+* ``SDSS - coadded``, ``SDSS - spectra``
+    * Not used and are self evident
+* ``SMP-photometry``
+    * "raw" data for from Holtzman scene modeling.
+
+
+-------
+
 * ``CampbellHoltzman_formass.csv``
     * This file was used as part of the inputs to ``kcorrect``. 
     * is a subset of ``CampellHoltzman_global.tsv``
-* ``CampellHoltzman_mb.tsv``
-    * This is similar to ``CampellHoltzman.tsv`` but uses Malmquist bias corrected
-    distances. No trend with HR is found using this data.
     * It was created via an older copy of ``Collecting Local SN Data.ipynb``.
 * ``CampellHoltzman_global.tsv``
 	* The global photometry of the same hosts as ``CampellHoltzman.tsv``
