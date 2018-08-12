@@ -166,9 +166,13 @@ def correct_dust(data: pd.DataFrame, inplace: bool = False) -> pd.DataFrame:
     # for each deredden:
     # https://stackoverflow.com/questions/16476924/how-to-iterate-over-rows-in-a-dataframe-in-pandas#16476974
     for index, row in data.iterrows():
+        # make sure these are floats. Could have done this on import but what ever.
+        ra, dec = row.loc[['ra', 'dec']]
+        ra = float(ra)
+        dec = float(dec)
         # get E(B-V) at location, difference in extinction between the B and V bands
         # get RA and Dec and then expand it out to the two needed arguments
-        ebv = dust_map.ebv(*row.loc[['ra', 'dec']])
+        ebv = dust_map.ebv(ra, dec)
 
         # deredden the DataFrame
         data.loc[index, ['u', 'g', 'r', 'i', 'z']] -= fitzpatrick99(SED, 3.1*ebv)
