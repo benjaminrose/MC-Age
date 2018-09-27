@@ -25,7 +25,7 @@ def combine_ages(dataset: str) -> None:
     dataset :
         Selects a dataset to combine. Works with ``'gupta'``, ``'messier'``,
         ``'circle'``, ``'campbell'``, ``'campbellG'``, ``'riess'``, or
-        ``'riessL'``,
+        ``'riessG'``,
 
     Raises
     ------
@@ -38,35 +38,41 @@ def combine_ages(dataset: str) -> None:
         # find files with 4 or more characters after 'SN'
         # files = glob.glob('../resources/SN????*_chain.tsv')
         # will be 4 or more numbers and dataset name
-        files = glob.glob('../resources/SN????*_gupta_chain.tsv')
-    elif dataset == 'messier':
+        files = glob.glob('resources/SN*_gupta_chain.tsv')
+    # elif dataset == 'messier':
         # find files with 2 and 3 digits after 'SN'
         # files1 = glob.glob('../resources/SN'+'[0-9]'*2+'_chain.tsv')
         # files2 = glob.glob('../resources/SN'+'[0-9]'*3+'_chain.tsv')
         # files = files1 + files2  # Yeah python list concatenation!!
         # will be anything and dataset name
-        files = glob.glob('../resources/SN*_messier_chain.tsv')
+        # files = glob.glob('resources/SN*_messier_chain.tsv')
     elif dataset == 'circle':
         # find files with 1 digits after 'SN'
-        files = glob.glob('../resources/SN[0-9]_chain.tsv')
+        files = glob.glob('resources/SN[0-9]_chain.tsv')
         # will be 1 number and dataset name
         # files = glob.glob('../resources/SN[0-9]_circle_chain.tsv')
     elif dataset == 'campbell':
         # files = glob.glob('../resources/SN????*_chain.tsv')
         # will be 4 or more numbers and dataset name
-        files = glob.glob('../resources/SN????*_campbell_chain.tsv')
+        # TODO: missing SN762
+        files = glob.glob('resources/SN*_campbell_chain.tsv')
     elif dataset == 'campbellG':
         # files = glob.glob('../resources/SN????*_chain.tsv')
         # will be 4 or more numbers and dataset name
-        files = glob.glob('../resources/SN????*_campbellG_chain.tsv')
+        files = glob.glob('resources/SN*_campbellG_chain.tsv')
     elif dataset == 'riess':
         # The H-0 calibration sample global age
-        files = glob.glob('../resources/SN*_riess_chain.tsv')
-    elif dataset == 'riessL':
+        files = glob.glob('resources/SN*_riess_chain.tsv')
+    elif dataset == 'riessG':
         # The H-0 calibration sample age at the location of SN
-        files = glob.glob('../resources/SN*_riessL_chain.tsv')
+        files = glob.glob('resources/SN*_riessG_chain.tsv')
+    elif dataset == 'test':
+        files = glob.glob('resources/SN*_test_chain.tsv')
+    elif dataset == 'elliptical':
+        files = glob.glob('resources/SN*_elliptical_chain.tsv')
     else:
         raise ValueError
+    
     print("Collecting {} ages for the {} stellar populations".format(
           len(files), dataset))
 
@@ -107,9 +113,12 @@ def combine_ages(dataset: str) -> None:
     # Save data
     print('saving data')
     header = 'sn id\tage\tlower limit\tupper limit\n\tGyr\tGyr\tGyr'
-    with open('../resources/ages_{}.tsv'.format(dataset), 'wb') as f:
+    with open('resources/ages_{}.tsv'.format(dataset), 'wb') as f:
         np.savetxt(f, to_save, delimiter='\t', header=header)
 
 
 if __name__ == '__main__':
-    combine_ages('riessL')
+    #'circle', 'gupta', 'campbell', 'campbellG', 
+    #'riess', 'riessG', 'elliptical', or 'test'
+    combine_ages('riessG')
+    # riess and riessL
