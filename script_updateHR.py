@@ -8,7 +8,7 @@ import pandas as pd
 
 # get x1
 t = Table.read('data/SDSS_Photometric_SNe_Ia.fits')
-salt = t['CID','X1'].to_pandas()
+salt = t['CID', 'X1'].to_pandas()
 salt.columns = salt.columns.str.lower()
 salt.rename(columns={'cid': 'SNID'}, inplace=True)
 salt.set_index('SNID', inplace=True)
@@ -16,8 +16,8 @@ salt.set_index('SNID', inplace=True)
 # get campbell_local.tsv
 data_local = pd.read_csv('data/campbell_local.tsv', sep='\t', index_col='SNID')
 data_local.rename(columns={'err_mu': 'hr uncert'}, inplace=True)
-data_local = data_local[data_local['redshift']<0.2]  
-data_local = data_local[data_local['hr']<0.7]
+data_local = data_local[data_local['redshift'] < 0.2]
+data_local = data_local[data_local['hr'] < 0.7]
 print(f'Original file contains {len(data_local)} lines.')
 
 # concat is a simple way to cut salt down to the same objects as the subset of data_local
@@ -26,7 +26,7 @@ data.dropna(inplace=True)
 print(f'Combined, there is {len(data_local)} lines of data/SALT values.')
 
 ###################
-DELTA_X1 = 0.22-0.16   #convert from 0.22 (photo) to 0.16 (spec)
+DELTA_X1 = 0.22-0.16   # convert from 0.22 (photo) to 0.16 (spec)
 
 # test to make sure things are not already changed
 # SN762 has a malquest bias corrected HR of 0.15382541217564238
