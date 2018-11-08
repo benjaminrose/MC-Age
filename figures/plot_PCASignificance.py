@@ -13,8 +13,8 @@ import seaborn as sns
 import matplotlib.mlab as mlab
 
 RHO = np.genfromtxt('../resources/PCASignificance.csv', delimiter=',')
-MEASURED_S = 0.64
-X_LIMIT = 0.71
+MEASURED_S = 0.44
+X_LIMIT = 0.52
 
 sns.set(context='talk', style='ticks', font='serif', color_codes=True)
 

@@ -13,11 +13,11 @@ from scipy.stats import spearmanr
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
-
-SPEARMAN_CUT = 0.626    # cutoff for a "good" Spearman value. Is the value calculated for HRvPC1
+np.random.seed(4265589) 
+SPEARMAN_CUT = 0.44    # cutoff for a "good" Spearman value. Is the value calculated for HRvPC1
 Z_CUT = 0.2
 HR_CUT = 0.7
-ITERATIONS = 32000
+ITERATIONS = 32000   # 4-sigma
 # with our 103x4 array, we can only iterate a max of 103*102*101*100 = 106,110,600
 # assuming we don't repeat
 # Is this the number of data sets we can make, or the number of sn?
@@ -26,7 +26,7 @@ ITERATIONS = 32000
 
 # import data for PCA analysis
 ## HR
-HR = pd.read_csv('data/CampbellHoltzman_mb.tsv', sep='\\t',
+HR = pd.read_csv('data/Campbell_local.tsv', sep='\\t',
                  usecols=['SNID', 'redshift', 'hr', 'err_mu'], index_col='SNID')
 HR.rename(columns={'err_mu': 'hr uncert'}, inplace=True)
 HR = HR[HR['redshift'] < Z_CUT]
