@@ -1,0 +1,3 @@
+[submodule "sfddata-master"]
+	path = sfddata-master
+	url = https://github.com/kbarbary/sfddata
