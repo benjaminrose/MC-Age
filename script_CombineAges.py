@@ -120,5 +120,5 @@ def combine_ages(dataset: str) -> None:
 if __name__ == '__main__':
     #'circle', 'gupta', 'campbell', 'campbellG', 
     #'riess', 'riessG', 'elliptical', or 'test'
-    combine_ages('riessG')
+    combine_ages('riess')
     # riess and riessL
