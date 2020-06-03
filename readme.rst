@@ -1,6 +1,8 @@
 Stellar Population Age Estimator
 ================================
 
+.. image:: https://zenodo.org/badge/79574563.svg
+   :target: https://zenodo.org/badge/latestdoi/79574563
 .. image:: https://travis-ci.org/benjaminrose/MC-Age.svg?branch=master
    :target: https://travis-ci.org/benjaminrose/MC-Age
    :alt: Test status on Travis-CI
