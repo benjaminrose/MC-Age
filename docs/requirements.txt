@@ -6,4 +6,4 @@ pandas>=0.20.1
 docopt>=0.6.2
          
 numpydoc
-sphinx-autodoc-typehints
+sphinx-autodoc-typehints==3.7.0
