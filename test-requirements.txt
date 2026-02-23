@@ -7,5 +7,5 @@ codecov
 
 # for linting tests
 pylint
-pycodestyle
+pycodestyle==2.14.0
 pydocstyle
