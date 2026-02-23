@@ -6,6 +6,6 @@ pytest-cov
 codecov
 
 # for linting tests
-pylint
+pylint==4.0.5
 pycodestyle
 pydocstyle
