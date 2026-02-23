@@ -1,5 +1,5 @@
 # add pytest plugins
-pytest-pep8
+pytest-pep8==1.0.6
 pytest-cov
 
 # to push results to codecov.io
