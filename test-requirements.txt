@@ -1,6 +1,6 @@
 # add pytest plugins
 pytest-pep8
-pytest-cov
+pytest-cov==7.0.0
 
 # to push results to codecov.io
 codecov
